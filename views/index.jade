@@ -1,0 +1,22 @@
+doctype
+html
+  head
+    title #{title} - My Site
+    link(rel='stylesheet', href="min/styles/main.css")
+    - each s in scripts
+      script(src=s)
+  body
+    header
+      h1(class="header") Blank Template
+      hr
+    .container
+      h2 questions about template?
+      ul 
+        li 
+          a(href='mailto:ben@benjamincrippscom') please contact me.
+        li 
+          span created by benjamin cripps
+    hr
+    footer(style="text-align:center; margin:0px auto")
+      p
+        span © benjamincripps
