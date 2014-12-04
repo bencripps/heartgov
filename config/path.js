@@ -1,8 +1,7 @@
-var getPath = function( env ) {
-	
-	if ( env === 'dev' ) return 'dev';
+module.exports = function(env) {
+    
+    var ret = env === 'dev' ? env : 'min';
 
-	return 'min';
-};
+    return ret;
 
-module.exports = getPath;
+}

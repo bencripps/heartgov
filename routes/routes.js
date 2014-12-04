@@ -1,7 +1,7 @@
 module.exports = function( app, env, fs, url, path ) {
 
-	var format = require('../config/format')(path),
-		index = ['/scripts/main.js'];
+    var format = require('../config/format')(path),
+        index = ['/scripts/main.js'];
 
     app.get('/', function(req, res) {
 

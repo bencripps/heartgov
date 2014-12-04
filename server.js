@@ -2,13 +2,13 @@
 * @Author: ben_cripps
 * @Date:   2014-12-01 10:10:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2014-12-02 21:32:09
+* @Last Modified time: 2014-12-03 18:21:34
 */
 
 var express = require('express'),
-	bodyParser = require('body-parser'),
-	env = process.argv.length === 3 && process.argv[2] === 'dev' ? process.argv[2] : 'prod',
-	fs = require('fs'),
+    bodyParser = require('body-parser'),
+    env = process.argv.length === 3 && process.argv[2] === 'dev' ? process.argv[2] : 'prod',
+    fs = require('fs'),
     url = require('url'),
     path = require('./config/path'),
     app = express();
