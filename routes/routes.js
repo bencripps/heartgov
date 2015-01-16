@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-15 09:38:07
+* @Last Modified time: 2015-01-15 19:33:29
 */
 
 /*jslint node: true */
@@ -125,7 +125,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
                 loggedIn: session.loggedIn,
                 headers: appMessages.textDistribution.displayFields
             }),
-            localPath = session.loggedIn ? 'main' : 'unauthorized';
+            localPath = 'main';//session.loggedIn ? 'main' : 'unauthorized';
 
         res.render(localPath, options);
 

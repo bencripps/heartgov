@@ -9,3 +9,6 @@ block content
         table(class='table table-bordered table-striped' id='#{prefix}main-table')
             each val in headers
                 th(style='text-align:center;')= val.name
+
+        table(class="table table-bordered table-striped" id="#{prefix}new-table")
+            th(style="text-align:center;" colspan="10") all texts
