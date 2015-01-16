@@ -1,0 +1,11 @@
+extend ./layout
+
+block content
+
+    .container
+
+        h2 welcome to heart gov login area
+
+        table(class='table table-bordered table-striped' id='#{prefix}main-table')
+            each val in headers
+                th(style='text-align:center;')= val.name

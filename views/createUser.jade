@@ -1,0 +1,60 @@
+extend ./layout
+
+block content
+
+    .container
+
+        h2 create account
+            hr
+
+            form(name='userSignup')
+
+                div
+                    div(class='form-group') 
+                        div(class='input-group #{prefix}form-group')
+                            div(class='input-group-addon #{prefix}form-label') username
+                            input(type='text' name='username' class='form-control input-sm')
+                        span(class='help-block #{prefix}help-block') this field is required!
+                
+                div
+                    div(class='form-group') 
+                        div(class='input-group #{prefix}form-group')
+                            div(class='input-group-addon #{prefix}form-label') password
+                            input(type='password' name='password' class='form-control input-sm')
+                        span(class='help-block #{prefix}help-block') this field is required!
+                div
+                    div(class='form-group') 
+                        div(class='input-group #{prefix}form-group')
+                            div(class='input-group-addon #{prefix}form-label') first name
+                            input(type='text' name='firstName' class='form-control input-sm')
+                        span(class='help-block #{prefix}help-block') this field is required!
+                div
+                    div(class='form-group') 
+                        div(class='input-group #{prefix}form-group')
+                            div(class='input-group-addon #{prefix}form-label') last name
+                            input(type='text' name='lastName' class='form-control input-sm')
+                        span(class='help-block #{prefix}help-block') this field is required!
+
+                div
+                    div(class='form-group') 
+                        div(class='input-group #{prefix}form-group')
+                            div(class='input-group-addon #{prefix}form-label') email address
+                            input(type='text' name='emailAddress' class='form-control input-sm')
+                        span(class='help-block #{prefix}help-block') please provide a valid email address!
+                div
+                    div(class='form-group') 
+                        div(class='input-group #{prefix}form-group')
+                            div(class='input-group-addon #{prefix}form-label') phone number
+                            input(type='text' name='phoneNumber' class='form-control input-sm')
+                        span(class='help-block #{prefix}help-block') please provide a valid phonenumber (ex. 5551235678)!
+                div
+                    div(class='form-group') 
+                        div(class='input-group #{prefix}form-group')
+                            div(class='input-group-addon #{prefix}form-label') signup password
+                            input(type='text' name='signupPassword' class='form-control input-sm')               
+                        span(class='help-block #{prefix}help-block') this field is required! 
+                div
+                    div(class='input-group #{prefix}form-group')
+                        div(class='form-group')
+                            button(class='btn btn-md btn-success' id='signupbutton') signup   
+

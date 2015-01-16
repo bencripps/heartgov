@@ -1,7 +1,7 @@
 {
-  "name": "new-project",
+  "name": "heart-breezy",
   "version": "0.0.1",
-  "description": "New project",
+  "description": "Production level Heart Gov Instance",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-concurrent": "^1.0.0",
@@ -16,7 +16,13 @@
     "body-parser": "^1.9.3",
     "connect": "^3.3.3",
     "express": "^4.10.4",
+    "express-session": "^1.10.1",
     "jade": "^1.8.1",
-    "time-grunt": "^1.0.0"
+    "mongoose": "^3.8.21",
+    "nodemailer": "^1.3.0",
+    "require-jade": "0.0.1",
+    "shortid": "^2.1.3",
+    "time-grunt": "^1.0.0",
+    "twilio": "^1.10.0"
   }
 }

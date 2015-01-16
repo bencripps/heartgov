@@ -1,0 +1,50 @@
+div
+
+    nav(class='navbar navbar-default')
+        div(class='container-fluid')
+            div(class='navbar-header')
+                button(type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#heart-gov-header')
+                    span(class='sr-only') Toggle Navigation
+                    span(class='icon-bar')
+                    span(class='icon-bar')
+                    span(class='icon-bar')
+                a(class='navbar-brand' href='#') <3 Gov
+
+        div(class='collapse navbar-collapse' id='heart-gov-header')
+            ul(class='nav navbar-nav')
+                li
+                    a(href='/') Home
+
+                li
+                    a(href='/about') About
+
+                li
+                    a(href='/contact') Contact
+
+                li
+                    a(href='/news') News
+
+                li
+                    a(href='/faq') Faq
+
+                if !loggedIn
+                    li
+                        a(href='/signup') Signup
+
+                else 
+                    li 
+                        a(href='/main') Main
+
+                    li
+                        a(href="/myaccount") My Account
+
+            if !loggedIn    
+                div(class='pull-right' id='#{prefix}login-container')
+                    input(type='text' class='input-sm #{prefix}login-input' placeholder='email address' name='emailAddress')
+                    input(type='password' class='input-sm #{prefix}login-input' placeholder='password' name='password')
+                    button(class='btn btn-sm btn-success' id='main-login') login
+            else 
+               div(class='pull-right' id='#{prefix}login-container')
+                    button(class='btn btn-sm btn-danger' id='main-logout') log out
+
+    

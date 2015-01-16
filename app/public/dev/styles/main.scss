@@ -1,3 +1,10 @@
+//app variables
+
+$prefix: "hgov";
+$mobile: 800px;
+
+//general 
+
 * {
     font-family: 'avenir';
 }
@@ -9,4 +16,66 @@
 .container {
 	width: 80%;
 	margin: 0 auto;
+}
+
+.#{$prefix}-modal {
+    display: none;
+}    
+
+.#{$prefix}-form-label {
+    width: 160px !important;
+}
+
+.#{$prefix}-form-group {
+    width: 100% !important;
+}
+
+##{$prefix}-logo {
+    width: 80%;
+}
+
+#{$prefix}-main-table {
+    td {
+        font-size: 14px;
+    }
+}
+
+.#{$prefix}-help-block {
+    font-size: 14px;
+    color: red;
+    text-indent: 165px;
+    display: none;
+}
+
+.#{$prefix}-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 0px;
+    text-align: center;
+    vertical-align: middle;
+
+    div {
+        margin: 0px;
+        padding-top: 15px;
+    }
+}
+
+.#{$prefix}-disabled {
+    cursor: default !important;
+}
+
+
+##{$prefix}-login-container {
+    @media screen and (min-width: $mobile) {
+        margin-top: -40px;
+    }
+    input, button {
+        margin: 5px;
+    }
+
+    button {
+        margin-top: 2px;
+    }
 }

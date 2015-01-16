@@ -22,7 +22,6 @@ module.exports = {
         'sass:prod',
         'uglify'
     ],
-
     // Image tasks
     imgFirst: [
         'imagemin'

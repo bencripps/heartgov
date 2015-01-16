@@ -1,0 +1,93 @@
+{   
+    "templateConfig": {
+        "pageTitle": "Welcome to <3 Gov!",
+        "cssPrefix": "hgov-"
+    },
+    "mailMessages": {
+        "emailAddress": "heartgov@gmail.com",
+        "newUserSignUp": {
+            "subject": "Thanks for signing up for HeartGov!",
+            "body": "Congratulations, you have successfully signed up for Heartgov! If you have any questions about how to use this service, please email heartgov@gmail.com."
+        }
+
+    },
+    "textDistribution": {
+        "errorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator.",
+        "failCode": 0,
+        "displayFields": {
+            "date": {
+                "name": "Date",
+                "key": "userInformation.messageRecievedOn"
+                },
+             "content": {
+                "name": "Content",
+                "key": "textInformation.body"
+            },
+            "category": {
+                "name": "Category",
+                "key": "textInformation.category.name"
+                }, 
+            "lastResponder": {
+                "name": "Last Responder",
+                "key": "textInformation.lastResponder"
+                }, 
+            "allResponses": {
+                "name": "Total Responses",
+                "key": "textInformation.responders"
+                },
+            "trackingNumber": {
+                "name": "Tracking Number",
+                "key": "textInformation.trackingNumber"
+                }, 
+            "zipCode": {
+                "name": "Zipcode",
+                "key": "textInformation.zipcode"
+                }, 
+            "name": {
+                "name": "Name",
+                "key": "userInformation.name"
+                }, 
+            "phoneNumber": {
+                "name": "Phone Number",
+                "key": "userInformation.phoneNumber.string"
+                },
+            "status": {
+                "name": "Status",
+                "key": "textInformation.status"
+            }
+        }
+    },
+    "categories": [
+        "sanitation",
+        "safety",
+        "education",
+        "housing"
+    ],
+    "loginMessages": {
+        "success": "Login was successful!",
+        "successCode": 1,
+        "failCode": 0,
+        "incorrect": "That username/password combination is incorrect. Please try again.",
+        "loggedOut": "You have successfully logged out! See you next time!",
+        "errorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator."
+    },
+    "accountCreationMessages": {
+        "success": "Thank you for registering for a HeartGov account! Your account has been successfully created",
+        "newUserMailKey": "newUserSignUp",
+        "successCode": 1,
+        "failCode": 0,
+        "accountExists": "Sorry, but an account with that email address has already been created. Please choose a new email address, or if you have forgotten your password, please contact an administrator.",
+        "errorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator.",
+        "incorrectSignupPassword": "This is not the correct sign up password. If you have not received a password but would like to create an account, please contact an administrator."
+    },
+    "textResponses": {
+        "firstTexter": "Thank you for messaging HeartGov! Please ask me a question, if you'd like to discuss a particular subject, please include the number like this: (1). ",
+        "repeatTexter": "Thanks for texting us again!",
+        "trackingNumberFound": "Thanks, we've found you're tracking number, and we will update you as soon as more information is available!",
+        "trackingNumberNotFound": "Sorry that number couldn't be found!",
+        "listCategories": "The categories are: "
+    },
+    "twilio": {
+        "dataReceived": "Data has been recieved."
+    }
+}
