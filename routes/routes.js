@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 14:23:15
+* @Last Modified time: 2015-01-17 14:45:53
 */
 
 /*jslint node: true */
@@ -138,8 +138,6 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             localPath;
 
         session = session || req.session;
-
-        session.loggedIn = 'bencripps1';
 
         if (session.loggedIn) {
 
