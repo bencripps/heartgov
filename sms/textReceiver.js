@@ -2,16 +2,18 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-12 22:12:16
+* @Last Modified time: 2015-01-17 12:48:41
 */
 
 /*jslint node: true */
 
-module.exports = function(mongoose, idGenerator, schemas, messageConfig) {
+module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer) {
     'use strict';
     
     var textReceiver = {
         handleResponse: function(message, twilioWrapper) {
+
+            mailer.sendMailtoSuperUsers('newTextReceived');
 
             if (this.user.hasTrackingNumber(message.body)) {
                 this.utils.findText('textInformation.trackingNumber', this.utils.getId(message.body)).then(this.responder.withTrackingNumber.bind(this, message, twilioWrapper));
@@ -42,7 +44,7 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig) {
 
                 else {
 
-                    if ( data.length >= 1) {
+                    if (data.length >= 1) {
                         textReceiver.message.save(message, 'getTextModel');
                         twil.sendOutGoingText(messageConfig.textResponses.repeatTexter, message.from);   
                     }

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2014-12-01 10:10:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-12 11:07:40
+* @Last Modified time: 2015-01-17 09:42:56
 */
 
 /*jslint node: true */
@@ -23,7 +23,7 @@ var express = require('express'),
         path: '/', 
         httpOnly: true, 
         secure: true, 
-        maxAge: 60000
+        maxAge: 6000
     },
     accountSID = process.env.accountSID,
     authToken = process.env.authToken,

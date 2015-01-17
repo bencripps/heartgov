@@ -2,13 +2,12 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 14:08:04
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-14 21:03:35
+* @Last Modified time: 2015-01-17 12:52:10
 */
 
-'use strict';
-
 define('signUpService', ['utilities'], function(utilities) {
-
+    'use strict';
+    
     var signUpService = {
         init: function() {
             this.form = document.getElementsByTagName('form');

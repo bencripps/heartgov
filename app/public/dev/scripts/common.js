@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 16:58:02
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-14 10:51:16
+* @Last Modified time: 2015-01-17 12:52:57
 */
 
 'use strict';
@@ -18,6 +18,7 @@ require.config({
         loginService: 'dev/scripts/modules/loginService',
         signUpService: 'dev/scripts/modules/signUpService',
         textService: 'dev/scripts/modules/textService',
+        myAccountService: 'dev/scripts/modules/myAccountService',
         utilities: 'dev/scripts/modules/utilities'
     }
 });

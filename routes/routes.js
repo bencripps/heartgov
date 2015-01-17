@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-16 22:09:28
+* @Last Modified time: 2015-01-17 14:23:15
 */
 
 /*jslint node: true */
@@ -15,6 +15,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         indexScripts = ['/scripts/views/loginView.js'],
         adminCreateScripts = ['/scripts/views/createUserView.js'],
         mainScripts = ['/scripts/views/mainView.js'],
+        myAccountScripts = ['/scripts/views/myAccountView.js'],
         sessionManager = require('../config/sessionManager'),
         session = {},
         schemas = {
@@ -25,11 +26,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         nodemailer = require('nodemailer'),
         mailSender = require('../mailer/mailer')(nodemailer, schemas.admin, appMessages.mailMessages),
         twilioWrapper = require('../sms/twilioWrapper')(twilio),
-        myAccount = require('../userAuth/myAccount')(schemas.admin),
         hasher = require('../userAuth/hasher'),
+        myAccount = require('../userAuth/myAccount')(schemas.admin, hasher, appMessages.myAccountMessages),
         loginService = require('../userAuth/login')(schemas.admin, hasher, sessionManager, appMessages.loginMessages),
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
-        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages),
+        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution),
         getTemplateConfig = require('../config/template')(appMessages.templateConfig, path);
 
@@ -138,17 +139,18 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
         session = session || req.session;
 
+        session.loggedIn = 'bencripps1';
+
         if (session.loggedIn) {
 
             myAccount.getUser(session.loggedIn).then(function(user, err){
                 localPath = 'myaccount';
                 options = getTemplateConfig({   
                     local: path,
-                    scripts: format.call(indexScripts),
+                    scripts: format.call(myAccountScripts),
                     loggedIn: session.loggedIn,
                     userDetails: user
                 });
-                console.log(err);
                 res.render(localPath, options);             
             });
         }
@@ -176,6 +178,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
         res.send({result: appMessages.twilio.dataReceived});
 
+    });
+
+    app.post('/edit/account', function(req,res){
+        myAccount.updateAccount(req.body, res);
     });
 
     app.post('/find/texts', function(req, res) {

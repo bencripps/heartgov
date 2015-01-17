@@ -8,8 +8,11 @@
         "newUserSignUp": {
             "subject": "Thanks for signing up for HeartGov!",
             "body": "Congratulations, you have successfully signed up for Heartgov! If you have any questions about how to use this service, please email heartgov@gmail.com."
+        },
+        "newTextReceived": {
+            "subject": "A new text was received by HeartGov",
+            "body": "As a heartgov user with administrator access, you are being notified that heartgov received a message. Please login for more details."
         }
-
     },
     "textDistribution": {
         "erorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator.",
@@ -99,9 +102,15 @@
         "newUserMailKey": "newUserSignUp",
         "successCode": 1,
         "failCode": 0,
-        "accountExists": "Sorry, but an account with that email address has already been created. Please choose a new email address, or if you have forgotten your password, please contact an administrator.",
+        "accountExists": "Sorry, but an account with that username has already been created. Please choose a new username, or if you have forgotten your password, please contact an administrator.",
         "errorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator.",
         "incorrectSignupPassword": "This is not the correct sign up password. If you have not received a password but would like to create an account, please contact an administrator."
+    },
+    "myAccountMessages": {
+        "edit": {
+            "success": "Your account has been successfully updated!",
+            "error": "Sorry, there was a problem updating your account information. Please try again."
+        }
     },
     "textResponses": {
         "firstTexter": "Thank you for messaging HeartGov! Please ask me a question, if you'd like to discuss a particular subject, please include the number like this: (1). ",
@@ -111,6 +120,6 @@
         "listCategories": "The categories are: "
     },
     "twilio": {
-        "dataReceived": "Data has been recieved."
+        "dataReceived": "Data has been received."
     }
 }

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-14 09:18:08
+* @Last Modified time: 2015-01-17 10:15:19
 */
 
 /*jslint node: true */
@@ -18,16 +18,24 @@ module.exports = function(nodemailer, AdminSchema, appMessages) {
                 pass: process.env.mailPassword
             }
         }),
-        getEmail: function(address, type){
-
+        getSuperUsers: function() {
+            return AdminSchema.find({superUser: true}).exec();
+        },
+        getEmail: function(address, type) {
             var mailOptions = {
                 from: appMessages.emailAddress,
                 to: address,
                 subject: appMessages[type].subject,
                 text: appMessages[type].body
             };
-
+            
             return mailOptions;
+        },
+        sendMailtoSuperUsers: function(type) {
+            this.getSuperUsers().then(function(users, err) {
+                var emailAddresses = users.map(function(user) { return user.emailAddress; });
+                mailer.sendMail(emailAddresses, type);
+            });
         },
         sendMail: function(emailAddress, type) {
             this.smtpTransport.sendMail(this.getEmail(emailAddress, type), function(error, response) {

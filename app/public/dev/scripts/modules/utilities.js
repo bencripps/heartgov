@@ -2,13 +2,12 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-14 13:55:32
+* @Last Modified time: 2015-01-17 12:52:15
 */
 
-'use strict';
-
 define('utilities', function(){
-
+    'use strict';
+    
     var utilities = {
         redirect: function(location) {
             window.location.pathname = location;

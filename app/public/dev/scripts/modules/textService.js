@@ -2,13 +2,12 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-16 21:59:46
+* @Last Modified time: 2015-01-17 12:52:26
 */
 
-'use strict';
-
 define('textService', ['utilities'], function(utilities) {
-
+    'use strict';
+    
     var textService = {
         init: function() {
             this.newTable = document.querySelector('#hgov-main-table');

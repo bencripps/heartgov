@@ -2,13 +2,12 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 16:30:36
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-14 15:04:57
+* @Last Modified time: 2015-01-17 12:52:40
 */
 
-'use strict';
-
 define('loginService', ['utilities'], function(utilities) {
-
+    'use strict';
+    
     var loginService = {
         init: function() {
             var whichButton = document.getElementById('main-login') || document.getElementById('main-logout'),

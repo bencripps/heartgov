@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-13 21:19:13
+* @Last Modified time: 2015-01-17 13:12:37
 */
 
 /*jslint node: true */
@@ -12,11 +12,11 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
 
     var adminCreator = {
         init: function(data, server, session) {
-            this.user.checkForUser(data.emailAddress).then(this.user.handleAttempt.bind(this, data, server, session), this.utils.dbError.bind(this, server));
+            this.user.checkForUser(data.username).then(this.user.handleAttempt.bind(this, data, server, session), this.utils.dbError.bind(this, server));
         },
         user: {
-            checkForUser: function(email) {
-                return AdminModel.findOne({'emailAddress': email}).exec();
+            checkForUser: function(username) {
+                return AdminModel.findOne({'username': username}).exec();
             },
             handleAttempt: function(data, server, session, result) {
 
@@ -24,12 +24,12 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
                     server.send({result: appMessages.accountExists, code: appMessages.failCode});
                 }
 
-                else if (data.signupPassword !== process.env.signUpPassword) {
+                else if (data.signupPassword !== process.env.signUpPassword && data.signupPassword !== process.env.adminSignUpPassword) {
                     server.send({result: appMessages.incorrectSignupPassword, code: appMessages.failCode});
                 }
                 else {
                     adminCreator.user.addToDB(data, server);
-                    sessionManager.login(session, data.emailAddress);
+                    sessionManager.login(session, data.username);
                 }
             },
             addToDB: function(data, server) {
@@ -60,7 +60,7 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
                 },
                 lastLogin: new Date(),
                 messagesSent: [],
-                superUser: true
+                superUser: data.signupPassword === process.env.adminSignUpPassword
             };
 
         },

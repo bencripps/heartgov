@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 11:27:15
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-12 10:05:11
+* @Last Modified time: 2015-01-17 13:21:52
 */
 
 /*jslint node: true */
@@ -16,7 +16,7 @@ module.exports = function(AdminSchema, hasher, sessionManager, appMessages) {
         },
         hasCorrectPassword: function(server, info, session, result) {
             if (result && this.checkPassword(result.password, info.password)) {
-                sessionManager.login(session, info.emailAddress);
+                sessionManager.login(session, info.username);
                 server.send({result: appMessages.success, code: appMessages.successCode});
             }
             else {
@@ -27,15 +27,15 @@ module.exports = function(AdminSchema, hasher, sessionManager, appMessages) {
             return correctPassword === hasher.encrpyt(attemptedPassword);
         },
         findUser: function(info) {
-            return AdminSchema.findOne({'emailAddress': info.emailAddress}).exec();
+            return AdminSchema.findOne({'username': info.username}).exec();
         },
         utils: {
             dbError: function(server, err) {
                 console.log('Error occurred!', err);
                 server.send({result: appMessages.errorOccurred});
             },
-            setSession: function(session, email) {
-                session.email = email;
+            setSession: function(session, username) {
+                session.username = username;
             }
         }
 
