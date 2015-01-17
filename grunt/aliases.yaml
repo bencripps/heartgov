@@ -13,5 +13,4 @@ prod:
     - 'concurrent:prodSecond'
     - img
 css:
-    - 'concurrent:prodFirst'
-    - 'concurrent:prodSecond'
+    - 'concurrent:cssOnly'

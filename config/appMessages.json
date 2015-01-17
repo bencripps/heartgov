@@ -12,8 +12,31 @@
 
     },
     "textDistribution": {
-        "errorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator.",
+        "erorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator.",
         "failCode": 0,
+        "displayBarTemplate": {
+            "0": {
+                "type": "td",
+                "className": "hgov-template-td hgov-expand",
+                "colSpan": 1,
+                "innerHTML": "<span class='glyphicon glyphicon-plus'></span>"
+            },
+            "1": {
+                "type": "td",
+                "className": "hgov-template-td",
+                "colSpan": 4,
+                "label": "<span class='hgov-template-label'>Date Received: </span>",
+                "contentIndex": 0 
+
+            },
+            "2": {
+                "type": "td",
+                "className": "hgov-template-td",
+                "colSpan": 5,
+                "label": "<span class='hgov-template-label'>Content: </span>",
+                "contentIndex": 1
+            }
+        },
         "displayFields": {
             "date": {
                 "name": "Date",

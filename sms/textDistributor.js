@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-13 20:14:06
+* @Last Modified time: 2015-01-16 21:00:36
 */
 
 /*jslint node: true */
@@ -50,7 +50,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                textObj= [];
             });
 
-            server.send({result: ret });
+            server.send({result: ret, template: appMessages.displayBarTemplate });
 
         },
         utils: {

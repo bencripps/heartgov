@@ -94,6 +94,22 @@ body {
     text-align: center;
 }
 
+.#{$prefix}-template-label {
+    font-weight: bold;
+    font-size: 16px;
+    border-radius:50px;
+}
+
+.#{$prefix}-expand {
+    color: black;
+    transition: color 0.3s ease;
+}
+
+
+.#{$prefix}-expand:hover {
+    color: #419641;
+}
+
 ##{$prefix}-login-container {
     @media screen and (min-width: $mobile) {
         margin-top: -40px;

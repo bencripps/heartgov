@@ -16,7 +16,7 @@ module.exports = {
 
     // Production tasks
     prodFirst: [
-        'clean'
+        'clean:all'
     ],
     prodSecond: [
         'sass:prod',
@@ -25,5 +25,10 @@ module.exports = {
     // Image tasks
     imgFirst: [
         'imagemin'
+    ],
+    cssOnly: [
+        'clean:cssOnly',
+        'sass:prod',
+        'uglify'
     ]
 };
