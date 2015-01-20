@@ -29,7 +29,7 @@
                 "className": "hgov-template-td",
                 "colSpan": 4,
                 "label": "<span class='hgov-template-label'>Date Received: </span>",
-                "contentIndex": 0 
+                "contentKey": "date"
 
             },
             "2": {
@@ -37,14 +37,42 @@
                 "className": "hgov-template-td",
                 "colSpan": 5,
                 "label": "<span class='hgov-template-label'>Content: </span>",
-                "contentIndex": 1
+                "contentKey": "content"
             }
+        },
+        "innerLayoutTemplate": {
+            "0": {
+                "type": "td",
+                "className": "hgov-template-td",
+                "colSpan": 1,
+                "innerHTML": "<div><span class='glyphicon glyphicon-comment hgov-text-function' title='click to respond'></span></div><div><span title='click to update status' class='glyphicon glyphicon-pencil hgov-text-function'></span></div>"
+            },
+            "1": {
+                "type": "td",
+                "className": "hgov-innerlayout-td",
+                "colSpan": 4,
+                "labels": ["Total Responses", "Category", "Last Responder", "Texter's name"],
+                "contentKeys": ["allResponses", "category", "lastResponder", "name"]
+
+            },
+            "2": {
+                "type": "td",
+                "className": "hgov-innerlayout-td",
+                "colSpan": 5,
+                "labels": ["Texter's Phonnumber", "Status", "Tracking Number", "Zipcode"],
+                "contentKeys": ["phoneNumber", "category", "trackingNumber", "zipCode"]
+            }
+
         },
         "displayFields": {
             "date": {
                 "name": "Date",
                 "key": "userInformation.messageRecievedOn"
                 },
+            "_id": {
+                "name": "id",
+                "key": "_id"
+            },
              "content": {
                 "name": "Content",
                 "key": "textInformation.body"

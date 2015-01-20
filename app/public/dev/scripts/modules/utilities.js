@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 12:52:15
+* @Last Modified time: 2015-01-18 19:21:21
 */
 
 define('utilities', function(){
@@ -31,9 +31,10 @@ define('utilities', function(){
 
             req.send(reqData);
         },
-        showModal: function(response) {
+        showModal: function(response, id) {
+            var id = id ? id : '.hgov-modal'
             document.querySelector('.hgov-modal-body').innerHTML = response.result;
-            $('.hgov-modal').modal('show');
+            $(id).modal('show');
         },
     };
 

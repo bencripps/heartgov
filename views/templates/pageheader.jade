@@ -1,17 +1,26 @@
 div
 
-    nav(class='navbar navbar-default')
+    nav(class='navbar navbar-default' id="#{prefix}header")
         div(class='container-fluid')
             div(class='navbar-header')
-                button(type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#heart-gov-header')
+                button(type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='##{prefix}-header')
                     span(class='sr-only') Toggle Navigation
                     span(class='icon-bar')
                     span(class='icon-bar')
                     span(class='icon-bar')
-                a(class='navbar-brand' href='#') <3 Gov
 
-        div(class='collapse navbar-collapse' id='heart-gov-header')
-            ul(class='nav navbar-nav')
+
+        div(class='collapse navbar-collapse' id='#{prefix}-header')
+            ul(class="nav navbar-nav pull-left")
+                li
+                    img(src="min/images/smalllogo.png" style="height:45px; margin-left:10px;")
+                    
+
+                li
+                    div(style='padding-top:8px' id="#{prefix}font-logo")
+                        span(style='font-size:29px; margin-left:40px;') HeartGov
+
+            ul(class='nav navbar-nav pull-right')
                 li
                     a(href='/') Home
 
@@ -22,14 +31,15 @@ div
                     a(href='/contact') Contact
 
                 li
-                    a(href='/news') News
+                    a(href='/press') Press
 
                 li
                     a(href='/faq') Faq
 
                 if !loggedIn
+
                     li
-                        a(href='/signup') Signup
+                        a(href='/signin') Sign In
 
                 else 
                     li 
@@ -38,13 +48,7 @@ div
                     li
                         a(href="/myaccount") My Account
 
-            if !loggedIn    
-                div(class='pull-right' id='#{prefix}login-container')
-                    input(type='text' class='input-sm #{prefix}login-input' placeholder='email address' name='username')
-                    input(type='password' class='input-sm #{prefix}login-input' placeholder='password' name='password')
-                    button(class='btn btn-sm btn-success' id='main-login') login
-            else 
-               div(class='pull-right' id='#{prefix}login-container')
-                    button(class='btn btn-sm btn-danger' id='main-logout') log out
+                    li
+                        a(href="/myaccount" id='main-logout') Sign Out 
 
     

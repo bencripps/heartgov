@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 16:30:36
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 12:52:40
+* @Last Modified time: 2015-01-19 22:30:40
 */
 
 define('loginService', ['utilities'], function(utilities) {
@@ -13,7 +13,7 @@ define('loginService', ['utilities'], function(utilities) {
             var whichButton = document.getElementById('main-login') || document.getElementById('main-logout'),
                 method = document.getElementById('main-login') ? this.attemptLogin.bind(this,{}) : this.logout.bind(this);
            
-            whichButton.addEventListener('click', method);
+            if (whichButton) whichButton.addEventListener('click', method);
         },
         attemptLogin: function(obj, e) {
             e.preventDefault();
@@ -27,7 +27,7 @@ define('loginService', ['utilities'], function(utilities) {
             });
         },
         logout: function() {
-            utilities.ajax(false, 'post', '/logout', function(response) {
+            utilities.ajax(false, 'post', '/logout', function() {
                 utilities.redirect('/');
             });
         }

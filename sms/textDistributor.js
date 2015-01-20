@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-16 21:00:36
+* @Last Modified time: 2015-01-18 12:46:56
 */
 
 /*jslint node: true */
@@ -12,11 +12,11 @@ module.exports = function(mongoose, TextSchema, appMessages) {
 
     var textDistributor = {
         findTextsBy: function(filter, server) {
-            this.execute().then( this.returnTexts.bind(this, server), this.utils.dbError.bind(this, server));
+            this.execute(filter).then( this.returnTexts.bind(this, server), this.utils.dbError.bind(this, server));
         },
-        categories: Object.keys(appMessages.displayFields),//.map(function(k) { return appMessages.displayFields[k].name; }),
+        categories: Object.keys(appMessages.displayFields),
         execute: function(filter) {
-            return TextSchema.find({}).exec();
+            return TextSchema.find().sort(filter).exec();
         },
         getTextObjectValues: function(text, name) {
              
@@ -33,6 +33,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                     name: text.userInformation.name || 'None Provided',
                     phoneNumber: text.userInformation.phoneNumber.string,
                     content: text.textInformation.body,
+                    _id: text._id,
                     searchable: text.textInformation.searchable
                  };
 
@@ -40,17 +41,17 @@ module.exports = function(mongoose, TextSchema, appMessages) {
         },
         returnTexts: function(server, data) {
             var ret = [],
-                textObj = [];
+                textObj = {};
 
             data.forEach(function(text){
                textDistributor.categories.forEach(function(name){
-                    textObj.push(textDistributor.getTextObjectValues(text, name));
+                    textObj[name] = textDistributor.getTextObjectValues(text, name);
                });
                ret.push(textObj);
-               textObj= [];
+               textObj= {};
             });
 
-            server.send({result: ret, template: appMessages.displayBarTemplate });
+            server.send({result: ret, displayTemplate: appMessages.displayBarTemplate, innerLayoutTemplate: appMessages.innerLayoutTemplate });
 
         },
         utils: {

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 14:45:53
+* @Last Modified time: 2015-01-19 22:28:18
 */
 
 /*jslint node: true */
@@ -62,13 +62,13 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
-     app.get('/news', function(req, res) {
+     app.get('/press', function(req, res) {
 
         // sessionManager.set(session, req.session);
 
         session = session || req.session;
 
-        res.render('news', getTemplateConfig({   
+        res.render('press', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
             loggedIn: session.loggedIn 
@@ -104,6 +104,20 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
+    app.get('/signin', function(req, res) {
+
+        // sessionManager.set(session, req.session);
+
+        session = session || req.session;
+
+        res.render('signin', getTemplateConfig({   
+            local: path,
+            scripts: format.call(adminCreateScripts),
+            loggedIn: session.loggedIn 
+        }));
+
+    });
+
     app.get('/signup', function(req, res) {
 
         session = session || req.session;
@@ -119,6 +133,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.get('/main', function(req, res) {
 
         session = session || req.session;
+
+        // session.loggedIn = 'bencripps1';
 
         var options = getTemplateConfig({   
                 local: path,

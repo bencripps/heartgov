@@ -14,10 +14,6 @@ body {
     margin: 0 auto -30px
 }
 
-.header {
-	text-align: center;
-}
-
 .container {
 	width: 80%;
 	margin: 0 auto;
@@ -25,6 +21,15 @@ body {
 
 .#{$prefix}-modal {
     display: none;
+}
+
+##{$prefix}-font-logo {
+    color: #1F699C;
+    font-weight: bold;
+}
+
+##{$prefix}-header li a{
+    color: #1F699C !important;
 }    
 
 .#{$prefix}-form-label {
@@ -62,24 +67,48 @@ body {
 }
 
 .#{$prefix}-footer-clear {
-    padding-top: 60px;
+    padding-top: 160px;
     height: 30px;
 }
 
 .#{$prefix}-footer {
+    background-image: none;
     position: fixed;
     bottom: 0;
     margin-bottom: 0px;
-
+    background-color: white;
     width: 100%;
-    height: 30px;
+    height: 140px;
     text-align: center;
     vertical-align: middle;
+    border: none;
+    margin-bottom: -10px;
 
-    div {
-        margin: 0px;
-        padding-top: 15px;
+    .footer-block {
+        margin-top: 10px;
     }
+
+    #footer-right {
+        text-align: left;
+    }
+
+    #footer-left {
+        text-align: right;
+
+        label {
+            display: block;
+            margin-bottom: 2px;
+        }
+    }
+
+    .social-square {
+        height: 40px;
+        margin: 10px;
+    }
+}
+
+.#{$prefix}-header-button {
+    border: 1px solid black;
 }
 
 .#{$prefix}-disabled {
@@ -105,6 +134,19 @@ body {
     transition: color 0.3s ease;
 }
 
+.#{$prefix}-text-function {
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.#{$prefix}-text-function {
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.#{$prefix}-text-function:hover{
+     color: #2aabd2
+}
 
 .#{$prefix}-expand:hover {
     color: #419641;
