@@ -1,6 +1,6 @@
 div
 
-    nav(class='navbar navbar-default' id="#{prefix}header")
+    nav(class='navbar navbar-default' id='#{prefix}header')
         div(class='container-fluid')
             div(class='navbar-header')
                 button(type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='##{prefix}-header')
@@ -11,30 +11,25 @@ div
 
 
         div(class='collapse navbar-collapse' id='#{prefix}-header')
-            ul(class="nav navbar-nav pull-left")
-                li
-                    img(src="min/images/smalllogo.png" style="height:45px; margin-left:10px;")
+            ul(class='nav navbar-nav pull-left')
+                li  
+                    img(src='min/images/smalllogo.png' style='height:45px; margin-left:10px;')
                     
 
                 li
-                    div(style='padding-top:8px' id="#{prefix}font-logo")
+                    div(style='padding-top:8px' id='#{prefix}font-logo')
                         span(style='font-size:29px; margin-left:40px;') HeartGov
 
             ul(class='nav navbar-nav pull-right')
-                li
-                    a(href='/') Home
 
                 li
                     a(href='/about') About
 
                 li
-                    a(href='/contact') Contact
+                    a(href='/faq') How It Works
 
                 li
                     a(href='/press') Press
-
-                li
-                    a(href='/faq') Faq
 
                 if !loggedIn
 
@@ -46,9 +41,9 @@ div
                         a(href='/main') Main
 
                     li
-                        a(href="/myaccount") My Account
+                        a(href='/myaccount') My Account
 
                     li
-                        a(href="/myaccount" id='main-logout') Sign Out 
+                        a(href='/myaccount' id='main-logout') Sign Out 
 
     

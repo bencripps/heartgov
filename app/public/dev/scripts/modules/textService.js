@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-18 12:46:27
+* @Last Modified time: 2015-01-20 21:23:50
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -30,6 +30,15 @@ define('textService', ['utilities'], function(utilities) {
             var current = document.getElementById('hide_' + node.id).style.display;
             document.getElementById('hide_' + node.id).style.display = current === 'table-row' ? 'none' : 'table-row';
         },
+        showRespondModal: function(data) {
+            $('.hgov-reply-modal').modal();
+            document.getElementsByName('to')[0].value = data.phoneNumber;
+            document.getElementsByName('from')[0].value = document.getElementById('hgov-user-information').innerHTML;
+            console.log(document.getElementById('hgov-user-information'))
+        },
+        showEditModal: function(data) {
+            console.log(data);
+        },
         utils: {
             getInnerLayout: function(row, data, obj) {
                 Object.keys(obj).forEach(function(k) {
@@ -38,7 +47,7 @@ define('textService', ['utilities'], function(utilities) {
                     el.colSpan = obj[k].colSpan;
 
                     if (obj[k].hasOwnProperty('innerHTML')) {
-                        el.innerHTML = obj[k].innerHTML;
+                        textService.utils.getTextUtilButtons(el, data);
                     }
 
                     else {
@@ -59,6 +68,28 @@ define('textService', ['utilities'], function(utilities) {
                 var th = document.createElement('td');
                 th.innerHTML = text;
                 return th;
+            },
+            getTextUtilButtons: function(el, data) {
+                var respContainer = document.createElement('div'),
+                    editContainer = document.createElement('div'),
+                    respondButton = document.createElement('span'),
+                    editButton = document.createElement('span');
+
+                respondButton.className = 'glyphicon glyphicon-comment hgov-text-function';
+                respondButton.title = 'click to respond';
+
+                respondButton.addEventListener('click', textService.showRespondModal.bind(this, data));
+
+                editButton.addEventListener('click', textService.showEditModal.bind(this, data));
+
+                editButton.className = 'glyphicon glyphicon-pencil hgov-text-function';
+                editButton.title = 'click to update status';
+
+                respContainer.appendChild(respondButton);
+                editContainer.appendChild(editButton);
+
+                el.appendChild(respContainer);
+                el.appendChild(editContainer);
             },
             getTemplate: function(row, data, obj, id) {
                 Object.keys(obj).forEach(function(k) {
