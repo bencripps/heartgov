@@ -5,6 +5,7 @@ html
     link(rel='stylesheet' href='vendor/css/bootstrap.min.css')
     link(rel='stylesheet' href='vendor/css/bootstrap-theme.min.css')
     link(rel='stylesheet', href='min/styles/main.css')
+    link(rel='stylesheet', href='min/styles/mobile.css')
     script(src='vendor/js/require.min.js')
     script(src='dev/scripts/common.js')
     - each s in scripts
@@ -19,8 +20,10 @@ html
 
     include ./templates/modal.jade
 
-    block content
-      
+    div(class="#{prefix}container")
+
+        block content
+          
     include ./templates/footer.jade
 
     

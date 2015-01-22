@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 16:30:36
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-19 22:30:40
+* @Last Modified time: 2015-01-21 22:54:11
 */
 
 define('loginService', ['utilities'], function(utilities) {
@@ -12,7 +12,7 @@ define('loginService', ['utilities'], function(utilities) {
         init: function() {
             var whichButton = document.getElementById('main-login') || document.getElementById('main-logout'),
                 method = document.getElementById('main-login') ? this.attemptLogin.bind(this,{}) : this.logout.bind(this);
-           
+            utilities.fixpolygon();
             if (whichButton) whichButton.addEventListener('click', method);
         },
         attemptLogin: function(obj, e) {

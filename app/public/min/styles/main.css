@@ -1,1 +1,216 @@
-*{font-family:'avenir'}body{min-height:100%;margin:0 auto -30px}.container{width:80%;margin:0 auto}.hgov-modal{display:none}#hgov-user-information{display:none}#hgov-font-logo{color:#1F699C;font-weight:bold}#hgov-header li a{color:#1F699C !important}.hgov-form-label{width:160px !important}.hgov-form-group{width:100% !important}#hgov-logo{width:80%}hgov-main-table td{font-size:14px}.hgov-date-label{margin-left:15%}.hgov-content-label{position:relative;float:right}.hgov-help-block{font-size:14px;color:red;text-indent:165px;display:none}.hgov-footer-clear{padding-top:160px;height:30px}.hgov-footer{background-image:none;position:fixed;bottom:0;margin-bottom:0px;background-color:white;width:100%;height:140px;text-align:center;vertical-align:middle;border:none;margin-bottom:-10px}.hgov-footer .footer-block{margin-top:10px}.hgov-footer #footer-right{text-align:left}.hgov-footer #footer-left{text-align:right}.hgov-footer #footer-left label{display:block;margin-bottom:2px}.hgov-footer .social-square{height:40px;margin:10px}.hgov-header-button{border:1px solid black}.hgov-disabled{cursor:default !important}.hgov-hidden-row{display:none}.hgov-template-td{text-align:center}.hgov-template-label{font-weight:bold;font-size:16px;border-radius:50px}.hgov-expand{color:black;transition:color 0.3s ease}.hgov-text-function{color:black;transition:color 0.3s ease}.hgov-text-function{color:black;transition:color 0.3s ease}.hgov-text-function:hover{color:#2aabd2}.hgov-expand:hover{color:#419641}@media screen and (min-width: 800px){#hgov-login-container{margin-top:-40px;}}#hgov-login-container input,#hgov-login-container button{margin:5px}#hgov-login-container button{margin-top:2px}
+* {
+  font-family: 'avenir'; }
+
+body {
+  min-height: 100%;
+  margin: 0 auto -30px; }
+
+h1 {
+  font-size: 36px; }
+
+h2 {
+  font-size: 100px; }
+
+h3 {
+  font-size: 36px; }
+
+h4 {
+  font-size: 18px; }
+
+p {
+  font-size: 18px; }
+
+a:link, a:hover {
+  font-size: 18px;
+  text-decoration: none; }
+
+#main-hero {
+  background-image: url("/min/images/homepage-hero.jpg");
+  background-size: contain;
+  background-repeat: no-repeat; }
+  #main-hero div {
+    position: absolute;
+    width: 700px;
+    margin-left: -350px;
+    left: 50%;
+    color: white; }
+  #main-hero .top {
+    top: 20%;
+    width: 900px;
+    margin-left: -450px; }
+    #main-hero .top h1 {
+      font-size: 4vw; }
+  #main-hero .middle {
+    top: 40%;
+    width: 800px;
+    margin-left: -400px; }
+    #main-hero .middle h2 {
+      font-size: 8vw; }
+  #main-hero .bottom {
+    top: 78%; }
+
+#middle #iphone {
+  margin-top: -20%;
+  width: 75%; }
+#middle .details {
+  text-align: left;
+  margin-top: 10px; }
+  #middle .details h3 {
+    font-size: 3vw; }
+  #middle .details h4 {
+    font-size: 1.5vw; }
+
+#next-middle {
+  background-color: #1F6BD1;
+  color: white;
+  padding: 100px 0 100px 0; }
+  #next-middle div h4 {
+    margin: 0px auto;
+    width: 60%;
+    line-height: 35px;
+    font-size: 2.5vw; }
+
+.angle-left {
+  width: 0;
+  height: 0;
+  border-top: 50px solid #1F6BD1;
+  border-left: 980px solid transparent; }
+
+.hgov-primary-button {
+  background-color: #1F6BD1;
+  color: white;
+  padding: 12px 16px 8px 16px; }
+
+.hgov-container {
+  width: 98%;
+  margin: 0 auto;
+  text-align: center; }
+
+.hgov-modal {
+  display: none; }
+
+#hgov-user-information {
+  display: none; }
+
+#hgov-font-logo {
+  color: #1F699C;
+  font-weight: bold; }
+
+#prefix-header {
+  background-image: none;
+  box-shadow: none;
+  border: none;
+  background-color: white; }
+
+.hgov-hero-image {
+  width: 100%; }
+
+.navbar {
+  background-color: transparent;
+  background: transparent;
+  border: none; }
+
+#hgov-header li a {
+  color: #1F699C !important; }
+
+.hgov-form-label {
+  width: 160px !important; }
+
+.hgov-form-group {
+  width: 100% !important; }
+
+#hgov-logo {
+  width: 80%; }
+
+hgov-main-table td {
+  font-size: 14px; }
+
+.hgov-date-label {
+  margin-left: 15%; }
+
+.hgov-content-label {
+  position: relative;
+  float: right; }
+
+.hgov-help-block {
+  font-size: 14px;
+  color: red;
+  text-indent: 165px;
+  display: none; }
+
+.hgov-footer-clear {
+  padding-top: 70%;
+  height: 30px; }
+
+.hgov-footer {
+  background-image: none;
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 0px;
+  background-color: white;
+  width: 100%;
+  height: 140px;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  margin-bottom: -10px; }
+  .hgov-footer .footer-block {
+    margin-top: 10px; }
+  .hgov-footer #footer-right {
+    text-align: left; }
+  .hgov-footer #footer-left {
+    text-align: right; }
+    .hgov-footer #footer-left label {
+      display: block;
+      margin-bottom: 2px; }
+  .hgov-footer .social-square {
+    height: 40px;
+    margin: 10px; }
+
+.hgov-header-button {
+  border: 1px solid black; }
+
+.hgov-disabled {
+  cursor: default !important; }
+
+.hgov-hidden-row {
+  display: none; }
+
+.hgov-template-td {
+  text-align: center; }
+
+.hgov-template-label {
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50px; }
+
+.hgov-expand {
+  color: black;
+  transition: color 0.3s ease; }
+
+.hgov-text-function {
+  color: black;
+  transition: color 0.3s ease; }
+
+.hgov-text-function {
+  color: black;
+  transition: color 0.3s ease; }
+
+.hgov-text-function:hover {
+  color: #2aabd2; }
+
+.hgov-expand:hover {
+  color: #419641; }
+
+@media screen and (min-width: 800px) {
+  #hgov-login-container {
+    margin-top: -40px; } }
+#hgov-login-container input, #hgov-login-container button {
+  margin: 5px; }
+#hgov-login-container button {
+  margin-top: 2px; }
+
+@media screen and (min-width: 800px) {
+  #main-hero {
+    font-size: 10px; }
+ }

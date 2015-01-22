@@ -2,9 +2,26 @@ extend ./layout
 
 block content
 
-    .container(style='text-align:center;')
-        
-        img(src='min/images/main.png' id='#{prefix}logo')
-        
-        div 
-            h4(style="text-align:justify;")  HeartGov is a text message based platform designed to better connect and create a two-way communication between local government, community based organizations, and residents.  HeartGov provides the space for conversation and collaboration between communities and government on an accessible platform.  The goal of this project is to show that SMS technology can be an efficient platform to raise levels of civic engagement in disengaged communities. 
+    div(class="#{prefix}hero-image" id='main-hero')
+        img(src="min/images/homepage-hero.jpg" style="visibility:hidden; width:100%; max-height:1280px;")
+        div(class="top")
+            h1 Keeping people enganged in the civic process
+        div(class="middle")
+            h2(id='main-text') Connect to your government.
+        div(class='bottom')
+            span(class="#{prefix}primary-button") 
+                a(href="/about" style="color:white;") Learn How
+
+    div(id="middle" class='row')
+        div(class="col-xs-5 iphone-cont")
+            img(src='min/images/iphone.png' id='iphone')
+
+        div(class="col-xs-6 details")
+            h3(style='text-align:center;') Welcome & thank you for using heartgov
+            h4 This project is a text message based platform designed to better connect and creatr a two-way communication between local government residents. I believe that <3 Gov can be a tool which creates a better means of communication between community and government, and in so doing allow everyone a tool for organizing, brainstorming ideas, and collabortating solutions to neighborhood problems.
+            
+    div(id="next-middle")
+        div
+            h4 With <3 I hope to allow a space for community members to voice their ideas, create relationships with government agents, and create a means to create and promote small wins. 
+    div(class='angle-left')
+           
