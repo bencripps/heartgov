@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-21 23:03:27
+* @Last Modified time: 2015-01-22 21:05:30
 */
 
 define('utilities', function(){
@@ -32,16 +32,20 @@ define('utilities', function(){
             req.send(reqData);
         },
         showModal: function(response, id) {
-            var id = id ? id : '.hgov-modal'
-            document.querySelector('.hgov-modal-body').innerHTML = response.result;
-            $(id).modal('show');
+            var tagId = id ? id : '.hgov-modal',
+                bodyId = id ? '.hgov-modal-body' : '.hgov-modal-body-all';
+            document.querySelector(bodyId).innerHTML = response.result;
+            $(tagId).modal('show');
         },
         fixpolygon: function() {
             var angle = document.querySelector('.angle-left');
-            angle.style.borderLeft = (0.9665 * window.innerWidth) + 'px solid transparent';
-            window.addEventListener('resize', function() {
+            if (angle) {
+                angle.style.borderLeft = (0.9665 * window.innerWidth) + 'px solid transparent';
+                window.addEventListener('resize', function() {
                 angle.style.borderLeft = (0.9665 * window.innerWidth) + 'px solid transparent';
             });
+
+            }
         }
     };
 

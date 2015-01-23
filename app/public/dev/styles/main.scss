@@ -1,7 +1,13 @@
 //app variables
-
 $prefix: "hgov";
 $mobile: 800px;
+
+//colors
+$primary-blue: #1F6BD1;
+$teal: #5ADED5;
+$black: #333333;
+$white: #FFFFFF;
+
 
 //general 
 
@@ -10,8 +16,7 @@ $mobile: 800px;
 }
 
 body {
-    min-height: 100%;
-    margin: 0 auto -30px
+    height: 100%;
 }
 
 h1 {
@@ -43,37 +48,35 @@ a:link, a:hover {
 
 #main-hero {
     background-image: url("/min/images/homepage-hero.jpg");
+}
+
+.#{$prefix}-hero-image {
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: center;
+    position: relative;
 
-    div {
-        position:absolute; 
-        width:700px; 
-        margin-left:-350px; 
-        left:50%;
-        color: white;
-    }
+    table {
+        margin: auto;
+        position:absolute;
+        color: $white;
+        width: 50%;
+        height: 50%;
+        top: 0; left: 0; bottom: 0; right: 0;
+        overflow: auto;
 
-    .top {
-        top: 20%;
-        width:900px; 
-        margin-left:-450px;
         h1 {
             font-size: 3vw;
         }
-    }
 
-    .middle {
-        top: 40%; 
-        width: 800px;
-        margin-left: -400px;
         h2 {
             font-size: 8vw;
         }
-    }
 
-    .bottom {
-        top: 78%;
+        span a {
+            font-size: 1.5vw;
+        }
     }
 }
 
@@ -101,9 +104,9 @@ a:link, a:hover {
 }
 
 #next-middle {
-    background-color: #1F6BD1;
-    color: white;
-    padding: 100px 0 100px 0;
+    background-color: $primary-blue;
+    color: $white;
+    padding: 10% 0 10% 0;
     div h4 {
         margin: 0px auto;
         width: 60%;
@@ -115,15 +118,53 @@ a:link, a:hover {
 .angle-left {
     width: 0;
     height: 0;
-    border-top: 50px solid #1F6BD1;
+    border-top: 50px solid $primary-blue;
     border-left: 980px solid transparent;
+}
+
+#neighbors {
+    text-align: left;
+    margin-left: 5%;
+    text-indent: 5%;
+    margin-bottom: 5%;
+
+    h3 {
+        color: $primary-blue;
+        font-size: 3vw;
+    }
+}
+
+.convoboxes {
+    color: $white;
+    height: 50%;
+
+    div {
+        vertical-align: top;
+        background-color: $primary-blue;
+        display: inline-block;
+        width: 35%;
+        margin: 0 5% 5% 5%;
+        height: 190px;
+        padding: 20px;
+        h3 {
+            margin-left: 5%;
+            text-align: left;
+            font-size: 2.5vw;
+        }
+        h5 {
+            color: $teal;
+            margin-left: 5%;
+            text-align: left;
+            font-size: 1.5vw;
+        }
+    }
 }
 
 
 .#{$prefix}-primary-button{
-    background-color: #1F6BD1;
-    color: white;
-    padding: 12px 16px 8px 16px;
+    background-color: $primary-blue;
+    color: $white;
+    padding: 2.5% 5% 2.5% 5%;
 }
 
 .#{$prefix}-container {
@@ -201,21 +242,13 @@ a:link, a:hover {
 }
 
 .#{$prefix}-footer-clear {
-    padding-top: 70%;
+    padding-top: 20px;
     height: 30px;
 }
 
 .#{$prefix}-footer {
-    background-image: none;
-    position: fixed;
-    bottom: 0;
-    margin-bottom: 0px;
-    background-color: white;
     width: 100%;
-    height: 140px;
-    text-align: center;
-    vertical-align: middle;
-    border: none;
+    text-align:center;
     margin-bottom: -10px;
 
     .footer-block {
@@ -236,7 +269,7 @@ a:link, a:hover {
     }
 
     .social-square {
-        height: 40px;
+        width: 15%;
         margin: 10px;
     }
 }

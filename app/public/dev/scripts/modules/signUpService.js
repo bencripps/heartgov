@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 14:08:04
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 12:52:10
+* @Last Modified time: 2015-01-22 21:14:54
 */
 
 define('signUpService', ['utilities'], function(utilities) {
@@ -52,6 +52,7 @@ define('signUpService', ['utilities'], function(utilities) {
         showFormError: function(num) {
             var helpblocks = document.querySelectorAll('.hgov-help-block');
             helpblocks[num].style.display = 'block';
+            console.log(helpblocks[num])
         },
         formSubmitted: function(e) {
             e.preventDefault();
