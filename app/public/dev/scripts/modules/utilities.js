@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-22 21:05:30
+* @Last Modified time: 2015-01-23 22:43:42
 */
 
 define('utilities', function(){
@@ -36,6 +36,11 @@ define('utilities', function(){
                 bodyId = id ? '.hgov-modal-body' : '.hgov-modal-body-all';
             document.querySelector(bodyId).innerHTML = response.result;
             $(tagId).modal('show');
+        },
+        resetState: function(selector) {
+            Array.prototype.forEach.call(document.querySelectorAll(selector), function(n) {
+                n.style.display = 'none';
+            });
         },
         fixpolygon: function() {
             var angle = document.querySelector('.angle-left');

@@ -234,10 +234,9 @@ a:link, a:hover {
     float: right;
 }
 
-.#{$prefix}-help-block {
+.#{$prefix}-help-block,  .#{$prefix}-help-block-reply-form{
     font-size: 14px;
     color: red;
-    text-indent: 165px;
     display: none;
 }
 
@@ -258,6 +257,9 @@ a:link, a:hover {
     #footer-right {
         font-size: 1.5vw;
         text-align: left;
+        a {
+            font-size: 1.5vw;
+        }
     }
 
     #footer-left {

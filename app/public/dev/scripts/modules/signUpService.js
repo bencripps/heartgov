@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 14:08:04
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-22 21:14:54
+* @Last Modified time: 2015-01-23 22:43:32
 */
 
 define('signUpService', ['utilities'], function(utilities) {
@@ -10,15 +10,10 @@ define('signUpService', ['utilities'], function(utilities) {
     
     var signUpService = {
         init: function() {
-            this.form = document.getElementsByTagName('form');
+            this.form = document.getElementsByName('userSignup');
             this.signUpButton = document.getElementById('signupbutton');
             this.signUpButton.addEventListener('click', this.formSubmitted);
-            this.form[0].addEventListener('keydown', this.resetState);
-        },
-        resetState: function() {
-            Array.prototype.forEach.call(document.querySelectorAll('.hgov-help-block'), function(n) {
-                n.style.display = 'none';
-            });
+            this.form[0].addEventListener('keydown', utilities.resetState.bind(this, '.hgov-help-block'));
         },
         validateForm: function() {
             var values = this.getFormValues();

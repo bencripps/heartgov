@@ -148,6 +148,8 @@
         "listCategories": "The categories are: "
     },
     "twilio": {
-        "dataReceived": "Data has been received."
+        "dataReceived": "Data has been received.",
+        "messageSent": "Your messages has been successfully sent!",
+        "messageNotSent": "Sorry, there was an error processing your request. Please try again." 
     }
 }

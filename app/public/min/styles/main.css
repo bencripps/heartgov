@@ -163,10 +163,9 @@ hgov-main-table td {
   position: relative;
   float: right; }
 
-.hgov-help-block {
+.hgov-help-block, .hgov-help-block-reply-form {
   font-size: 14px;
   color: red;
-  text-indent: 165px;
   display: none; }
 
 .hgov-footer-clear {
@@ -180,7 +179,10 @@ hgov-main-table td {
   .hgov-footer .footer-block {
     margin-top: 10px; }
   .hgov-footer #footer-right {
+    font-size: 1.5vw;
     text-align: left; }
+    .hgov-footer #footer-right a {
+      font-size: 1.5vw; }
   .hgov-footer #footer-left {
     text-align: right; }
     .hgov-footer #footer-left label {
