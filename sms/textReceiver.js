@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 12:48:41
+* @Last Modified time: 2015-01-24 14:46:18
 */
 
 /*jslint node: true */
@@ -25,33 +25,39 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
         },
         responder: {
             withTrackingNumber: function(message, twil, data, err) {
+                var outGoingResponse;
 
                 if (data.length >= 1) {
-                    textReceiver.message.save(message, 'getTextModel', textReceiver.utils.getId(message.body));
-                    twil.sendOutGoingText(messageConfig.textResponses.trackingNumberFound, message.from);
+                    outGoingResponse = messageConfig.textResponses.trackingNumberFound;
+                    twil.sendOutGoingText(outGoingResponse, message.from);
+                    textReceiver.message.save(message, 'getTextModel', outGoingResponse, textReceiver.utils.getId(message.body));
                 }
 
                 else if (err) { textReceiver.utils.errorOccured(err); }
 
                 else {
-                    textReceiver.message.save(message, 'getTextModel');
-                    twil.sendOutGoingText(messageConfig.textResponses.trackingNumberNotFound, message.from);
+                    outGoingResponse = messageConfig.textResponses.trackingNumberNotFound;
+                    twil.sendOutGoingText(outGoingResponse, message.from);
+                    textReceiver.message.save(message, 'getTextModel', outGoingResponse);
                 }
             },
             withoutTrackingNumber: function(message, twil, data, err) {
+                var outGoingResponse;
 
                 if (err) { textReceiver.utils.errorOccured(err); }
 
                 else {
 
                     if (data.length >= 1) {
-                        textReceiver.message.save(message, 'getTextModel');
-                        twil.sendOutGoingText(messageConfig.textResponses.repeatTexter, message.from);   
+                        outGoingResponse = messageConfig.textResponses.repeatTexter;
+                        twil.sendOutGoingText(outGoingResponse, message.from);  
+                        textReceiver.message.save(message, 'getTextModel', outGoingResponse); 
                     }
 
                     else {
-                        textReceiver.message.save(message, 'getTextModel');
-                        twil.sendOutGoingText(textReceiver.user.newToSiteResponse(), message.from);
+                        outGoingResponse = textReceiver.user.newToSiteResponse();
+                        twil.sendOutGoingText(outGoingResponse, message.from);
+                        textReceiver.message.save(message, 'getTextModel', outGoingResponse);
                     }
                 }
             }
@@ -84,8 +90,8 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
             isCorrectlyFormatted: function() {
 
             },
-            save: function(message, method, assocciatedTrackingNumber) {
-                var info = textReceiver.utils[method](message, assocciatedTrackingNumber),
+            save: function(message, method, outGoingResponse, assocciatedTrackingNumber) {
+                var info = textReceiver.utils[method](message, outGoingResponse, assocciatedTrackingNumber),
                     model = new schemas.text(info);
 
                 model.save();
@@ -112,9 +118,9 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
             listCategories: function(cats) {
                 return cats.map(function(a,b) {return b + 1 + ' ' + a;}).join(', ');
             },
-            getTextModel: function(message, assocciatedTrackingNumber) {
+            getTextModel: function(message, outGoingResponse, assocciatedTrackingNumber) {
 
-                 return {
+                return {
                     userInformation: {
                         userId: null,
                         name: null,
@@ -132,11 +138,18 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
                         body: message.body,
                         status: null,
                         zipcode: null,
-                        responders: [],
-                        lastResponder: [],
+                        responders: [textReceiver.utils.formatOutGoingResponseForSave(outGoingResponse, message.from)],
+                        lastResponder: ['System'],
                         trackingNumber: assocciatedTrackingNumber || null,
                         searchable: message.body.split(' ')
                     }
+                };
+            },
+            formatOutGoingResponseForSave: function(response, to) {
+                return {
+                    from: 'System',
+                    to: to,
+                    content: response
                 };
             },
             findText: function(key, value) {

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-23 23:02:34
+* @Last Modified time: 2015-01-24 12:40:03
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -18,8 +18,9 @@ define('textService', ['utilities'], function(utilities) {
         getTexts: function(filter) {
 
         },
+        currentText: null,
         sendOutGoingText: function() {
-            var obj = {};
+            var obj = {_id: this.currentText._id};
             var formValues = Array.prototype.forEach.call(document.getElementsByName('out-going-text-form')[0].querySelectorAll('.input-sm'), function(n) {
                 obj[n.name] = n.value;
             });
@@ -53,6 +54,7 @@ define('textService', ['utilities'], function(utilities) {
             document.getElementsByName('to')[0].value = data.phoneNumber;
             document.getElementsByName('from')[0].value = document.getElementById('hgov-user-information').innerHTML;
             document.getElementsByName('content')[0].value = '';
+            textService.currentText = data;
         },
         showEditModal: function(data) {
             console.log(data);

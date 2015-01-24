@@ -150,6 +150,8 @@
     "twilio": {
         "dataReceived": "Data has been received.",
         "messageSent": "Your messages has been successfully sent!",
-        "messageNotSent": "Sorry, there was an error processing your request. Please try again." 
+        "messageNotSent": "Sorry, there was an error processing your request. Please try again.",
+        "messageSaved": "Messages was saved successfully.",
+        "messageNotSaved": "An error occurred trying to save a message" 
     }
 }

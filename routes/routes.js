@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-23 22:59:51
+* @Last Modified time: 2015-01-24 14:48:19
 */
 
 /*jslint node: true */
@@ -25,7 +25,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         },
         nodemailer = require('nodemailer'),
         mailSender = require('../mailer/mailer')(nodemailer, schemas.admin, appMessages.mailMessages),
-        twilioWrapper = require('../sms/twilioWrapper')(twilio, appMessages.twilio),
+        twilioWrapper = require('../sms/twilioWrapper')(twilio, appMessages.twilio, schemas),
         hasher = require('../userAuth/hasher'),
         myAccount = require('../userAuth/myAccount')(schemas.admin, hasher, appMessages.myAccountMessages),
         loginService = require('../userAuth/login')(schemas.admin, hasher, sessionManager, appMessages.loginMessages),
@@ -216,7 +216,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.post('/send/outgoingText', function(req, res) {
-        twilioWrapper.sendOutGoingText(req.body.content, req.body.to, res);
+        twilioWrapper.sendOutGoingText(req.body.content, req.body.to, req.body._id, req.body.from, res);
     });
 
    
