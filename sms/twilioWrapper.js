@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-24 15:01:12
+* @Last Modified time: 2015-01-25 17:36:22
 */
 
 /*jslint node: true */
@@ -29,8 +29,13 @@ module.exports = function(client, appMessages, schemas) {
         },
         processOutgoingSave: function(response, receiver, _id, username, server) {
             var formattedResponse = this.formatOutGoingResponseForSave(response, receiver, username);
-            schemas.text.findByIdAndUpdate(_id, {$push: { 'textInformation.responders': formattedResponse }}, function(err,data) {
-                if (err) console.log(appMessages.messageNotSaved);
+            schemas.text.findByIdAndUpdate(
+                _id, {
+                    $set: {'textInformation.lastResponder': username}, 
+                    $push: { 'textInformation.responders': formattedResponse }}, 
+                    {multi: true}, 
+                    function(err,data) {
+                        if (err) console.log(appMessages.messageNotSaved);
             });
             this.addTextToUserAccount(formattedResponse, username);
         },

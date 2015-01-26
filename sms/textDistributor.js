@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-18 12:46:56
+* @Last Modified time: 2015-01-25 17:06:23
 */
 
 /*jslint node: true */
@@ -25,7 +25,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                     date: new Date(text.userInformation.messageRecievedOn).toDateString(),
                     category: text.textInformation.category.name ? textDistributor.utils.capFirstLetter(text.textInformation.category.name) : 'None Assigned',
                     categoryId: text.textInformation.category.id || 'None Assigned',
-                    lastResponder: text.textInformation.lastResponder.length < 1 ? 'None Assigned' : text.textInformation.lastResponder[0],
+                    lastResponder: text.textInformation.lastResponder ? text.textInformation.lastResponder : 'None Assigned',
                     allResponses: text.textInformation.responders.length,
                     status: text.textInformation.status || 'New',
                     trackingNumber: text.textInformation.trackingNumber || 'None Assigned',

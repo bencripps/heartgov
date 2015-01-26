@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-24 12:40:03
+* @Last Modified time: 2015-01-25 17:47:02
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -37,13 +37,18 @@ define('textService', ['utilities'], function(utilities) {
             }
         },
         buildTable:function(data){
-            data.result.forEach(function(row){
-                var template = textService.utils.getTemplate(document.createElement('tr'), row, data.displayTemplate, row._id),
-                    innerLayout = textService.utils.getInnerLayout(document.createElement('tr'), row, data.innerLayoutTemplate);
-        
-                textService.newTable.querySelector('tbody').appendChild(template);
-                textService.newTable.querySelector('tbody').appendChild(innerLayout);
-            });
+            if (data.result.length > 0) {
+                data.result.forEach(function(row){
+                    var template = textService.utils.getTemplate(document.createElement('tr'), row, data.displayTemplate, row._id),
+                        innerLayout = textService.utils.getInnerLayout(document.createElement('tr'), row, data.innerLayoutTemplate);
+            
+                    textService.newTable.querySelector('tbody').appendChild(template);
+                    textService.newTable.querySelector('tbody').appendChild(innerLayout);
+                });
+            }
+            else {
+                document.getElementById('no-texts').style.display = 'table-row';
+            }
         },
         initClickEvents: function(node, e) {
             var current = document.getElementById('hide_' + node.id).style.display;
@@ -58,6 +63,12 @@ define('textService', ['utilities'], function(utilities) {
         },
         showEditModal: function(data) {
             console.log(data);
+        },
+        showDeleteModal: function(data) {
+
+        },
+        addToGroup: function(data) {
+
         },
         utils: {
             getInnerLayout: function(row, data, obj) {
@@ -91,25 +102,43 @@ define('textService', ['utilities'], function(utilities) {
             },
             getTextUtilButtons: function(el, data) {
                 var respContainer = document.createElement('div'),
-                    editContainer = document.createElement('div'),
+                    detailsContainer = document.createElement('div'),
+                    deleteContainer = document.createElement('div'),
+                    groupContainer = document.createElement('div'),
                     respondButton = document.createElement('span'),
-                    editButton = document.createElement('span');
+                    groupButton = document.createElement('span'),
+                    deleteButton = document.createElement('span'),
+                    detailsButton = document.createElement('span');
 
                 respondButton.className = 'glyphicon glyphicon-comment hgov-text-function';
                 respondButton.title = 'click to respond';
 
+                detailsButton.className = 'glyphicon glyphicon-search hgov-text-function';
+                detailsContainer.title = 'click to update status';
+
+                deleteButton.className = 'glyphicon glyphicon-remove hgov-text-function';
+                deleteContainer.title = 'click to remove text';
+
+                groupButton.className = 'glyphicon glyphicon-star hgov-text-function';
+                groupContainer.title = 'click to add to group';
+
                 respondButton.addEventListener('click', textService.showRespondModal.bind(this, data));
 
-                editButton.addEventListener('click', textService.showEditModal.bind(this, data));
+                detailsButton.addEventListener('click', textService.showEditModal.bind(this, data));
 
-                editButton.className = 'glyphicon glyphicon-pencil hgov-text-function';
-                editButton.title = 'click to update status';
+                deleteButton.addEventListener('click', textService.showDeleteModal.bind(this, data));
+
+                groupButton.addEventListener('click', textService.addToGroup.bind(this, data));
 
                 respContainer.appendChild(respondButton);
-                editContainer.appendChild(editButton);
+                detailsContainer.appendChild(detailsButton);
+                deleteContainer.appendChild(deleteButton);
+                groupContainer.appendChild(groupButton);
 
                 el.appendChild(respContainer);
-                el.appendChild(editContainer);
+                el.appendChild(detailsContainer);
+                el.appendChild(groupContainer);
+                el.appendChild(deleteContainer);
             },
             getTemplate: function(row, data, obj, id) {
                 Object.keys(obj).forEach(function(k) {

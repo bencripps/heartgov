@@ -50,6 +50,10 @@ a:link, a:hover {
     background-image: url("/min/images/homepage-hero.jpg");
 }
 
+#about-hero {
+    background-image: url("/min/images/about-hero.jpg");
+}
+
 .#{$prefix}-hero-image {
     background-size: contain;
     background-repeat: no-repeat;
@@ -61,13 +65,13 @@ a:link, a:hover {
         margin: auto;
         position:absolute;
         color: $white;
-        width: 50%;
+        width: 65%;
         height: 50%;
         top: 0; left: 0; bottom: 0; right: 0;
         overflow: auto;
 
         h1 {
-            font-size: 3vw;
+            font-size: 2.5vw;
         }
 
         h2 {
@@ -131,12 +135,15 @@ a:link, a:hover {
     h3 {
         color: $primary-blue;
         font-size: 3vw;
+            font-weight: bold;
     }
 }
 
 .convoboxes {
     color: $white;
     height: 50%;
+    overflow: hidden;
+    margin-bottom: 4%;
 
     div {
         vertical-align: top;
@@ -144,8 +151,9 @@ a:link, a:hover {
         display: inline-block;
         width: 35%;
         margin: 0 5% 5% 5%;
-        height: 190px;
         padding: 20px;
+        padding-bottom: 1000px;
+        margin-bottom: -1000px;
         h3 {
             margin-left: 5%;
             text-align: left;
@@ -160,11 +168,71 @@ a:link, a:hover {
     }
 }
 
+//about page 
 
-.#{$prefix}-primary-button{
+#about-bubble {
+    width: 20%;
+}
+
+
+#about-quote {
+    color: $primary-blue;
+}
+
+#about-middle {
+    background-color: $primary-blue;
+    width: 100%;
+    margin: 0px auto;
+}
+
+.team-circle-cont {
+    background-color: $teal;
+    position: relative;
+    border-radius: 50%;
+    width: 50%;
+    height: auto;
+    padding-top: 50%;
+    margin: 0px auto;
+}
+
+.member-name {
+    font-weight: bold;
+    font-size: 1.5vw;
+}
+
+.member-title {
+    font-size: 1.25vw;
+}
+
+#asher-bio  {
+    background-image: url("/min/images/asher-bio.png");
+    background-size: 140%;
+}
+
+#ben-bio  {
+    background-image: url("/min/images/ben-bio.png");
+    background-size: 100%;
+}
+
+.social-network-bio {
+    margin-top: -8%;
+    a img {
+        width: 15%;
+        margin: 0px auto;
+        display: inline-block;
+    }
+}
+
+.bio-pic {
+    background-position:center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.#{$prefix}-primary-button {
     background-color: $primary-blue;
     color: $white;
-    padding: 2.5% 5% 2.5% 5%;
+    border-radius: 0px;
 }
 
 .#{$prefix}-container {
@@ -197,10 +265,11 @@ a:link, a:hover {
     width: 100%;
 }
 
-.navbar {
+.navbar, .navbar-default {
    background-color: transparent;
    background: transparent;
    border: none;
+   box-shadow: none;
 }
 
 ##{$prefix}-header li a{
@@ -264,15 +333,19 @@ a:link, a:hover {
 
     #footer-left {
         text-align: right;
+        font-size: 1.5vw;
 
         label {
             display: block;
             margin-bottom: 2px;
         }
+        a {
+            font-size: 1.5vw;
+        }
     }
 
     .social-square {
-        width: 15%;
+        width: 12%;
         margin: 10px;
     }
 }

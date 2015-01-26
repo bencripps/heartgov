@@ -7,28 +7,29 @@ block content
         table
             tr
                 td
-                    h1 Keeping people enganged in the civic process
+                    h1(style='font-weight:lighter;') Keeping people enganged in the civic process
             tr 
                 td
-                    h2 Connect to your government
+                    h2 Connect to your government.
 
             tr 
                 td 
-                    span(class='#{prefix}primary-button') 
-                        a(href='/about' style='color:white;') Learn How
+                    a(href='/about')
+                        button(class='btn btn-primary #{prefix}primary-button') Learn how
 
     div(id='middle' class='row')
         div(class='col-xs-5 iphone-cont')
             img(src='min/images/iphone.png' id='iphone')
 
         div(class='col-xs-6 details')
-            h3(style='text-align:center;') Welcome & thank you for using heartgov
+            h3(style='text-align:left; margin-bottom:5%; font-weight:bold;') Welcome & thank you for using heartgov
             h4 This project is a text message based platform designed to better connect and creatr a two-way communication between local government residents. I believe that <3 Gov can be a tool which creates a better means of communication between community and government, and in so doing allow everyone a tool for organizing, brainstorming ideas, and collabortating solutions to neighborhood problems.
             
     div(id='next-middle')
         div
             h4 With <3 I hope to allow a space for community members to voice their ideas, create relationships with government agents, and create a means to create and promote small wins. 
     div(class='angle-left')
+        div
 
     div(id='neighbors')
         h3 What your neighbors are talking about
@@ -55,10 +56,9 @@ block content
                 h5 11/6/2014 3:11 PM
 
     div
-        h3(style='font-size:2.5vw') Would you like to have access to our database?
+        h3(style='font-size:2.5vw; font-weight:lighter;') Would you like to have access to our database?
 
-    div(style='margin-top:5%;')
-        span(class='hgov-primary-button') 
-            a(href='/signup' style='color:white;') Sign up
-
+    div
+        a(href='/signup')
+            button(class='btn btn-primary #{prefix}primary-button') Sign up
            

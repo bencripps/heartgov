@@ -26,6 +26,9 @@ a:link, a:hover {
 #main-hero {
   background-image: url("/min/images/homepage-hero.jpg"); }
 
+#about-hero {
+  background-image: url("/min/images/about-hero.jpg"); }
+
 .hgov-hero-image {
   background-size: contain;
   background-repeat: no-repeat;
@@ -36,7 +39,7 @@ a:link, a:hover {
     margin: auto;
     position: absolute;
     color: #FFFFFF;
-    width: 50%;
+    width: 65%;
     height: 50%;
     top: 0;
     left: 0;
@@ -44,7 +47,7 @@ a:link, a:hover {
     right: 0;
     overflow: auto; }
     .hgov-hero-image table h1 {
-      font-size: 3vw; }
+      font-size: 2.5vw; }
     .hgov-hero-image table h2 {
       font-size: 8vw; }
     .hgov-hero-image table span a {
@@ -84,19 +87,23 @@ a:link, a:hover {
   margin-bottom: 5%; }
   #neighbors h3 {
     color: #1F6BD1;
-    font-size: 3vw; }
+    font-size: 3vw;
+    font-weight: bold; }
 
 .convoboxes {
   color: #FFFFFF;
-  height: 50%; }
+  height: 50%;
+  overflow: hidden;
+  margin-bottom: 4%; }
   .convoboxes div {
     vertical-align: top;
     background-color: #1F6BD1;
     display: inline-block;
     width: 35%;
     margin: 0 5% 5% 5%;
-    height: 190px;
-    padding: 20px; }
+    padding: 20px;
+    padding-bottom: 1000px;
+    margin-bottom: -1000px; }
     .convoboxes div h3 {
       margin-left: 5%;
       text-align: left;
@@ -107,10 +114,57 @@ a:link, a:hover {
       text-align: left;
       font-size: 1.5vw; }
 
+#about-bubble {
+  width: 20%; }
+
+#about-quote {
+  color: #1F6BD1; }
+
+#about-middle {
+  background-color: #1F6BD1;
+  width: 100%;
+  margin: 0px auto; }
+
+.team-circle-cont {
+  background-color: #5ADED5;
+  position: relative;
+  border-radius: 50%;
+  width: 50%;
+  height: auto;
+  padding-top: 50%;
+  margin: 0px auto; }
+
+.member-name {
+  font-weight: bold;
+  font-size: 1.5vw; }
+
+.member-title {
+  font-size: 1.25vw; }
+
+#asher-bio {
+  background-image: url("/min/images/asher-bio.png");
+  background-size: 140%; }
+
+#ben-bio {
+  background-image: url("/min/images/ben-bio.png");
+  background-size: 100%; }
+
+.social-network-bio {
+  margin-top: -8%; }
+  .social-network-bio a img {
+    width: 15%;
+    margin: 0px auto;
+    display: inline-block; }
+
+.bio-pic {
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; }
+
 .hgov-primary-button {
   background-color: #1F6BD1;
   color: #FFFFFF;
-  padding: 2.5% 5% 2.5% 5%; }
+  border-radius: 0px; }
 
 .hgov-container {
   width: 98%;
@@ -136,10 +190,11 @@ a:link, a:hover {
 .hgov-hero-image {
   width: 100%; }
 
-.navbar {
+.navbar, .navbar-default {
   background-color: transparent;
   background: transparent;
-  border: none; }
+  border: none;
+  box-shadow: none; }
 
 #hgov-header li a {
   color: #1F699C !important; }
@@ -184,12 +239,15 @@ hgov-main-table td {
     .hgov-footer #footer-right a {
       font-size: 1.5vw; }
   .hgov-footer #footer-left {
-    text-align: right; }
+    text-align: right;
+    font-size: 1.5vw; }
     .hgov-footer #footer-left label {
       display: block;
       margin-bottom: 2px; }
+    .hgov-footer #footer-left a {
+      font-size: 1.5vw; }
   .hgov-footer .social-square {
-    width: 15%;
+    width: 12%;
     margin: 10px; }
 
 .hgov-header-button {

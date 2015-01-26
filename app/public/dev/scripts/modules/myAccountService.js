@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-17 12:51:30
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 14:39:14
+* @Last Modified time: 2015-01-25 16:47:17
 */
 
 define('myAccountService', ['utilities'], function(utilities) {
@@ -24,7 +24,7 @@ define('myAccountService', ['utilities'], function(utilities) {
             e.preventDefault();
             this.toggleButtons.call(this, action);
             Array.prototype.forEach.call(document.querySelectorAll('input'), function(input, i) {
-                if (i !== 0) input.disabled = action !== 'edit';
+                if (input.name !== 'username') input.disabled = action !== 'edit';
             });
         },
         saveFields: function(action, e) {

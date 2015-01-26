@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-24 14:46:18
+* @Last Modified time: 2015-01-25 17:04:47
 */
 
 /*jslint node: true */
@@ -139,7 +139,7 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
                         status: null,
                         zipcode: null,
                         responders: [textReceiver.utils.formatOutGoingResponseForSave(outGoingResponse, message.from)],
-                        lastResponder: ['System'],
+                        lastResponder: 'System',
                         trackingNumber: assocciatedTrackingNumber || null,
                         searchable: message.body.split(' ')
                     }

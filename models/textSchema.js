@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 19:43:27
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-10 13:33:35
+* @Last Modified time: 2015-01-25 17:04:35
 */
 
 /*jslint node: true */
@@ -32,7 +32,7 @@ module.exports = mongoose.model('recievedSMS', {
         zipcode: Number,
         date: {type: Date, default: Date.now},
         responders: [],
-        lastResponder: [],
+        lastResponder: String,
         trackingNumber: String,
         searchable: []
     }

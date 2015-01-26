@@ -2,18 +2,77 @@ extend ./layout
 
 block content
 
-    .container
-
-        h2 about us 
-
-        div(style="font-size:15px;")
-
-            p HeartGov was designed with one idea in mind: make it easier for people, community organizations, and government to connect to each other.  
-     
-            p HeartGov is a text message based platform designed to better connect and create a two-way communication between local government, community based organizations, and residents.  HeartGov provides the space for conversation and collaboration between communities and government on a platform while crossing the digital divide between web and mobile technology.  As of January 2014, a Pew Research Center poll showed that 90% of Americans owned a cell phone, while only 58% owned Smartphones.  
+    div(class='#{prefix}hero-image' id='about-hero')
+            img(src='min/images/about-hero.jpg' style='visibility:hidden; width:100%; max-height:1280px;')
+            table
+                tr
+                    td
+                        img(src='min/images/about-bubble.png' id='about-bubble')
                         
-            p With the access to technology available, the technology widely used, and the need for better connection between community and public service, HeartGov provides a low cost, low tech way to organize, survey, propose ideas, ask questions, answer questions, and connect people using text messages.  
+                tr 
+                    td
+                        h1 A text messaged based platform designed to connect local government &amp; residents.
 
-            p At the Personal Democracy Forum in June, Anne Marie-Slaughter outlined five keys to improving American values.  HeartGov drew inspiration from her talk, particularly her fifth point: “make everyone a political donor.”  Political engagement is crucial, and we need to examine new methods for expanding the reach of participation in the civic process.  
+    div(class='row')
+        div(class='col-xs-6' style='margin-top:5%;')
+            span(style='font-size:1.5vw;') HeartGov was designed with one idea in mind: make it easier for people, community organizations, and government to connect to each other. HeartGov is a text message based platform designed to better connect and create a two-way communication between local government, community based organizations, and residents.  HeartGov provides the space for conversation and collaboration between communities and government on a platform while crossing the digital divide between web and mobile technology. 
+        div(class='col-xs-6')
+            img(src='min/images/about-project.jpg' style='width:100%;')
 
-            p HeartGov, crosses the digital divide of web and mobile, and empowers community members, community groups, and government agents to open communication with one another.  Before change can be enacted, before engagement can rise, before process can be demystified, before movements can organize, we must start the conversation.   HeartGov lets you start the conversation using the cell phone you have in your pocket.  Let’s start the conversation.  
+    div(class='row' id='about-middle')
+        div(class='col-xs-6')
+            img(src='min/images/about-infographic.png' style='width:60%; margin: 10%;')
+        div(class='col-xs-6' style='margin-top:5%; line-height:220%; text-align:left;')
+            span(style='color:white;text-align:left; font-size:1.25vw;') The technology of <3 Gov is divided into two components: the SMS interface and the backend. The SMS interface is the text message component, which users will interact with in order to communicate their ideas and respond to requests. The back end is a database of the text messages that come in, displayed on a private website accessible to governmental users and community group users.
+    
+    div(class='row' style='margin-top:5%;')
+        div(class='col-xs-6' style='text-align:left; padding-left:5%;')
+            span(style='font-size:1.5vw;') In an interview with Nancy Romer, local Brooklyn organizer, we talked about how to keep people engaged inthe civic process she explained, "you have to have things people can do in their own communities small policy change, but it's what keeps fueling activism, you have to feel like you win something." With <3 Gov we hope to allow a space for community members to voice their ideas, create relationships with government agents, and create a means to create and promote small wins.
+        div(class='col-xs-6' style='text-align:left; padding-right:5%; font-size: 2.25vw;' id='about-quote')
+            div
+                span "you have to have things people can do in their own communities small policy change, but it's what keeps fueling activism, you have to feel like you win something."
+            div(style='margin-top:1.5%; font-size:1.75vw;')
+                span(style='color:black;') Nancy Romer, 
+                span(style='color:#5ADED5') local organizer
+
+
+    div(class='row' style='margin-top:5%;')
+        h1 Team Members
+
+    div(class='row' style='margin-top:5%;')
+        div(class='col-xs-4')
+            div(class='team-circle-cont bio-pic' id='asher-bio')
+            div(class='social-network-bio')
+                //- a(href='//twitter.com/ashernovek')
+                //-     img(src='min/images/lnk.png')
+                a(href='//twitter.com/ashernovek')
+                    img(src='min/images/twt.png')
+            div(class='member-name') Asher Novek
+            div(class='member-title') Team Lead
+         div(class='col-xs-4')
+            div(class='team-circle-cont bio-pic' id='ben-bio')
+            div(class='social-network-bio')
+                a(href='//www.facebook.com/bcripps1')
+                    img(src='min/images/lnk.png')
+                a(href='//www.linkedin.com/profile/view?id=56885703')        
+                    img(src='min/images/twt.png')
+            div(class='member-name') Benjamin Cripps
+            div(class='member-title') Application Developer
+         div(class='col-xs-4')
+            div(class='team-circle-cont bio-pic')
+            div(class='member-name') Kamron Robinson
+            div(class='member-title') UX/Graphic Designer
+
+    div(class='row' style='margin-top:5%;')
+        div(class='col-xs-4')
+            div(class='team-circle-cont bio-pic')
+            div(class='member-name') Matt Posorske
+            div(class='member-title') Logo Design
+         div(class='col-xs-4')
+            div(class='team-circle-cont bio-pic')
+            div(class='member-name') Josh Skaller
+            div(class='member-title') Senior Advisor
+         div(class='col-xs-4')
+            div(class='team-circle-cont bio-pic')
+            div(class='member-name') Nick Kaye
+            div(class='member-title') Development Advisor
