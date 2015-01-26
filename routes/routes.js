@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-25 16:58:49
+* @Last Modified time: 2015-01-25 21:20:55
 */
 
 /*jslint node: true */
@@ -133,8 +133,6 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.get('/main', function(req, res) {
 
         session = session || req.session;
-
-        session.loggedIn = 'bencripps1';
 
         var options = getTemplateConfig({   
                 local: path,
