@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 16:30:36
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-25 18:15:26
+* @Last Modified time: 2015-01-27 22:41:31
 */
 
 define('loginService', ['utilities'], function(utilities) {
@@ -17,7 +17,7 @@ define('loginService', ['utilities'], function(utilities) {
         },
         attemptLogin: function(obj, e) {
             e.preventDefault();
-            Array.prototype.forEach.call(document.querySelectorAll('#hgov-login-container input'), function(n) {
+            Array.prototype.forEach.call(document.querySelectorAll('.hgov-login-container input'), function(n) {
                 obj[n.name] = n.value;
             });
             utilities.ajax(obj, 'post', '/login', function(response) {

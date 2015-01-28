@@ -22,7 +22,7 @@ block content
     div(class='row' id='about-middle')
         div(class='col-xs-6')
             img(src='min/images/about-infographic.png' style='width:60%; margin: 10%;')
-        div(class='col-xs-6' style='margin-top:5%; line-height:220%; text-align:left;')
+        div(class='col-xs-6' style='margin-top:5%; text-align:left; padding-bottom: 2%')
             span(style='color:white;text-align:left; font-size:1.25vw;') The technology of <3 Gov is divided into two components: the SMS interface and the backend. The SMS interface is the text message component, which users will interact with in order to communicate their ideas and respond to requests. The back end is a database of the text messages that come in, displayed on a private website accessible to governmental users and community group users.
     
     div(class='row' style='margin-top:5%;')
@@ -40,39 +40,12 @@ block content
         h1 Team Members
 
     div(class='row' style='margin-top:5%;')
-        div(class='col-xs-4')
-            div(class='team-circle-cont bio-pic' id='asher-bio')
-            div(class='social-network-bio')
-                //- a(href='//twitter.com/ashernovek')
-                //-     img(src='min/images/lnk.png')
-                a(href='//twitter.com/ashernovek')
-                    img(src='min/images/twt.png')
-            div(class='member-name') Asher Novek
-            div(class='member-title') Team Lead
-         div(class='col-xs-4')
-            div(class='team-circle-cont bio-pic' id='ben-bio')
-            div(class='social-network-bio')
-                a(href='//www.facebook.com/bcripps1')
-                    img(src='min/images/lnk.png')
-                a(href='//www.linkedin.com/profile/view?id=56885703')        
-                    img(src='min/images/twt.png')
-            div(class='member-name') Benjamin Cripps
-            div(class='member-title') Application Developer
-         div(class='col-xs-4')
-            div(class='team-circle-cont bio-pic')
-            div(class='member-name') Kamron Robinson
-            div(class='member-title') UX/Graphic Designer
-
-    div(class='row' style='margin-top:5%;')
-        div(class='col-xs-4')
-            div(class='team-circle-cont bio-pic')
-            div(class='member-name') Matt Posorske
-            div(class='member-title') Logo Design
-         div(class='col-xs-4')
-            div(class='team-circle-cont bio-pic')
-            div(class='member-name') Josh Skaller
-            div(class='member-title') Senior Advisor
-         div(class='col-xs-4')
-            div(class='team-circle-cont bio-pic')
-            div(class='member-name') Nick Kaye
-            div(class='member-title') Development Advisor
+        - each member in teamMembers
+            div(class='col-xs-4')
+                div(class='team-circle-cont bio-pic' style="background-image: url(#{member.image}); background-size: #{member.backgroundSize}%")
+                div(class='social-network-bio')
+                    - each network in member.socialNetworks
+                        a(href='#{network.link}')
+                            img(src='#{network.img}')
+                div(class='member-name') #{member.name}
+                div(class='member-title') #{member.title}

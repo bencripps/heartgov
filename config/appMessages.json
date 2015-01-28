@@ -153,5 +153,43 @@
         "messageNotSent": "Sorry, there was an error processing your request. Please try again.",
         "messageSaved": "Messages was saved successfully.",
         "messageNotSaved": "An error occurred trying to save a message" 
+    },
+    "aboutPage": {
+        "teamMembers": [
+            {
+                "name": "Asher Novek",
+                "title": "Team Lead",
+                "image": "/min/images/asher-bio.png",
+                "backgroundSize": "140",
+                "socialNetworks": [
+                    {
+                        "img": "min/images/twt.png",
+                        "link": "//twitter.com/ashernovek"
+                    }
+                ]
+            },
+            {
+                "name": "Benjamin Cripps",
+                "title": "Software Development Lead",
+                "image": "/min/images/ben-bio.png",
+                "backgroundSize": "100",
+                "socialNetworks": [
+                    {
+                        "img": "min/images/lnk.png",
+                        "link": "//linkedin.com/profile/view?id=56885703"
+                    },
+                    {
+                        "img": "min/images/twt.png",
+                        "link": "//twitter.com/itsbencripps"
+                    }
+                ]
+            },
+            {
+                "name": "Kamron Robinson",
+                "title": "UX/Grapic Designer",
+                "image": "",
+                "socialNetworks": []
+            }
+        ]
     }
 }

@@ -2,16 +2,39 @@ extend ./layout
 
 block content
 
-    .container(style="padding-top:40px;")
+    div(class='#{prefix}hero-image' id='signup-hero' style='height:100%;')
+        img(src='min/images/signupform-background.jpg' style='visibility:hidden; width:100%; max-height:1280px;')
+        table(style='bottom:10')
+            tr 
+                td
+                    h2 Welcome back.
 
-        div(id='#{prefix}login-container')
-                input(type='text' class='input-sm #{prefix}login-input' placeholder='email address' name='username')
-                input(type='password' class='input-sm #{prefix}login-input' placeholder='password' name='password')
-                button(class='btn btn-sm btn-success' id='main-login') login
-
-        div
-            span Don't have an account?
-            
-        div
-            span
-                a(href='/signup') Signup
+            tr
+                td
+                    h1(style='font-weight:lighter;') See what people are saying in your neighborhood
+            tr 
+                td(class='#{prefix}login-container')
+                    div(class='form-group') 
+                        div(class='input-group #{prefix}form-group')
+                            div(class='input-group-addon #{prefix}form-label') username
+                            input(type='text' name='username' class='form-control input-sm')
+                        span(class='help-block #{prefix}help-block') this field is required!    
+                    
+            tr 
+                td(class='#{prefix}login-container')
+                    div(class='form-group') 
+                        div(class='input-group #{prefix}form-group')
+                            div(class='input-group-addon #{prefix}form-label') username
+                            input(type='password' name='password' class='form-control input-sm')
+                        span(class='help-block #{prefix}help-block') this field is required!  
+            tr 
+                td(style='text-align:left;')
+                    button(class='btn btn-sm btn-success' id='main-login') login
+            tr 
+                td 
+                    div
+                        span Don't have an account?
+                        
+                    div
+                        span
+                            a(href='/signup') Signup

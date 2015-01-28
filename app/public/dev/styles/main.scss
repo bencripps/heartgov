@@ -54,6 +54,10 @@ a:link, a:hover {
     background-image: url("/min/images/about-hero.jpg");
 }
 
+#signup-hero {
+    background-image: url("/min/images/signupform-background.jpg");
+}
+
 .#{$prefix}-hero-image {
     background-size: contain;
     background-repeat: no-repeat;
@@ -204,16 +208,6 @@ a:link, a:hover {
     font-size: 1.25vw;
 }
 
-#asher-bio  {
-    background-image: url("/min/images/asher-bio.png");
-    background-size: 140%;
-}
-
-#ben-bio  {
-    background-image: url("/min/images/ben-bio.png");
-    background-size: 100%;
-}
-
 .social-network-bio {
     margin-top: -8%;
     a img {
@@ -227,6 +221,40 @@ a:link, a:hover {
     background-position:center;
     background-repeat: no-repeat;
     z-index: -1;
+}
+
+//faq 
+
+#faq-header {
+    background-color: $primary-blue;
+    img {
+        width: 18%;
+    }
+
+    h1 {
+        color: white;
+        font-weight: bold;
+        font-size: 5vw;
+    }
+}
+
+.triangle-down{
+    width: 100%;
+    height: 0;
+    padding-left:25%;
+    padding-top: 25%;
+    overflow: hidden;
+    margin-top: -10px;
+}
+.triangle-down div {
+    width: 0;
+    height: 0;
+    margin-left:-500px;
+    margin-top:-500px;
+    
+    border-left: 400px solid transparent;
+    border-right: 400px solid transparent;
+    border-top: 400px solid #4679BD;
 }
 
 .#{$prefix}-primary-button {
@@ -393,25 +421,4 @@ a:link, a:hover {
 
 .#{$prefix}-expand:hover {
     color: #419641;
-}
-
-##{$prefix}-login-container {
-    @media screen and (min-width: $mobile) {
-        margin-top: -40px;
-    }
-    input, button {
-        margin: 5px;
-    }
-
-    button {
-        margin-top: 2px;
-    }
-}
-
-@media screen and (min-width: $mobile) {
-
-    #main-hero {
-        font-size: 10px;
-    }
-        
 }

@@ -29,6 +29,9 @@ a:link, a:hover {
 #about-hero {
   background-image: url("/min/images/about-hero.jpg"); }
 
+#signup-hero {
+  background-image: url("/min/images/signupform-background.jpg"); }
+
 .hgov-hero-image {
   background-size: contain;
   background-repeat: no-repeat;
@@ -141,14 +144,6 @@ a:link, a:hover {
 .member-title {
   font-size: 1.25vw; }
 
-#asher-bio {
-  background-image: url("/min/images/asher-bio.png");
-  background-size: 140%; }
-
-#ben-bio {
-  background-image: url("/min/images/ben-bio.png");
-  background-size: 100%; }
-
 .social-network-bio {
   margin-top: -8%; }
   .social-network-bio a img {
@@ -160,6 +155,32 @@ a:link, a:hover {
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1; }
+
+#faq-header {
+  background-color: #1F6BD1; }
+  #faq-header img {
+    width: 18%; }
+  #faq-header h1 {
+    color: white;
+    font-weight: bold;
+    font-size: 5vw; }
+
+.triangle-down {
+  width: 100%;
+  height: 0;
+  padding-left: 25%;
+  padding-top: 25%;
+  overflow: hidden;
+  margin-top: -10px; }
+
+.triangle-down div {
+  width: 0;
+  height: 0;
+  margin-left: -500px;
+  margin-top: -500px;
+  border-left: 400px solid transparent;
+  border-right: 400px solid transparent;
+  border-top: 400px solid #4679BD; }
 
 .hgov-primary-button {
   background-color: #1F6BD1;
@@ -284,16 +305,3 @@ hgov-main-table td {
 
 .hgov-expand:hover {
   color: #419641; }
-
-@media screen and (min-width: 800px) {
-  #hgov-login-container {
-    margin-top: -40px; } }
-#hgov-login-container input, #hgov-login-container button {
-  margin: 5px; }
-#hgov-login-container button {
-  margin-top: 2px; }
-
-@media screen and (min-width: 800px) {
-  #main-hero {
-    font-size: 10px; }
- }
