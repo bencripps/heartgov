@@ -1,8 +1,17 @@
 extend ./layout
 
 block content
-    div(id='faq-header')
+    div(class='faq-header')
         img(src='min/images/thought-bubble.png')
         h1 Text (718) 514-6118
-    //- div(class='triangle-down')
-    //-     div
+    div
+        img(src='min/images/iphonefull.png' style='margin-top:-10%; width:50%')
+
+    div 
+        h2 Frequently Asked Questions
+
+     div(class='faq-header')
+        - for question in faq
+            div(class='question')
+                h2(class='title') #{question.label}
+                p(class='content') #{question.content}

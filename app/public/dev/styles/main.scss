@@ -225,8 +225,10 @@ a:link, a:hover {
 
 //faq 
 
-#faq-header {
+.faq-header {
     background-color: $primary-blue;
+    padding: 10%;
+
     img {
         width: 18%;
     }
@@ -235,6 +237,22 @@ a:link, a:hover {
         color: white;
         font-weight: bold;
         font-size: 5vw;
+    }
+
+    .question {
+        color: $white;
+        text-align: left;
+        padding: 2%;
+
+        .title {
+            font-size:2vw;
+            font-weight: bold;
+            margin-bottom: 3%;
+        }
+
+        .content {
+            font-size:1.4vw;
+        }
     }
 }
 

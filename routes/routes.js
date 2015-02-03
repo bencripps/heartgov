@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-02 18:59:17
+* @Last Modified time: 2015-02-02 20:41:08
 */
 
 /*jslint node: true */
@@ -106,7 +106,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         res.render('faq', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn 
+            loggedIn: session.loggedIn,
+            faq: appMessages.faqPage.questions
         }));
 
     });
