@@ -16,7 +16,7 @@ module.exports = {
     // Production settings
     prod: {
         options: {
-            outputStyle: 'nested',
+            outputStyle: 'compressed',
             sourceMap: false
         },
         files: [{

@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-23 22:43:42
+* @Last Modified time: 2015-02-02 19:05:15
 */
 
 define('utilities', function(){
@@ -40,6 +40,12 @@ define('utilities', function(){
         resetState: function(selector) {
             Array.prototype.forEach.call(document.querySelectorAll(selector), function(n) {
                 n.style.display = 'none';
+            });
+        },
+        preloadImages: function() {
+            Array.prototype.forEach.call(document.querySelectorAll('#all-image-src span'), function(n) {
+                var img = document.createElement('img');
+                img.src = n.innerHTML;
             });
         },
         fixpolygon: function() {

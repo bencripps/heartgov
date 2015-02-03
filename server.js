@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2014-12-01 10:10:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 09:42:56
+* @Last Modified time: 2015-02-02 18:29:10
 */
 
 /*jslint node: true */
@@ -25,6 +25,9 @@ var express = require('express'),
         secure: true, 
         maxAge: 6000
     },
+    staticPaths = {
+        img: 'app/public/min/images'
+    },
     accountSID = process.env.accountSID,
     authToken = process.env.authToken,
     twilio = require('twilio')(accountSID, authToken),
@@ -44,7 +47,7 @@ app.use(bodyParser.json());
 
 app.use(session(sessionOptions));
 
-require('./routes/routes.js')(app, env, fs, url, path(env), database, mongoose, appMessages, twilio);
+require('./routes/routes.js')(app, env, fs, url, path(env), database, mongoose, appMessages, twilio, staticPaths);
 
 app.listen(app.get('port'), function() {
     console.log('This app is running in ' + env + ' mode, on port ' + app.get('port'));

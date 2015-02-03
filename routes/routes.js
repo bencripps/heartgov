@@ -2,18 +2,20 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-02 16:44:28
+* @Last Modified time: 2015-02-02 18:59:17
 */
 
 /*jslint node: true */
 
-module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio) {
+module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
     'use strict';
  
     var format = require('../config/format')(path),
         shortid = require('../config/generateId'),
         indexScripts = ['/scripts/views/loginView.js'],
         adminCreateScripts = ['/scripts/views/createUserView.js'],
+        preloader = require('../config/preloader')(staticPaths),
+        allImages,
         mainScripts = ['/scripts/views/mainView.js'],
         myAccountScripts = ['/scripts/views/myAccountView.js'],
         sessionManager = require('../config/sessionManager'),
@@ -38,12 +40,15 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
         // sessionManager.set(session, req.session);
 
+        allImages = allImages || preloader.getImages();
+
         session = session || req.session;
 
     	res.render('index', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn 
+            loggedIn: session.loggedIn,
+            allImages: allImages
         }));
 
     });
