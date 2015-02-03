@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-02 20:41:08
+* @Last Modified time: 2015-02-02 21:08:42
 */
 
 /*jslint node: true */
@@ -48,7 +48,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             local: path,
             scripts: format.call(indexScripts),
             loggedIn: session.loggedIn,
-            allImages: allImages
+            allImages: allImages,
+            activeMarker: '/'
         }));
 
     });
@@ -63,7 +64,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             local: path,
             teamMembers: appMessages.aboutPage.teamMembers,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn 
+            loggedIn: session.loggedIn,
+            activeMarker: '/about'
         }));
 
     });
@@ -78,7 +80,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             local: path,
             scripts: format.call(indexScripts),
             loggedIn: session.loggedIn,
-            stories: appMessages.pressPage.stories
+            stories: appMessages.pressPage.stories,
+            activeMarker: '/press'
         }));
 
     });
@@ -92,7 +95,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         res.render('contact', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn 
+            loggedIn: session.loggedIn,
+            activeMarker: '/contact'
         }));
 
     });
@@ -107,7 +111,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             local: path,
             scripts: format.call(indexScripts),
             loggedIn: session.loggedIn,
-            faq: appMessages.faqPage.questions
+            faq: appMessages.faqPage.questions,
+            activeMarker: '/faq'
         }));
 
     });
@@ -121,7 +126,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         res.render('signin', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn 
+            loggedIn: session.loggedIn,
+            activeMarker: '/signin'
         }));
 
     });
@@ -133,7 +139,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         res.render('createUser', getTemplateConfig({   
             local: path,
             scripts: format.call(adminCreateScripts),
-            loggedIn: session.loggedIn 
+            loggedIn: session.loggedIn,
+            activeMarker: '/signin'
         }));
 
     });
@@ -146,7 +153,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
                 local: path,
                 scripts: format.call(mainScripts),
                 loggedIn: session.loggedIn,
-                headers: appMessages.textDistribution.displayFields
+                headers: appMessages.textDistribution.displayFields,
+                activeMarker: '/main'
             }),
             localPath = session.loggedIn ? 'main' : 'unauthorized';
 
@@ -169,7 +177,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
                     local: path,
                     scripts: format.call(myAccountScripts),
                     loggedIn: session.loggedIn,
-                    userDetails: user
+                    userDetails: user,
+                    activeMarker: '/myaccount'
                 });
                 res.render(localPath, options);             
             });
@@ -180,7 +189,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             options = getTemplateConfig({   
                 local: path,
                 scripts: format.call(indexScripts),
-                loggedIn: session.loggedIn
+                loggedIn: session.loggedIn,
+                activeMarker: '/'
             });
             res.render(localPath, options);
         }

@@ -23,25 +23,25 @@ div
 
             ul(class='nav navbar-nav pull-right')
 
-                li
+                li(class=activeMarker === '/about' ? 'active' : '')
                     a(href='/about') About
 
-                li
+                li(class=activeMarker === '/faq' ? 'active' : '')
                     a(href='/faq') How It Works
 
-                li
+                li(class=activeMarker === '/press' ? 'active' : '')
                     a(href='/press') Press
 
                 if !loggedIn
 
-                    li
+                    li(class=activeMarker === '/signin' ? 'active' : '')
                         a(href='/signin') Sign In
 
                 else 
-                    li 
+                    li(class=activeMarker === '/main' ? 'active' : '')
                         a(href='/main') Main
 
-                    li
+                    li(class=activeMarker === '/myaccount' ? 'active' : '')
                         a(href='/myaccount') My Account
 
                     li
