@@ -154,6 +154,39 @@
         "messageSaved": "Messages was saved successfully.",
         "messageNotSaved": "An error occurred trying to save a message" 
     },
+    "pressPage": { 
+        "stories": [
+            {
+                "img": "/min/images/cortelyou.jpg",
+                "title": "Cortelyou Road Radio Station",
+                "link": "//cortelyouroadradio.tumblr.com/post/92588698694/heartgov-allow-a-way-for-people-and-organizations",
+                "content": "Heartgov allows a way for people and organizations to voice their questions and ideas about the neighborhood."
+            },
+            {
+                "img": "/min/images/nationswell.jpg",
+                "title": "NationSwell",
+                "link": "//nationswell.com/heartgov-gets-simple-text-connect-brooklyn-residents-leaders/'",
+                "content": "For those that don't have Internet access, this tool connects residents and leaders."
+            },{
+                "img": "/min/images/mdc.jpg",
+                "title": "Midwood Development Corporation",
+                "link": "//middev.org/heartgov/",
+                "content": ""
+            },
+            {
+                "img": "/min/images/techpresident.jpg",
+                "title": "Tech President",
+                "link": "//techpresident.com/news/25184/brooklyn-testing-texting-platform-connects-locals-representatives-community-leaders",
+                "content": "In Brooklyn, testing a text platform that connects locals, representatives, and community leaders."
+            },
+            {
+                "img": "/min/images/pace-university.jpg",
+                "title": "Generation Citizen at Pace University",
+                "link": "//gcatpace.tumblr.com/post/95137940263/3gov-is-a-text-message-based-platform-designed-to",
+                "content": ""
+            }
+        ]
+    },
     "aboutPage": {
         "teamMembers": [
             {

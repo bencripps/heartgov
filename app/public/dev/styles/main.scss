@@ -257,6 +257,56 @@ a:link, a:hover {
     border-top: 400px solid #4679BD;
 }
 
+//press page 
+
+#press-background-cover {
+    background-color: $teal;
+    position:relative;
+    top: 0;
+    max-height: 1000px;
+    min-height: 600px;
+}
+
+.story-cover{
+    border: 1px solid $primary-blue;
+    background-color: $primary-blue;
+    color: $white;
+    position: relative;
+    bottom: 0px;
+    left:0px;
+    width:100%;
+    text-align: left;
+    padding: 5%;
+    opacity: 0;
+    transition: opacity .8s;
+
+    h4 {
+        font-weight: bold;
+        font-size: 1.7vw;
+    }
+
+    p {
+        font-size: 1.3vw;
+    }   
+
+    h5 {
+        margin-top: 10%;
+
+        a {
+            font-size: 1.5vw;
+            color: $white;
+        }
+
+        a:hover {
+            color: $teal;
+        }
+    }
+}
+
+.story-cover:hover {
+    opacity:1;
+}
+
 .#{$prefix}-primary-button {
     background-color: $primary-blue;
     color: $white;

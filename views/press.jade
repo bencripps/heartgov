@@ -2,25 +2,26 @@ extend ./layout
 
 block content
 
-    .container
+    div(id='press-background-cover' class='#{prefix}hero-image')
+        table
+                tr
+                    td
+                        img(src='min/images/news-logo.png')
+                        
+                tr 
+                    td
+                        h1 Heartgov in the news!
 
-        h2 follow heart gov in the news
+    div(class='row' style='margin-top:-200px;')
+        - each obj in stories
+            div(class='col-xs-6')
+                div(class='#{prefix}story #{prefix}hero-image' style="background-image:url(#{obj.img});" )
+                    img(src='#{obj.img}' style='visibility:hidden;')
+                    div(class='story-cover')
+                        div
+                            h4 #{obj.title}
 
-            ul(style='margin-top:10px; font-size: 17px;')
+                            p #{obj.content}
 
-                li 
-                    a(href='//techpresident.com/news/25184/brooklyn-testing-texting-platform-connects-locals-representatives-community-leaders')  tech president
-
-                li 
-                    a(href='//gcatpace.tumblr.com/post/95137940263/3gov-is-a-text-message-based-platform-designed-to')  generation citizen at pace university
-
-                li 
-                    a(href='//middev.org/heartgov/')  midwood development corporation
-
-                li 
-                    a(href='//nationswell.com/heartgov-gets-simple-text-connect-brooklyn-residents-leaders/')  nationswell
-
-                li 
-                    a(href='//cortelyouroadradio.tumblr.com/post/92588698694/heartgov-allow-a-way-for-people-and-organizations')  midwood development corporation
-
-                    
+                            h5
+                                a(href="#{obj.link}") Open Story &gt;

@@ -182,6 +182,41 @@ a:link, a:hover {
   border-right: 400px solid transparent;
   border-top: 400px solid #4679BD; }
 
+#press-background-cover {
+  background-color: #5ADED5;
+  position: relative;
+  top: 0;
+  max-height: 1000px;
+  min-height: 600px; }
+
+.story-cover {
+  border: 1px solid #1F6BD1;
+  background-color: #1F6BD1;
+  color: #FFFFFF;
+  position: relative;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  text-align: left;
+  padding: 5%;
+  opacity: 0;
+  transition: opacity 0.8s; }
+  .story-cover h4 {
+    font-weight: bold;
+    font-size: 1.7vw; }
+  .story-cover p {
+    font-size: 1.3vw; }
+  .story-cover h5 {
+    margin-top: 10%; }
+    .story-cover h5 a {
+      font-size: 1.5vw;
+      color: #FFFFFF; }
+    .story-cover h5 a:hover {
+      color: #5ADED5; }
+
+.story-cover:hover {
+  opacity: 1; }
+
 .hgov-primary-button {
   background-color: #1F6BD1;
   color: #FFFFFF;
