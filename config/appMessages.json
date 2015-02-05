@@ -208,41 +208,126 @@
         ]
     },
     "aboutPage": {
-        "teamMembers": [
-            {
-                "name": "Asher Novek",
-                "title": "Team Lead",
-                "image": "/min/images/asher-bio.png",
-                "backgroundSize": "140",
-                "socialNetworks": [
-                    {
-                        "img": "min/images/twt.png",
-                        "link": "//twitter.com/ashernovek"
-                    }
-                ]
-            },
-            {
-                "name": "Benjamin Cripps",
-                "title": "Software Development Lead",
-                "image": "/min/images/ben-bio.png",
-                "backgroundSize": "100",
-                "socialNetworks": [
-                    {
-                        "img": "min/images/lnk.png",
-                        "link": "//linkedin.com/profile/view?id=56885703"
-                    },
-                    {
-                        "img": "min/images/twt.png",
-                        "link": "//twitter.com/itsbencripps"
-                    }
-                ]
-            },
-            {
-                "name": "Kamron Robinson",
-                "title": "UX/Grapic Designer",
-                "image": "",
-                "socialNetworks": []
-            }
-        ]
+        "teamMembers": {
+            "row1": [
+                {
+                    "name": "Asher Novek",
+                    "title": "Team Lead",
+                    "image": "/min/images/asher-bio.png",
+                    "backgroundSize": "140",
+                    "socialNetworks": [
+                        {
+                            "img": "min/images/twt.png",
+                            "link": "//twitter.com/ashernovek"
+                        }
+                    ]
+                },
+                {
+                    "name": "Benjamin Cripps",
+                    "title": "Software Development Lead",
+                    "image": "/min/images/ben-bio.png",
+                    "backgroundSize": "100",
+                    "socialNetworks": [
+                        {
+                            "img": "min/images/lnk.png",
+                            "link": "//linkedin.com/profile/view?id=56885703"
+                        },
+                        {
+                            "img": "min/images/twt.png",
+                            "link": "//twitter.com/itsbencripps"
+                        }
+                    ]
+                },
+                {
+                    "name": "Kamron Robinson",
+                    "title": "UX/Grapic Designer",
+                    "image": "",
+                    "socialNetworks": [
+                        {
+                            "img": "min/images/twt.png",
+                            "link": "//twitter.com/ashernovek"
+                        }
+                    ]
+                }
+            ],
+            "row2": [
+                {
+                    "name": "Nick Kaye",
+                    "title": "Consultant",
+                    "image": "/min/images/nickkaye.jpg",
+                    "backgroundSize": "140",
+                    "socialNetworks": [
+                        {
+                            "img": "min/images/twt.png",
+                            "link": "//twitter.com/ashernovek"
+                        }
+                    ]
+                },
+                {
+                    "name": "Matthew Posorske",
+                    "title": "Logo Design",
+                    "image": "/min/images/mattp.jpg",
+                    "backgroundSize": "140",
+                    "socialNetworks": [
+                        {
+                            "img": "min/images/twt.png",
+                            "link": "//www.mattposorske.com/"
+                        }
+                    ]
+                },
+                {
+                    "name": "Nick Johnson",
+                    "title": "Twilio Consultant ",
+                    "image": "/min/images/nickjohnson.jpg",
+                    "backgroundSize": "100",
+                    "socialNetworks": [
+                        {
+                            "img": "min/images/twt.png",
+                            "link": "//nickkaye.com"
+                        }
+                    ]
+                }
+            ]
+        },
+        "keyAdvisors": { 
+            "row1": [
+                {
+                    "name": "Despina Papadopoulos",
+                    "title": "",
+                    "image": "/min/images/despina.png",
+                    "backgroundSize": "110",
+                    "socialNetworks": [
+                        {
+                            "img": "min/images/twt.png",
+                            "link": "//www.principleddesign.org/"
+                        }
+                    ]
+                },
+                {
+                    "name": "Gianpaolo Baiocchi",
+                    "title": "",
+                    "image": "/min/images/baiocchi.jpg",
+                    "backgroundSize": "110",
+                    "socialNetworks": [
+                        {
+                            "img": "min/images/twt.png",
+                            "link": "//urbandemos.nyu.edu/"
+                        }
+                    ]
+                },
+                {
+                    "name": "Desiree Matel-Anderson",
+                    "title": "",
+                    "image": "/min/images/desi.png",
+                    "backgroundSize": "110",
+                    "socialNetworks": [
+                        {
+                            "img": "min/images/twt.png",
+                            "link": "//fieldinnovationteam.org/"
+                        }
+                    ]
+                }
+            ]
+        }
     }
 }
