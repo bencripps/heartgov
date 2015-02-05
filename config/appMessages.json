@@ -190,8 +190,8 @@
     "faqPage": {
         "questions": [
             {
-                "label": "Where should i use <3 Gov?",
-                "content": "For the purposes of this pilot, I want to keep the testing zone to areas of Flatbush, Crown Heights, Midwood, and Prospect Heights. This map shows the general area of testing for now. If you live outside of the designated area, you can still text in your ideas! But the community groups and elected officials who are using the platform are within this zone, so you may not get a quick response if you live outside."
+                "label": "Community Members",
+                "content": ""
             },
             {
                 "label": "What can I text in?",
