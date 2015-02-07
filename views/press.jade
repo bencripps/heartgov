@@ -16,13 +16,14 @@ block content
         div(class='row' style='margin-top:-200px;')
             - each obj in stories
                 div(class='col-xs-6')
-                    div(class='#{prefix}story #{prefix}hero-image' style="background-image:url(#{obj.img});" )
+                    div(class='#{prefix}story #{prefix}hero-image' style="background-image:url(#{obj.img});")
                         img(src='#{obj.img}' style='visibility:hidden;')
-                        div(class='story-cover')
-                            div
-                                h4 #{obj.title}
+                        div(class='story-overlay')
+                            div(class='story-cover')
+                                div
+                                    h4 #{obj.title}
 
-                                p #{obj.content}
+                                    p #{obj.content}
 
-                                h5
-                                    a(href="#{obj.link}") Open Story &gt;
+                                    h5
+                                        a(href="#{obj.link}") Open Story &gt;

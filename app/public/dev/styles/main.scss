@@ -284,17 +284,28 @@ a:link, a:hover {
     min-height: 600px;
 }
 
+.story-overlay {
+    position:absolute; 
+    top: 0; 
+    height:100%; 
+    width:100%; 
+    opacity: 0;
+    transition: opacity .8s;
+}
+
+.story-overlay:hover {
+    opacity:1;
+}
+
 .story-cover{
     border: 1px solid $primary-blue;
     background-color: $primary-blue;
     color: $white;
-    position: relative;
-    left:0px;
     width:100%;
     text-align: left;
     padding: 5%;
-    opacity: 0;
-    transition: opacity .8s;
+    position:absolute; 
+    bottom:0;
 
     h4 {
         font-weight: bold;
@@ -317,10 +328,6 @@ a:link, a:hover {
             color: $teal;
         }
     }
-}
-
-.story-cover:hover {
-    opacity:1;
 }
 
 .active {

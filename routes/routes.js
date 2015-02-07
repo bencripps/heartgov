@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-07 12:30:03
+* @Last Modified time: 2015-02-07 12:33:29
 */
 
 /*jslint node: true */
@@ -18,7 +18,6 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         allImages,
         mainScripts = ['/scripts/views/mainView.js'],
         myAccountScripts = ['/scripts/views/myAccountView.js'],
-        session = {},
         loggedInUsers = [],
         sessionManager = require('../userAuth/sessionManager')(shortid, loggedInUsers),
         schemas = {
