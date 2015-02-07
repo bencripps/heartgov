@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-04 20:31:47
+* @Last Modified time: 2015-02-07 12:30:03
 */
 
 /*jslint node: true */
@@ -18,8 +18,9 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         allImages,
         mainScripts = ['/scripts/views/mainView.js'],
         myAccountScripts = ['/scripts/views/myAccountView.js'],
-        sessionManager = require('../config/sessionManager'),
         session = {},
+        loggedInUsers = [],
+        sessionManager = require('../userAuth/sessionManager')(shortid, loggedInUsers),
         schemas = {
             admin: require('../models/adminSchema'),
             text: require('../models/textSchema'),
@@ -38,16 +39,12 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.get('/', function(req, res) {
 
-        // sessionManager.set(session, req.session);
-
         allImages = allImages || preloader.getImages();
-
-        session = session || req.session;
 
     	res.render('index', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn,
+            currentUser: sessionManager.getLoggedInUser(req.sessionID),
             allImages: allImages,
             activeMarker: '/'
         }));
@@ -56,15 +53,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.get('/about', function(req, res) {
 
-        // sessionManager.set(session, req.session);
-
-        session = session || req.session;
-
         res.render('about', getTemplateConfig({   
             local: path,
             team: appMessages.aboutPage,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn,
+            currentUser: sessionManager.getLoggedInUser(req.sessionID),
             activeMarker: '/about'
         }));
 
@@ -72,15 +65,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
      app.get('/press', function(req, res) {
 
-        // sessionManager.set(session, req.session);
-
-        session = session || req.session;
-
         res.render('press', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn,
             stories: appMessages.pressPage.stories,
+            currentUser: sessionManager.getLoggedInUser(req.sessionID),
             activeMarker: '/press'
         }));
 
@@ -88,14 +77,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.get('/contact', function(req, res) {
 
-        // sessionManager.set(session, req.session);
-
-        session = session || req.session;
-
         res.render('contact', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn,
+            currentUser: sessionManager.getLoggedInUser(req.sessionID),
             activeMarker: '/contact'
         }));
 
@@ -103,14 +88,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.get('/faq', function(req, res) {
 
-        // sessionManager.set(session, req.session);
-
-        session = session || req.session;
-
         res.render('faq', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn,
+            currentUser: sessionManager.getLoggedInUser(req.sessionID),
             faq: appMessages.faqPage.questions,
             activeMarker: '/faq'
         }));
@@ -119,14 +100,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.get('/signin', function(req, res) {
 
-        // sessionManager.set(session, req.session);
-
-        session = session || req.session;
-
         res.render('signin', getTemplateConfig({   
             local: path,
             scripts: format.call(indexScripts),
-            loggedIn: session.loggedIn,
+            currentUser: sessionManager.getLoggedInUser(req.sessionID),
             activeMarker: '/signin'
         }));
 
@@ -134,29 +111,25 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.get('/signup', function(req, res) {
 
-        session = session || req.session;
-
         res.render('createUser', getTemplateConfig({   
             local: path,
             scripts: format.call(adminCreateScripts),
-            loggedIn: session.loggedIn,
+            currentUser: sessionManager.getLoggedInUser(req.sessionID),
             activeMarker: '/signin'
         }));
 
     });
 
-    app.get('/main', function(req, res) {
-
-        session = session || req.session;
+    app.get('/database', function(req, res) {
 
         var options = getTemplateConfig({   
                 local: path,
                 scripts: format.call(mainScripts),
-                loggedIn: session.loggedIn,
+                currentUser: sessionManager.getLoggedInUser(req.sessionID),
                 headers: appMessages.textDistribution.displayFields,
-                activeMarker: '/main'
+                activeMarker: '/database'
             }),
-            localPath = session.loggedIn ? 'main' : 'unauthorized';
+            localPath = sessionManager.isLoggedIn(req.sessionID) ? 'database' : 'unauthorized';
 
         res.render(localPath, options);
 
@@ -167,16 +140,14 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         var options,
             localPath;
 
-        session = session || req.session;
+        if (sessionManager.isLoggedIn(req.sessionID)) {
 
-        if (session.loggedIn) {
-
-            myAccount.getUser(session.loggedIn).then(function(user, err){
+            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user, err){
                 localPath = 'myaccount';
                 options = getTemplateConfig({   
                     local: path,
                     scripts: format.call(myAccountScripts),
-                    loggedIn: session.loggedIn,
+                    currentUser: sessionManager.getLoggedInUser(req.sessionID),
                     userDetails: user,
                     activeMarker: '/myaccount'
                 });
@@ -189,7 +160,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             options = getTemplateConfig({   
                 local: path,
                 scripts: format.call(indexScripts),
-                loggedIn: session.loggedIn,
+                currentUser: sessionManager.getLoggedInUser(req.sessionID),
                 activeMarker: '/'
             });
             res.render(localPath, options);
@@ -210,6 +181,15 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
+    app.get('*', function(req, res){
+        res.render('pageNotFound', getTemplateConfig({   
+            local: path,
+            scripts: format.call(indexScripts),
+            currentUser: sessionManager.getLoggedInUser(req.sessionID),
+            activeMarker: ''
+        }));
+    });
+
     app.post('/edit/account', function(req,res){
         myAccount.updateAccount(req.body, res);
     });
@@ -219,11 +199,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.post('/login', function(req, res) {
-        loginService.validate(req.body, res, session);
+        loginService.validate(req.body, res, req);
     });
 
     app.post('/logout', function(req, res) {
-        session = req.session;
+        sessionManager.logout(req.sessionID);
         res.send({result: appMessages.loginMessages.loggedOut, code: 1});
     });
 

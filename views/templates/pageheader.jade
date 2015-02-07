@@ -1,5 +1,5 @@
 div
-
+    -var isLoggedIn = currentUser != false
     nav(class='navbar navbar-default')
         div(class='container-fluid')
             div(class='navbar-header')
@@ -32,14 +32,14 @@ div
                 li(class=activeMarker === '/press' ? 'active' : '')
                     a(href='/press') Press
 
-                if !loggedIn
+                if !isLoggedIn
 
                     li(class=activeMarker === '/signin' ? 'active' : '')
                         a(href='/signin') Sign In
 
                 else 
-                    li(class=activeMarker === '/main' ? 'active' : '')
-                        a(href='/main') Main
+                    li(class=activeMarker === '/database' ? 'active' : '')
+                        a(href='/database') Database
 
                     li(class=activeMarker === '/myaccount' ? 'active' : '')
                         a(href='/myaccount') My Account

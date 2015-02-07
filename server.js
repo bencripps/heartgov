@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2014-12-01 10:10:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-02 18:29:10
+* @Last Modified time: 2015-02-07 08:11:01
 */
 
 /*jslint node: true */
@@ -17,6 +17,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     database = require('./config/database'),
     appMessages = require('./config/appMessages'),
+    cookieParser = require('cookie-parser'),
     session = require('express-session'),
     sessionOptions = {
         secret: process.env.sessionKey,
@@ -44,6 +45,8 @@ app.set('view engine', 'jade');
 app.use(express.static('app/public'));
 
 app.use(bodyParser.json());
+
+app.use(cookieParser('my secret here'));
 
 app.use(session(sessionOptions));
 
