@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-25 17:06:23
+* @Last Modified time: 2015-02-08 11:42:57
 */
 
 /*jslint node: true */
@@ -16,7 +16,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
         },
         categories: Object.keys(appMessages.displayFields),
         execute: function(filter) {
-            return TextSchema.find().sort(filter).exec();
+            return TextSchema.find({'textInformation.visible': true}).sort(filter).exec();
         },
         getTextObjectValues: function(text, name) {
              
@@ -54,6 +54,9 @@ module.exports = function(mongoose, TextSchema, appMessages) {
             server.send({result: ret, displayTemplate: appMessages.displayBarTemplate, innerLayoutTemplate: appMessages.innerLayoutTemplate });
 
         },
+        textSuccessfullyDeleted: function(server) {
+            server.send({result: appMessages.textSuccessfullyDeteted, code: appMessages.successCode});
+        },
         utils: {
             dbError: function(server, err) {
                 console.log('Error!', err);
@@ -61,6 +64,9 @@ module.exports = function(mongoose, TextSchema, appMessages) {
             },
             capFirstLetter: function(str){
                 return str.charAt(0).toUpperCase() + str.slice(1);
+            },
+            deleteText: function(id, server) {
+                TextSchema.findOneAndUpdate({_id: id}, {'textInformation.visible': false}, textDistributor.textSuccessfullyDeleted.bind(this, server), this.dbError.bind(this,server));
             }
         }
     };

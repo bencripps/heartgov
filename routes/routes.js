@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-07 17:55:02
+* @Last Modified time: 2015-02-08 11:40:03
 */
 
 /*jslint node: true */
@@ -215,6 +215,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.post('/find/texts', function(req, res) {
         textDistributor.findTextsBy(req.body, res);
+    });
+
+    app.post('/delete/text', function(req, res) {
+        textDistributor.utils.deleteText(req.body.id, res);
     });
 
     app.post('/login', function(req, res) {

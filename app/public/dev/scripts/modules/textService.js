@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-07 17:49:17
+* @Last Modified time: 2015-02-08 15:46:47
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -62,11 +62,20 @@ define('textService', ['utilities'], function(utilities) {
             document.getElementsByName('content')[0].value = '';
             textService.currentText = data;
         },
+        showDeleteModal: function(data) {
+            var response = {result: 'Are you sure you\'d like to delete this text?'},
+                deleteButton =document.querySelector('.hgov-modal-text-delete');
+
+            deleteButton.style.display = '';
+
+            deleteButton.removeEventListener('click', utilities.ajax);
+            deleteButton.addEventListener('click', utilities.ajax.bind(this, {id: data._id}, 'post', '/delete/text', function(response) {  
+                window.location.reload();
+            }));
+            utilities.showModal(response);
+        },
         showEditModal: function(data) {
             console.log(data);
-        },
-        showDeleteModal: function(data) {
-
         },
         addToGroup: function(data) {
 

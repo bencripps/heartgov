@@ -17,6 +17,8 @@
     "textDistribution": {
         "erorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator.",
         "failCode": 0,
+        "textSuccessfullyDeteted": "This text has been removed from the database.",
+        "successCode": 1,
         "displayBarTemplate": {
             "0": {
                 "type": "td",
