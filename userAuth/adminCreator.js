@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 13:12:37
+* @Last Modified time: 2015-02-07 17:59:02
 */
 
 /*jslint node: true */
@@ -11,14 +11,14 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
     'use strict';
 
     var adminCreator = {
-        init: function(data, server, session) {
-            this.user.checkForUser(data.username).then(this.user.handleAttempt.bind(this, data, server, session), this.utils.dbError.bind(this, server));
+        init: function(data, server, request) {
+            this.user.checkForUser(data.username).then(this.user.handleAttempt.bind(this, data, server, request), this.utils.dbError.bind(this, server));
         },
         user: {
             checkForUser: function(username) {
                 return AdminModel.findOne({'username': username}).exec();
             },
-            handleAttempt: function(data, server, session, result) {
+            handleAttempt: function(data, server, request, result) {
 
                 if (result) {
                     server.send({result: appMessages.accountExists, code: appMessages.failCode});
@@ -29,7 +29,7 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
                 }
                 else {
                     adminCreator.user.addToDB(data, server);
-                    sessionManager.login(session, data.username);
+                    sessionManager.addUserToSession(request, data.username);
                 }
             },
             addToDB: function(data, server) {

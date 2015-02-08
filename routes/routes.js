@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-07 12:33:29
+* @Last Modified time: 2015-02-07 17:55:02
 */
 
 /*jslint node: true */
@@ -121,16 +121,36 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.get('/database', function(req, res) {
 
-        var options = getTemplateConfig({   
-                local: path,
-                scripts: format.call(mainScripts),
-                currentUser: sessionManager.getLoggedInUser(req.sessionID),
-                headers: appMessages.textDistribution.displayFields,
-                activeMarker: '/database'
-            }),
-            localPath = sessionManager.isLoggedIn(req.sessionID) ? 'database' : 'unauthorized';
+        var options,
+            localPath;
 
-        res.render(localPath, options);
+        if (sessionManager.isLoggedIn(req.sessionID)) {
+
+            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user, err){
+                localPath = 'database';
+                options = getTemplateConfig({   
+                    local: path,
+                    scripts: format.call(mainScripts),
+                    currentUser: sessionManager.getLoggedInUser(req.sessionID),
+                    headers: appMessages.textDistribution.displayFields,
+                    userLevel: user.superUser,
+                    activeMarker: '/database',
+                    userDetails: user
+                });
+                res.render(localPath, options);             
+            });
+        }
+
+        else {
+            localPath = 'unauthorized';
+            options = getTemplateConfig({   
+                local: path,
+                scripts: format.call(indexScripts),
+                currentUser: sessionManager.getLoggedInUser(req.sessionID),
+                activeMarker: '/'
+            });
+            res.render(localPath, options);
+        }
 
     });
 
@@ -207,7 +227,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.post('/createUser', function(req, res) {
-        adminCreator.init(req.body, res, session);
+        adminCreator.init(req.body, res, req);
     });
 
     app.post('/send/outgoingText', function(req, res) {

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-25 17:47:02
+* @Last Modified time: 2015-02-07 17:49:17
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -37,10 +37,11 @@ define('textService', ['utilities'], function(utilities) {
             }
         },
         buildTable:function(data){
+            var level = document.querySelector('.hgov-key').innerHTML;
             if (data.result.length > 0) {
                 data.result.forEach(function(row){
                     var template = textService.utils.getTemplate(document.createElement('tr'), row, data.displayTemplate, row._id),
-                        innerLayout = textService.utils.getInnerLayout(document.createElement('tr'), row, data.innerLayoutTemplate);
+                        innerLayout = textService.utils.getInnerLayout(document.createElement('tr'), row, data.innerLayoutTemplate, level);
             
                     textService.newTable.querySelector('tbody').appendChild(template);
                     textService.newTable.querySelector('tbody').appendChild(innerLayout);
@@ -71,14 +72,14 @@ define('textService', ['utilities'], function(utilities) {
 
         },
         utils: {
-            getInnerLayout: function(row, data, obj) {
+            getInnerLayout: function(row, data, obj, level) {
                 Object.keys(obj).forEach(function(k) {
                     var el = document.createElement(obj[k].type);
                     el.className = obj[k].className;
                     el.colSpan = obj[k].colSpan;
 
                     if (obj[k].hasOwnProperty('innerHTML')) {
-                        textService.utils.getTextUtilButtons(el, data);
+                        textService.utils.getTextUtilButtons(el, data, level);
                     }
 
                     else {
@@ -100,7 +101,7 @@ define('textService', ['utilities'], function(utilities) {
                 th.innerHTML = text;
                 return th;
             },
-            getTextUtilButtons: function(el, data) {
+            getTextUtilButtons: function(el, data, level) {
                 var respContainer = document.createElement('div'),
                     detailsContainer = document.createElement('div'),
                     deleteContainer = document.createElement('div'),
@@ -136,9 +137,12 @@ define('textService', ['utilities'], function(utilities) {
                 groupContainer.appendChild(groupButton);
 
                 el.appendChild(respContainer);
-                el.appendChild(detailsContainer);
-                el.appendChild(groupContainer);
-                el.appendChild(deleteContainer);
+                /*jslint evil: true */
+                if (eval(level)){
+                    el.appendChild(detailsContainer);
+                    el.appendChild(groupContainer);
+                    el.appendChild(deleteContainer);
+                }
             },
             getTemplate: function(row, data, obj, id) {
                 Object.keys(obj).forEach(function(k) {

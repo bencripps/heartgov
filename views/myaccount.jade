@@ -13,8 +13,13 @@ block content
                     div(class='input-group #{prefix}form-group')
                         div(class='input-group-addon #{prefix}form-label') username
                         input(type='text' name='username' class='form-control input-sm #{prefix}disabled' disabled='' value='#{userDetails.username}')
-                    span(class='help-block #{prefix}help-block') this field is required!
-            
+    
+            div
+                div(class='form-group') 
+                    div(class='input-group #{prefix}form-group')
+                        div(class='input-group-addon #{prefix}form-label') account level
+                        input(type='text' name='accountLevel' class='form-control input-sm #{prefix}disabled' disabled='' value=userDetails.superUser ? 'administrator' : 'user')
+
             div
                 div(class='form-group') 
                     div(class='input-group #{prefix}form-group')

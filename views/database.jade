@@ -5,7 +5,7 @@ block content
     .container
         
         h3 welcome to heart gov login area
-
+        span(class='hgov-key' style='display: none;') #{userLevel}
         table(class="table table-bordered table-striped" id="#{prefix}main-table")
             th(style="text-align:center;" colspan="10") all texts
             tr(id='no-texts' style='display: none;') 

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 14:08:04
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-23 22:43:32
+* @Last Modified time: 2015-02-07 17:52:59
 */
 
 define('signUpService', ['utilities'], function(utilities) {
@@ -57,7 +57,7 @@ define('signUpService', ['utilities'], function(utilities) {
 
                 utilities.ajax(signUpService.getFormValues(), 'post', '/createUser', function(response) { 
                     utilities.showModal(response);
-                    if (response.code > 0) setTimeout(utilities.redirect.bind(this, '/main'), 3000);
+                    if (response.code > 0) setTimeout(utilities.redirect.bind(this, '/database'), 3000);
                 });
 
             }
