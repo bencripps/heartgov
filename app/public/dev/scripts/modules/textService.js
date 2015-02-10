@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-08 15:46:47
+* @Last Modified time: 2015-02-09 22:07:29
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -78,7 +78,8 @@ define('textService', ['utilities'], function(utilities) {
             console.log(data);
         },
         addToGroup: function(data) {
-
+            document.querySelector('.hgov-group-modal input').value = data.phoneNumber;
+            $('.hgov-group-modal').modal();
         },
         utils: {
             getInnerLayout: function(row, data, obj, level) {

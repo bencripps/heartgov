@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-08 11:40:03
+* @Last Modified time: 2015-02-09 21:35:22
 */
 
 /*jslint node: true */
@@ -14,6 +14,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         shortid = require('../config/generateId'),
         indexScripts = ['/scripts/views/loginView.js'],
         adminCreateScripts = ['/scripts/views/createUserView.js'],
+        groupsScripts = ['/scripts/views/mainView.js'],
         preloader = require('../config/preloader')(staticPaths),
         allImages,
         mainScripts = ['/scripts/views/mainView.js'],
@@ -21,10 +22,12 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         loggedInUsers = [],
         sessionManager = require('../userAuth/sessionManager')(shortid, loggedInUsers),
         schemas = {
-            admin: require('../models/adminSchema'),
-            text: require('../models/textSchema'),
-            user: require('../models/userSchema') 
+            admin: require('../models/adminSchema')(mongoose),
+            text: require('../models/textSchema')(mongoose),
+            user: require('../models/userSchema')(mongoose),
+            groups: require('../models/groupSchema')(mongoose),
         },
+        groupManager = require('../groups/groupManager')(mongoose, schemas.groups, appMessages),
         nodemailer = require('nodemailer'),
         mailSender = require('../mailer/mailer')(nodemailer, schemas.admin, appMessages.mailMessages),
         twilioWrapper = require('../sms/twilioWrapper')(twilio, appMessages.twilio, schemas),
@@ -85,6 +88,33 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
+     app.get('/groups', function(req, res) {
+
+        if (sessionManager.isLoggedIn(req.sessionID)) {
+
+            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
+                res.render('groups', getTemplateConfig({   
+                    local: path,
+                    scripts: format.call(groupsScripts),
+                    currentUser: sessionManager.getLoggedInUser(req.sessionID),
+                    userLevel: user.superUser,
+                    activeMarker: '/groups',
+                    userDetails: user
+                }));             
+            });
+        }
+
+        else {
+            res.render('unauthorized', getTemplateConfig({   
+                local: path,
+                scripts: format.call(indexScripts),
+                currentUser: sessionManager.getLoggedInUser(req.sessionID),
+                activeMarker: '/'
+            }));
+        }
+
+    });
+
     app.get('/faq', function(req, res) {
 
         res.render('faq', getTemplateConfig({   
@@ -114,21 +144,17 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             local: path,
             scripts: format.call(adminCreateScripts),
             currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            activeMarker: '/signin'
+            activeMarker: ''
         }));
 
     });
 
     app.get('/database', function(req, res) {
 
-        var options,
-            localPath;
-
         if (sessionManager.isLoggedIn(req.sessionID)) {
 
-            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user, err){
-                localPath = 'database';
-                options = getTemplateConfig({   
+            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
+                res.render('database', getTemplateConfig({   
                     local: path,
                     scripts: format.call(mainScripts),
                     currentUser: sessionManager.getLoggedInUser(req.sessionID),
@@ -136,20 +162,17 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
                     userLevel: user.superUser,
                     activeMarker: '/database',
                     userDetails: user
-                });
-                res.render(localPath, options);             
+                }));             
             });
         }
 
         else {
-            localPath = 'unauthorized';
-            options = getTemplateConfig({   
+            res.render('unauthorized', getTemplateConfig({   
                 local: path,
                 scripts: format.call(indexScripts),
                 currentUser: sessionManager.getLoggedInUser(req.sessionID),
                 activeMarker: '/'
-            });
-            res.render(localPath, options);
+            }));
         }
 
     });
@@ -161,7 +184,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
         if (sessionManager.isLoggedIn(req.sessionID)) {
 
-            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user, err){
+            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
                 localPath = 'myaccount';
                 options = getTemplateConfig({   
                     local: path,
@@ -237,6 +260,5 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.post('/send/outgoingText', function(req, res) {
         twilioWrapper.sendOutGoingText(req.body.content, req.body.to, req.body._id, req.body.from, res);
     });
-
    
 };
