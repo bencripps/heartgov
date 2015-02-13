@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:07:34
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-09 21:38:44
+* @Last Modified time: 2015-02-11 19:13:10
 */
 
 /*jslint node: true */
@@ -17,6 +17,7 @@ module.exports = function(mongoose){
             name: String
         },
         associatedPhoneNumbers: [],
+        associatedUsers: [],
         dateCreated: {type: Date, default: new Date()},
         creator: {
             username: String,

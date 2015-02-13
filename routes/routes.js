@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-09 21:35:22
+* @Last Modified time: 2015-02-10 19:41:59
 */
 
 /*jslint node: true */
@@ -14,7 +14,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         shortid = require('../config/generateId'),
         indexScripts = ['/scripts/views/loginView.js'],
         adminCreateScripts = ['/scripts/views/createUserView.js'],
-        groupsScripts = ['/scripts/views/mainView.js'],
+        groupsScripts = ['/scripts/views/groupsView.js'],
         preloader = require('../config/preloader')(staticPaths),
         allImages,
         mainScripts = ['/scripts/views/mainView.js'],

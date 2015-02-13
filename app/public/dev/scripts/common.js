@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 16:58:02
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 12:52:57
+* @Last Modified time: 2015-02-10 19:46:48
 */
 
 'use strict';
@@ -10,7 +10,9 @@
 require.config({
     baseUrl: '/',
     shim: {
-        bootstrap: {deps: ['jquery'] }
+        bootstrap: {
+            deps: ['jquery']
+        }
     },
     paths: {
         jquery: 'vendor/js/jquery.min',
@@ -19,6 +21,7 @@ require.config({
         signUpService: 'dev/scripts/modules/signUpService',
         textService: 'dev/scripts/modules/textService',
         myAccountService: 'dev/scripts/modules/myAccountService',
+        groupsService: 'dev/scripts/modules/groupsService',
         utilities: 'dev/scripts/modules/utilities'
     }
 });

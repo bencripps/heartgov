@@ -13,13 +13,15 @@ html
 
     span(id='#{prefix}user-information') #{currentUser}
 
-    include ./templates/text-reply-modal.jade
+    include ./templates/modal/text-reply-modal.jade
 
     include ./templates/pageheader.jade
 
-    include ./templates/modal.jade
+    include ./templates/modal/modal.jade
 
-    include ./templates/group-modal.jade
+    include ./templates/modal/group-modal.jade
+
+    include ./templates/modal/create-group-modal.jade
 
     div(class="#{prefix}container" style='min-height:470px;')
 

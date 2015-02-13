@@ -1,8 +1,8 @@
 /* 
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
-* @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-09 22:07:29
+* @Last Modified by:   Ben
+* @Last Modified time: 2015-02-11 19:08:57
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -18,7 +18,6 @@ define('textService', ['utilities'], function(utilities) {
         getTexts: function(filter) {
 
         },
-        currentText: null,
         sendOutGoingText: function() {
             var obj = {_id: this.currentText._id};
             var formValues = Array.prototype.forEach.call(document.getElementsByName('out-going-text-form')[0].querySelectorAll('.input-sm'), function(n) {
