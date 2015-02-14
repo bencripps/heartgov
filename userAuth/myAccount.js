@@ -2,11 +2,8 @@
 * @Author: ben_cripps
 * @Date:   2015-01-14 21:19:53
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-17 14:26:18
+* @Last Modified time: 2015-02-14 13:43:59
 */
-
-
-/*jslint node: true */
 
 module.exports = function(AdminModel, hasher, appMessages) {
     'use strict';
@@ -29,7 +26,10 @@ module.exports = function(AdminModel, hasher, appMessages) {
             };
         },
         updateAccount: function(userData, server){
-            AdminModel.findOneAndUpdate({username: userData.username}, this.getNewUserObj(userData), this.accountHasBeenUpdated.bind(this,server), this.errorOccured.bind(this,server));
+            AdminModel
+                .findOneAndUpdate({username: userData.username}, 
+                    this.getNewUserObj(userData), this.accountHasBeenUpdated.bind(this,server), 
+                    this.errorOccured.bind(this,server));
         },
         errorOccured: function(server) {
             server.send({result: appMessages.edit.error});

@@ -2,17 +2,17 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-07 17:59:02
+* @Last Modified time: 2015-02-14 13:43:45
 */
-
-/*jslint node: true */
 
 module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMessages, mailer) {
     'use strict';
 
     var adminCreator = {
         init: function(data, server, request) {
-            this.user.checkForUser(data.username).then(this.user.handleAttempt.bind(this, data, server, request), this.utils.dbError.bind(this, server));
+            this.user.checkForUser(data.username)
+                .then(this.user.handleAttempt.bind(this, data, server, request), 
+                      this.utils.dbError.bind(this, server));
         },
         user: {
             checkForUser: function(username) {
@@ -36,7 +36,9 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
                 var info = adminCreator.getAdminModel(data),
                     model = new AdminModel(info);
 
-                model.save(adminCreator.user.alert.bind(this, server, model), adminCreator.utils.dbError.bind(this, server));
+                model.save(
+                    adminCreator.user.alert.bind(this, server, model), 
+                    adminCreator.utils.dbError.bind(this, server));
             },
             alert: function(server, data) {
                 mailer.sendMail(data.emailAddress, appMessages.newUserMailKey);

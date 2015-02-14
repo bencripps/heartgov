@@ -2,14 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 19:32:26
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-11 17:24:46
+* @Last Modified time: 2015-02-14 13:43:49
 */
 
 'use strict';
-
-/*jslint node: true */
-
-
 
 var hasher = {
     encrpyt: function(password) {

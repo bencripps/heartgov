@@ -2,11 +2,8 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 20:17:49
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-12 20:32:43
+* @Last Modified time: 2015-02-14 13:45:51
 */
-
-/*jslint node: true */
-
 
 module.exports = function(messages, path) {
     'use strict';

@@ -2,10 +2,8 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-10 19:41:59
+* @Last Modified time: 2015-02-14 13:57:30
 */
-
-/*jslint node: true */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
     'use strict';
@@ -27,12 +25,12 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             user: require('../models/userSchema')(mongoose),
             groups: require('../models/groupSchema')(mongoose),
         },
-        groupManager = require('../groups/groupManager')(mongoose, schemas.groups, appMessages),
         nodemailer = require('nodemailer'),
         mailSender = require('../mailer/mailer')(nodemailer, schemas.admin, appMessages.mailMessages),
         twilioWrapper = require('../sms/twilioWrapper')(twilio, appMessages.twilio, schemas),
         hasher = require('../userAuth/hasher'),
         myAccount = require('../userAuth/myAccount')(schemas.admin, hasher, appMessages.myAccountMessages),
+        groupManager = require('../groups/groupManager')(mongoose, myAccount, schemas.groups, shortid, appMessages.groupMessages),
         loginService = require('../userAuth/login')(schemas.admin, hasher, sessionManager, appMessages.loginMessages),
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
         textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender),
@@ -240,8 +238,16 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         textDistributor.findTextsBy(req.body, res);
     });
 
+     app.post('/find/availableGroups', function(req, res) {
+        groupManager.findAvailableGroups(req.body, res);
+    });
+
     app.post('/delete/text', function(req, res) {
         textDistributor.utils.deleteText(req.body.id, res);
+    });
+
+    app.post('/create/group', function(req, res) {
+        groupManager.createGroup(req.body, res);
     });
 
     app.post('/login', function(req, res) {
@@ -260,5 +266,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.post('/send/outgoingText', function(req, res) {
         twilioWrapper.sendOutGoingText(req.body.content, req.body.to, req.body._id, req.body.from, res);
     });
+
+
    
 };

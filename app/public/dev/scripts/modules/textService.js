@@ -1,8 +1,8 @@
 /* 
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
-* @Last Modified by:   Ben
-* @Last Modified time: 2015-02-11 19:08:57
+* @Last Modified by:   ben_cripps
+* @Last Modified time: 2015-02-14 13:52:55
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -14,6 +14,12 @@ define('textService', ['utilities'], function(utilities) {
             utilities.ajax({date: -1}, 'post', '/find/texts', textService.buildTable);
             document.getElementById('send-out-going-text').addEventListener('click', this.sendOutGoingText.bind(this));
             document.addEventListener('keydown', utilities.resetState.bind(this, '.hgov-help-block-reply-form'));
+            this.loadAvailableGroups();
+        },
+        loadAvailableGroups: function() {
+            utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(data){
+                console.log(data);
+            });
         },
         getTexts: function(filter) {
 
@@ -26,7 +32,7 @@ define('textService', ['utilities'], function(utilities) {
             
             if (obj.content) {
                 utilities.ajax(obj, 'post', '/send/outgoingText', function(response){
-                    $('.hgov-reply-modal').modal('hide');
+                    utilities.modalPrompt('textReply', 'hide');
                     utilities.showModal(response);
                 });
             }
@@ -55,15 +61,15 @@ define('textService', ['utilities'], function(utilities) {
             document.getElementById('hide_' + node.id).style.display = current === 'table-row' ? 'none' : 'table-row';
         },
         showRespondModal: function(data) {
-            $('.hgov-reply-modal').modal();
+            utilities.modalPrompt('textReply', 'show');
             document.getElementsByName('to')[0].value = data.phoneNumber;
-            document.getElementsByName('from')[0].value = document.getElementById('hgov-user-information').innerHTML;
+            document.getElementsByName('from')[0].value = utilities.getCurrentUserName();
             document.getElementsByName('content')[0].value = '';
             textService.currentText = data;
         },
         showDeleteModal: function(data) {
             var response = {result: 'Are you sure you\'d like to delete this text?'},
-                deleteButton =document.querySelector('.hgov-modal-text-delete');
+                deleteButton = document.querySelector('.hgov-modal-text-delete');
 
             deleteButton.style.display = '';
 
@@ -78,7 +84,7 @@ define('textService', ['utilities'], function(utilities) {
         },
         addToGroup: function(data) {
             document.querySelector('.hgov-group-modal input').value = data.phoneNumber;
-            $('.hgov-group-modal').modal();
+            utilities.modalPrompt('addPhoneNumberToGroup', 'show');
         },
         utils: {
             getInnerLayout: function(row, data, obj, level) {

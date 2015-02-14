@@ -2,15 +2,11 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 17:35:56
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-08 15:52:38
+* @Last Modified time: 2015-02-14 13:44:06
 */
 
-/*jslint node: true */
-
-'use strict';
-
 module.exports = function(shortId, loggedInUsers) {
-
+    'use strict';
     var sessionManager = {
         logout: function(sessionId) {
             var user = loggedInUsers.map(function(ob){return ob.key;}).indexOf(sessionId);

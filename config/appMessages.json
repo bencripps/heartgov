@@ -14,6 +14,11 @@
             "body": "As a heartgov user with administrator access, you are being notified that heartgov received a message. Please login for more details."
         }
     },
+    "groupMessages": {
+        "groupNameAlreadyExists": "That group name already exists. Please try a new name.",
+        "groupSuccessfullyCreated": "You group has been successfully created! You can now add numbers to this group.",
+        "errorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator."
+    },
     "textDistribution": {
         "erorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator.",
         "failCode": 0,

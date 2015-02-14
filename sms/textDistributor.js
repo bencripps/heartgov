@@ -2,17 +2,18 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-08 11:42:57
+* @Last Modified time: 2015-02-14 13:44:16
 */
-
-/*jslint node: true */
 
 module.exports = function(mongoose, TextSchema, appMessages) {
     'use strict';
 
     var textDistributor = {
         findTextsBy: function(filter, server) {
-            this.execute(filter).then( this.returnTexts.bind(this, server), this.utils.dbError.bind(this, server));
+            this.execute(filter)
+                .then( 
+                    this.returnTexts.bind(this, server), 
+                    this.utils.dbError.bind(this, server));
         },
         categories: Object.keys(appMessages.displayFields),
         execute: function(filter) {
@@ -66,7 +67,10 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                 return str.charAt(0).toUpperCase() + str.slice(1);
             },
             deleteText: function(id, server) {
-                TextSchema.findOneAndUpdate({_id: id}, {'textInformation.visible': false}, textDistributor.textSuccessfullyDeleted.bind(this, server), this.dbError.bind(this,server));
+                TextSchema.findOneAndUpdate({_id: id}, 
+                    {'textInformation.visible': false}, 
+                    textDistributor.textSuccessfullyDeleted.bind(this, server), 
+                    this.dbError.bind(this,server));
             }
         }
     };

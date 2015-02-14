@@ -2,10 +2,8 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-01-25 17:04:47
+* @Last Modified time: 2015-02-14 13:44:18
 */
-
-/*jslint node: true */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer) {
     'use strict';
@@ -16,11 +14,13 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
             mailer.sendMailtoSuperUsers('newTextReceived');
 
             if (this.user.hasTrackingNumber(message.body)) {
-                this.utils.findText('textInformation.trackingNumber', this.utils.getId(message.body)).then(this.responder.withTrackingNumber.bind(this, message, twilioWrapper));
+                this.utils.findText('textInformation.trackingNumber', this.utils.getId(message.body))
+                    .then(this.responder.withTrackingNumber.bind(this, message, twilioWrapper));
             }
 
             else {
-                this.user.isNewOrOldTexter(message.from).then(this.responder.withoutTrackingNumber.bind(this, message, twilioWrapper));
+                this.user.isNewOrOldTexter(message.from)
+                    .then(this.responder.withoutTrackingNumber.bind(this, message, twilioWrapper));
             }
         },
         responder: {

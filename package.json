@@ -2,6 +2,10 @@
   "name": "heart-breezy",
   "version": "0.0.1",
   "description": "Production level Heart Gov Instance",
+  "jshintConfig": {
+    "predef": [ "$", "require", "define" ],
+    "node": "true"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-concurrent": "^1.0.0",

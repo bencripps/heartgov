@@ -2,10 +2,8 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:07:34
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-11 19:13:10
+* @Last Modified time: 2015-02-14 13:44:31
 */
-
-/*jslint node: true */
 
 module.exports = function(mongoose){
     'use strict';
