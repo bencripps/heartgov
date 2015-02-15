@@ -7,11 +7,15 @@
         "emailAddress": "heartgov@gmail.com",
         "newUserSignUp": {
             "subject": "Thanks for signing up for HeartGov!",
-            "body": "Congratulations, you have successfully signed up for Heartgov! If you have any questions about how to use this service, please email heartgov@gmail.com."
+            "templatePath": "views/templates/email/newUserSignUp.jade"
         },
         "newTextReceived": {
             "subject": "A new text was received by HeartGov",
-            "body": "As a heartgov user with administrator access, you are being notified that heartgov received a message. Please login for more details."
+            "templatePath": "views/templates/email/newTextReceived.jade"
+        },
+        "resetSuccess": {
+            "subject": "Your HeartGov account passoword has been reset.",
+            "templatePath": "views/templates/email/resetPassword.jade"
         }
     },
     "groupMessages": {
@@ -144,7 +148,9 @@
     "myAccountMessages": {
         "edit": {
             "success": "Your account has been successfully updated!",
-            "error": "Sorry, there was a problem updating your account information. Please try again."
+            "error": "Sorry, there was a problem updating your account information. Please try again.",
+            "resetUserCouldNotBeFound": "That username could not be found!",
+            "resetSuccess": "An email has been sent to the coinciding email address with a temporary password. If you do not recieve an email in 5-10 minutes, please contact a <3 gov administrator, or try again."
         }
     },
     "textResponses": {

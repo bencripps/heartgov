@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:44:18
+* @Last Modified time: 2015-02-15 14:50:37
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer) {
@@ -11,7 +11,7 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
     var textReceiver = {
         handleResponse: function(message, twilioWrapper) {
 
-            mailer.sendMailtoSuperUsers('newTextReceived');
+            mailer.sendMailtoSuperUsers('newTextReceived', {textDetails: message});
 
             if (this.user.hasTrackingNumber(message.body)) {
                 this.utils.findText('textInformation.trackingNumber', this.utils.getId(message.body))

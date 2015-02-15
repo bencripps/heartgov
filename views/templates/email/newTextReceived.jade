@@ -1,0 +1,17 @@
+extend ./emailLayout.jade
+
+block content
+
+    .container
+        
+        div(style='margin-bottom:25px;')
+            span As a HeartGov user with administrator access, you are being notified that heartgov received a message. Please login for more details.
+
+        div(style='width:100% margin:0px auto; text-align:center;')
+            table(style='width:75%;text-align:left; margin: 0px auto;')
+                tr
+                    th Phone Number
+                    th Content
+                tr
+                    td  #{textDetails.from}
+                    td  #{textDetails.body}

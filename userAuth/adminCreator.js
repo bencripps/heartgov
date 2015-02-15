@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:43:45
+* @Last Modified time: 2015-02-15 13:41:35
 */
 
 module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMessages, mailer) {
@@ -41,7 +41,7 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
                     adminCreator.utils.dbError.bind(this, server));
             },
             alert: function(server, data) {
-                mailer.sendMail(data.emailAddress, appMessages.newUserMailKey);
+                mailer.sendMail(data.emailAddress, appMessages.newUserMailKey, {username: data.username});
                 server.send({result: appMessages.success, code: appMessages.successCode});
             }
         }, 

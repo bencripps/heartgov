@@ -2,13 +2,14 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 22:17:42
+* @Last Modified time: 2015-02-15 13:30:36
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
     'use strict';
  
     var format = require('../config/format')(path),
+        jade = require('jade'),
         shortid = require('../config/generateId'),
         indexScripts = ['/scripts/views/loginView.js'],
         adminCreateScripts = ['/scripts/views/createUserView.js'],
@@ -27,10 +28,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             groups: require('../models/groupSchema')(mongoose),
         },
         nodemailer = require('nodemailer'),
-        mailSender = require('../mailer/mailer')(nodemailer, schemas.admin, appMessages.mailMessages),
+        mailSender = require('../mailer/mailer')(jade, nodemailer, schemas.admin, appMessages.mailMessages),
         twilioWrapper = require('../sms/twilioWrapper')(twilio, appMessages.twilio, schemas),
         hasher = require('../userAuth/hasher'),
-        myAccount = require('../userAuth/myAccount')(schemas.admin, hasher, appMessages.myAccountMessages),
+        myAccount = require('../userAuth/myAccount')(schemas.admin, hasher, appMessages.myAccountMessages, shortid, mailSender),
         groupManager = require('../groups/groupManager')(mongoose, myAccount, schemas.groups, shortid, appMessages.groupMessages),
         loginService = require('../userAuth/login')(schemas.admin, hasher, sessionManager, appMessages.loginMessages),
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
@@ -241,7 +242,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.post('/reset/password', function(req, res){
-        console.log(req.body);
+        myAccount.tryResetPassword(req.body.username, res);
     });
 
     app.post('/edit/account', function(req, res){
