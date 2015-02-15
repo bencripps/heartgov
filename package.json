@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Production level Heart Gov Instance",
   "jshintConfig": {
-    "predef": [ "$", "require", "define" ],
+    "predef": ["$", "require", "define"],
     "node": "true"
   },
   "devDependencies": {

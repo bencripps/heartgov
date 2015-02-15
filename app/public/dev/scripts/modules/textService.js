@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:52:55
+* @Last Modified time: 2015-02-14 21:39:17
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -18,7 +18,25 @@ define('textService', ['utilities'], function(utilities) {
         },
         loadAvailableGroups: function() {
             utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(data){
-                console.log(data);
+                var select = document.getElementById('all-groups'),
+                    button = document.querySelector('.hgov-modal-add-group'),
+                    option;
+                if (data.groups.length >= 1){
+                    data.groups.forEach(function(group) {
+                        button.style.display = '';
+                        option = document.createElement('option');
+                        option.text = group.groupName;
+                        option.value = group.groupId;
+                        select.appendChild(option);
+                    });
+                }
+                else {
+                    button.style.display = 'none';
+                    option = document.createElement('option');
+                    option.text = 'No Groups Available';
+                    select.appendChild(option);
+                }
+                
             });
         },
         getTexts: function(filter) {

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:57:30
+* @Last Modified time: 2015-02-14 22:17:42
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -13,6 +13,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         indexScripts = ['/scripts/views/loginView.js'],
         adminCreateScripts = ['/scripts/views/createUserView.js'],
         groupsScripts = ['/scripts/views/groupsView.js'],
+        forgotPasswordScripts = ['/scripts/views/forgotPasswordView.js'],
         preloader = require('../config/preloader')(staticPaths),
         allImages,
         mainScripts = ['/scripts/views/mainView.js'],
@@ -147,6 +148,15 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
+    app.get('/forgotpassword', function(req, res){
+        res.render('forgotpassword', getTemplateConfig({   
+            local: path,
+            scripts: format.call(forgotPasswordScripts),
+            currentUser: sessionManager.getLoggedInUser(req.sessionID),
+            activeMarker: ''
+        }));
+    });
+
     app.get('/database', function(req, res) {
 
         if (sessionManager.isLoggedIn(req.sessionID)) {
@@ -230,7 +240,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         }));
     });
 
-    app.post('/edit/account', function(req,res){
+    app.post('/reset/password', function(req, res){
+        console.log(req.body);
+    });
+
+    app.post('/edit/account', function(req, res){
         myAccount.updateAccount(req.body, res);
     });
 
@@ -239,7 +253,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
      app.post('/find/availableGroups', function(req, res) {
-        groupManager.findAvailableGroups(req.body, res);
+        groupManager.findAvailableGroups(req.body.username, res);
     });
 
     app.post('/delete/text', function(req, res) {

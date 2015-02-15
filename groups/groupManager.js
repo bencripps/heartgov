@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:56:48
+* @Last Modified time: 2015-02-14 17:42:46
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -27,7 +27,25 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
             }
         },
         findAvailableGroups: function(username, server){
+            myAccount.getUser(username)
+                    .then(
+                        this.distributeGroups.bind(this, server),
+                        this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));  
 
+        },
+        returnGroups: function(server, groups) {
+            server.send({groups: groups});
+        },
+        distributeGroups: function(server, user){
+            if (user.superUser){
+                this.utils.getGroups(null).then(
+                    this.returnGroups.bind(this, server),
+                    this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
+            }
+
+            else {
+                //to do: filter for only available groups
+            }
         },
         addGroupToDB: function(server, groupInfo, user) {
             var info = this.utils.getGroupSchema(groupInfo, user),
@@ -38,6 +56,9 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
                 this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },
         utils: {
+            getGroups: function(filter) {
+                return GroupSchema.find().exec();
+            },
             doesGroupNameExist: function(groupName) {
                 return GroupSchema.findOne({groupName: groupName}).exec();
             },
