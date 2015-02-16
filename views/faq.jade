@@ -3,12 +3,12 @@ extend ./layout
 block content
     div(class='faq-header')
         img(src='min/images/thought-bubble.png')
-        h1 Text (718) 514-6118
+        h1(class='tel') Text (718) 514-6118
     div
         img(src='min/images/iphonefull.png' style='margin-top:-10%; width:50%')
 
     div 
-        h2 Frequently Asked Questions
+        h2(style='font-size:6vw;') Frequently Asked Questions
 
      div(class='faq-header')
         - for question in faq
