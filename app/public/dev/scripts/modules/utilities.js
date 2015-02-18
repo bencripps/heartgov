@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:51:34
+* @Last Modified time: 2015-02-17 21:13:28
 */
 
 define('utilities', function(){
@@ -68,6 +68,20 @@ define('utilities', function(){
             textReply: '.hgov-reply-modal',
             addPhoneNumberToGroup: '.hgov-group-modal',
             createGroup: '.hgov-create-group-modal'
+        },
+        closest: function(selector, elem) {
+            var matchesSelector = elem.matches || elem.webkitMatchesSelector || elem.mozMatchesSelector || elem.msMatchesSelector;
+            while (elem) {
+                if (matchesSelector.call(elem, selector)) {
+                    return elem;
+                }
+
+                else {
+                    elem = elem.parentElement;
+                }
+
+            } 
+        return false;
         }
     };
 

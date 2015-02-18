@@ -2,8 +2,14 @@ doctype
 html
   head
     title HeartGov Email
+    style(type='text/css')
+        include ./email.css
   body
 
-    .containter(style='width:80%;')
+    .container
 
         block content
+
+    footer 
+        span
+            a(href='') copyright heartgov 2014

@@ -515,6 +515,10 @@ a:link, a:hover {
     }
 }
 
+.#{$prefix}-innerlayout-td{
+    text-align: left;
+}
+
 .#{$prefix}-header-button {
     border: 1px solid black;
 }

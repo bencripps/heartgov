@@ -20,6 +20,7 @@
     },
     "groupMessages": {
         "groupNameAlreadyExists": "That group name already exists. Please try a new name.",
+        "phoneNumberSuccessfullyAdded": "This phone number has been successfully added to your group!",
         "groupSuccessfullyCreated": "You group has been successfully created! You can now add numbers to this group.",
         "errorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator."
     },

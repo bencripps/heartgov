@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 17:42:46
+* @Last Modified time: 2015-02-17 21:53:38
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -55,12 +55,25 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
                 this.utils.displayMessage.bind(this, server, appMessages.groupSuccessfullyCreated), 
                 this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },
+        modifyGroupPhoneNumberList: function(method, groupInfo, server) {
+            GroupSchema.findOneAndUpdate(
+                {groupId: groupInfo.groupId},
+                method === 'add' ? {$push: {associatedPhoneNumbers: groupInfo.phoneNumber}} : {$pull: {associatedPhoneNumbers: groupInfo.phoneNumber}},
+                this.utils.displayMessage.bind(this, server, appMessages.phoneNumberSuccessfullyAdded),
+                this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
+        },
+        modifyPhoneNumbers: function(server, method, group) {
+            console.log(group, method);
+        },
         utils: {
             getGroups: function(filter) {
                 return GroupSchema.find().exec();
             },
             doesGroupNameExist: function(groupName) {
                 return GroupSchema.findOne({groupName: groupName}).exec();
+            },
+            findGroupById: function(groupId) {
+            return GroupSchema.findOne({groupId: groupId}).exec();
             },
             displayMessage: function(server, msg) {
                 server.send({result: msg});

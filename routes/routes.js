@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-15 13:30:36
+* @Last Modified time: 2015-02-17 21:55:15
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -175,6 +175,19 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             });
         }
 
+        //testing no need login
+        // if (true){
+        //     res.render('database', getTemplateConfig({   
+        //         local: path,
+        //         scripts: format.call(mainScripts),
+        //         currentUser: 'bencripps1',
+        //         headers: appMessages.textDistribution.displayFields,
+        //         userLevel: true,
+        //         activeMarker: '/database',
+        //         userDetails: true
+        //     }));  
+        // }
+
         else {
             res.render('unauthorized', getTemplateConfig({   
                 local: path,
@@ -232,6 +245,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
+    //email testing
+    app.get('/email', function(req, res) {
+        res.render('templates/email/newUserSignUp', {username: 'bencripps'});
+    });
+
     app.get('*', function(req, res){
         res.render('pageNotFound', getTemplateConfig({   
             local: path,
@@ -239,6 +257,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             currentUser: sessionManager.getLoggedInUser(req.sessionID),
             activeMarker: ''
         }));
+    });
+
+    app.post('/add/phonenumber/group', function(req, res){
+        groupManager.modifyGroupPhoneNumberList('add', req.body, res);
     });
 
     app.post('/reset/password', function(req, res){

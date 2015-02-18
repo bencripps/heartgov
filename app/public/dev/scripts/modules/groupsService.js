@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:40:32
+* @Last Modified time: 2015-02-17 20:58:27
 */
 
 define('groupsService', ['utilities'], function(utilities) {
@@ -11,9 +11,12 @@ define('groupsService', ['utilities'], function(utilities) {
         init: function() {
             this.userName = document.getElementById('hgov-user-information').innerHTML;
             this.form = document.querySelector('form[name=\'add-group-form\']');
+
+            this.form.addEventListener('keydown', utilities.resetState.bind(this, '#groupName-help-block'));
             document.getElementById('create-group').addEventListener('click', this.createGroupModal.bind(this));
             document.getElementById('submit-create-group').addEventListener('click', this.createGroup.bind(this));
-            this.form.addEventListener('keydown', utilities.resetState.bind(this, '#groupName-help-block'));
+            
+            this.loadAvailableGroups();
         },
         createGroupModal: function() {
             document.querySelector('input[name=\'creator\']').value = this.userName;
@@ -34,6 +37,23 @@ define('groupsService', ['utilities'], function(utilities) {
                     utilities.showModal(response);
                 });
             }
+        },
+        loadAvailableGroups: function() {
+            utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(data) { 
+                groupsService.buildTable(data.groups);
+            });
+        },
+        buildTable : function(data) {
+            var table = document.getElementById('hgov-group-table');
+            data.forEach(function(group){
+                var tr = document.createElement('tr');
+                ['groupName'].forEach(function(key) {
+                    var td = document.createElement('td');
+                    td.innerHTML = group[key];
+                    tr.appendChild(td);
+                });
+                table.querySelector('tbody').appendChild(tr);
+            });
         },
         validate: {
             create: function() {

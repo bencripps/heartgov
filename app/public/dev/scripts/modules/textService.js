@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 21:39:17
+* @Last Modified time: 2015-02-17 21:54:25
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -14,6 +14,7 @@ define('textService', ['utilities'], function(utilities) {
             utilities.ajax({date: -1}, 'post', '/find/texts', textService.buildTable);
             document.getElementById('send-out-going-text').addEventListener('click', this.sendOutGoingText.bind(this));
             document.addEventListener('keydown', utilities.resetState.bind(this, '.hgov-help-block-reply-form'));
+            document.querySelector('.hgov-modal-add-group').addEventListener('click', this.addPhoneNumberToGroup);
             this.loadAvailableGroups();
         },
         loadAvailableGroups: function() {
@@ -103,6 +104,17 @@ define('textService', ['utilities'], function(utilities) {
         addToGroup: function(data) {
             document.querySelector('.hgov-group-modal input').value = data.phoneNumber;
             utilities.modalPrompt('addPhoneNumberToGroup', 'show');
+        },
+        addPhoneNumberToGroup: function() {
+            var ob = {};
+            Array.prototype.forEach.call(document.querySelectorAll('form[name="add-to-group-form"] .add-number'), function(n) {
+                ob[n.name] = n.value;
+            });
+
+            utilities.ajax(ob, 'post', 'add/phonenumber/group', function(response) {
+                utilities.showModal(response);
+            });
+            
         },
         utils: {
             getInnerLayout: function(row, data, obj, level) {
