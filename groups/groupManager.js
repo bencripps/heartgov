@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-17 21:53:38
+* @Last Modified time: 2015-02-17 23:03:43
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -71,9 +71,6 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
             },
             doesGroupNameExist: function(groupName) {
                 return GroupSchema.findOne({groupName: groupName}).exec();
-            },
-            findGroupById: function(groupId) {
-            return GroupSchema.findOne({groupId: groupId}).exec();
             },
             displayMessage: function(server, msg) {
                 server.send({result: msg});

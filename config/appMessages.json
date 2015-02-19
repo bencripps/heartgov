@@ -249,6 +249,10 @@
                         {
                             "img": "min/images/twt.png",
                             "link": "//twitter.com/itsbencripps"
+                        },
+                        {
+                            "img": "min/images/personalweb.png",
+                            "link": "//benjamincripps.com"
                         }
                     ]
                 },
@@ -284,7 +288,7 @@
                     "backgroundSize": "140",
                     "socialNetworks": [
                         {
-                            "img": "min/images/twt.png",
+                            "img": "min/images/personalweb.png",
                             "link": "//www.mattposorske.com/"
                         }
                     ]
@@ -296,7 +300,7 @@
                     "backgroundSize": "100",
                     "socialNetworks": [
                         {
-                            "img": "min/images/twt.png",
+                            "img": "min/images/personalweb.png",
                             "link": "//nickkaye.com"
                         }
                     ]
@@ -312,7 +316,7 @@
                     "backgroundSize": "110",
                     "socialNetworks": [
                         {
-                            "img": "min/images/twt.png",
+                            "img": "min/images/personalweb.png",
                             "link": "//www.principleddesign.org/"
                         }
                     ]
@@ -324,7 +328,7 @@
                     "backgroundSize": "110",
                     "socialNetworks": [
                         {
-                            "img": "min/images/twt.png",
+                            "img": "min/images/personalweb.png",
                             "link": "//urbandemos.nyu.edu/"
                         }
                     ]
@@ -336,7 +340,7 @@
                     "backgroundSize": "110",
                     "socialNetworks": [
                         {
-                            "img": "min/images/twt.png",
+                            "img": "min/images/personalweb.png",
                             "link": "//fieldinnovationteam.org/"
                         }
                     ]

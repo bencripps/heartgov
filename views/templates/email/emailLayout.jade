@@ -2,14 +2,50 @@ doctype
 html
   head
     title HeartGov Email
-    style(type='text/css')
-        include ./email.css
-  body
+    
+  body(style='background-color: #1F6BD1;color: white;font-family: avenir; width:80%; margin:0px auto;')
 
-    .container
+    header 
+        table(style='width: 100%;margin: 0px auto;')
+            tr
+                td(style='width:42%')
+                    div
+                        span(style='font-size: 5vw;font-weight: bold;') &lt;3gov
+                td
+                    div(style='margin-top:6%;')
+                        span(style='font-size: 3vw;font-weight: bold;') HeartGov
 
+
+    .hgov-email-container(style='background-color: white;color: black;padding: 2%;margin-top:1%; width:80%: margin:0px auto;')
         block content
 
-    footer 
-        span
-            a(href='') copyright heartgov 2014
+    footer(style='padding-top: 10vw;margin: 0px auto;text-align: center;')
+        table(style='width: 100%;margin: 0px auto;')
+            tr
+                td(style='text-align: left;')
+                    div(style='line-height: 5vw;')
+                        span Follow Us
+                    div(style='line-height:11vw;')
+                        span(class='square-cont' style='margin: 0 8% 0 0;')
+                          a(href='//www.facebook.com/heartgov')
+                            img(src='http://heartgov-test.herokuapp.com/min/images/socialsq_fb.png' class='social-square' style='width:15%')
+                        span(class='square-cont' style=' margin: 0 8% 0 0;')
+                          a(href='/')
+                            img(src='http://heartgov-test.herokuapp.com/min/images/socialsq_tw.png' class='social-square' style='width:15%')
+                        span(class='square-cont' style=' margin: 0 8% 0 0;')
+                          a(href='/')
+                            img(src='http://heartgov-test.herokuapp.com/min/images/socialsq_vm.png' class='social-square' style='width:15%')
+
+                td(style='text-align: right;')
+                    div(style='margin: 0 0 4% 0;')
+                        div(class='contact-us') 
+                            span(style='font-weight:bold') Contact Us
+                        div
+                            span
+                            a(href='mailto:heargov@gmail.com'  style='color: #5ADED5;') heatgov@gmail.com
+
+                    div
+                        span(style='font-weight:bold') Want to Contribute
+                        div
+                            span Our Code is publically available on 
+                                a(href='github.com' style='color: #5ADED5;') github

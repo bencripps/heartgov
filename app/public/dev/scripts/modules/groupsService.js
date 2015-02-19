@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-17 20:58:27
+* @Last Modified time: 2015-02-18 20:35:19
 */
 
 define('groupsService', ['utilities'], function(utilities) {
@@ -25,7 +25,7 @@ define('groupsService', ['utilities'], function(utilities) {
         createGroup: function() {
             if (!this.validate.create()){
                 document.getElementById('groupName-help-block').style.display = 'block';
-            }
+            } 
             else {
                 var data = {};
 
@@ -34,6 +34,7 @@ define('groupsService', ['utilities'], function(utilities) {
                 });
 
                 utilities.ajax(data, 'post', '/create/group', function(response){
+                    utilities.modalPrompt('createGroup', 'hide');
                     utilities.showModal(response);
                 });
             }

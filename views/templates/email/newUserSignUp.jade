@@ -3,10 +3,13 @@ extend ./emailLayout.jade
 block content
 
     div 
-        span Congratulations, you have successfully signed up for 
-        span(class='hgov') Heartgov! 
-        span If you have any questions about how to use this service, please email heartgov@gmail.com.
+        span(class="hgov-greeting" style='display: block;font-size: 4vw;text-align: center;height: 26vw;line-height: 26vw;') Congratulations!
+    
+    div(class='hgov-email-body' style='font-size: 3vw;text-align: center;width:80%;margin: 0px auto;height: 20vw;')
+        span You have successfully signed up for Heartgov! If you have any questions about how to use this service, please email 
+        span 
+            a(href='heartgov@gmail.com' style='color: #5ADED5;') heartgov@gmail.com.
 
-    div(style='margin-top:25px;') 
+    div(class='hgov-email-body' style='font-size: 3vw;text-align: center;width:80%;margin: 0px auto;height: 20vw;')
         span Your username is 
         span(class='hgov') #{username}.
