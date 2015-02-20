@@ -259,7 +259,8 @@
                 {
                     "name": "Kamron Robinson",
                     "title": "UX/Grapic Designer",
-                    "image": "",
+                    "image": "/min/images/kamron.png",
+                    "backgroundSize": "100",
                     "socialNetworks": [
                         {
                             "img": "min/images/twt.png",

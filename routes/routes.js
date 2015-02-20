@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-17 21:55:15
+* @Last Modified time: 2015-02-19 21:10:00
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -245,11 +245,6 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
-    //email testing
-    app.get('/email', function(req, res) {
-        res.render('templates/email/newUserSignUp', {username: 'bencripps'});
-    });
-
     app.get('*', function(req, res){
         res.render('pageNotFound', getTemplateConfig({   
             local: path,
@@ -304,6 +299,4 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         twilioWrapper.sendOutGoingText(req.body.content, req.body.to, req.body._id, req.body.from, res);
     });
 
-
-   
 };

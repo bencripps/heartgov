@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-18 20:35:19
+* @Last Modified time: 2015-02-19 20:26:29
 */
 
 define('groupsService', ['utilities'], function(utilities) {
@@ -35,6 +35,7 @@ define('groupsService', ['utilities'], function(utilities) {
 
                 utilities.ajax(data, 'post', '/create/group', function(response){
                     utilities.modalPrompt('createGroup', 'hide');
+                    groupsService.loadAvailableGroups();
                     utilities.showModal(response);
                 });
             }
@@ -46,19 +47,26 @@ define('groupsService', ['utilities'], function(utilities) {
         },
         buildTable : function(data) {
             var table = document.getElementById('hgov-group-table');
-            data.forEach(function(group){
-                var tr = document.createElement('tr');
-                ['groupName'].forEach(function(key) {
-                    var td = document.createElement('td');
-                    td.innerHTML = group[key];
-                    tr.appendChild(td);
+            
+            if (data.length >= 1) {
+                table.querySelector('tbody').innerHTML = '';
+                data.forEach(function(group){
+                    var tr = document.createElement('tr');
+                    ['groupName'].forEach(function(key) {
+                        var td = document.createElement('td');
+                        td.innerHTML = group[key];
+                        tr.appendChild(td);
+                    });
+                    table.querySelector('tbody').appendChild(tr);
                 });
-                table.querySelector('tbody').appendChild(tr);
-            });
+            }
+            else {
+                document.getElementById('no-groups').style.display = '';
+            }
         },
         validate: {
             create: function() {
-                var name = document.querySelector("input[name=\"groupName\"]").value;
+                var name = document.querySelector('input[name=\'groupName\']').value;
                 return name.length >= 6;
             }
         }
