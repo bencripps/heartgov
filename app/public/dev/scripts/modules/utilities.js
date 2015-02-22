@@ -2,10 +2,10 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-17 21:13:28
+* @Last Modified time: 2015-02-22 12:45:31
 */
 
-define('utilities', function(){
+define('utilities', ['groupTable'], function(groupTable){
     'use strict';
     
     var utilities = {
@@ -63,6 +63,9 @@ define('utilities', function(){
         getCurrentUserName: function() {
             return document.getElementById('hgov-user-information').innerHTML;
         },
+        getCurrentUserLevel: function() {
+            return document.querySelector('.hgov-key').innerHTML;
+        },
         modals: {
             general: '.hgov-modal',
             textReply: '.hgov-reply-modal',
@@ -82,6 +85,11 @@ define('utilities', function(){
 
             } 
         return false;
+        },
+        reactClasses: {
+            getGroupTable: function(id) {
+                groupTable.init(id, utilities);
+            }
         }
     };
 

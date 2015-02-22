@@ -3,8 +3,13 @@
   "version": "0.0.1",
   "description": "Production level Heart Gov Instance",
   "jshintConfig": {
-    "predef": ["$", "require", "define"],
-    "node": "true"
+    "predef": [
+      "$",
+      "require",
+      "define"
+    ],
+    "node": "true",
+    "jasmine": "true"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -14,7 +19,9 @@
     "grunt-contrib-less": "^0.12.0",
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-sass": "^0.16.1"
+    "grunt-jasmine-node": "^0.2.1",
+    "grunt-sass": "^0.16.1",
+    "react-tools": "^0.12.2"
   },
   "dependencies": {
     "body-parser": "^1.9.3",

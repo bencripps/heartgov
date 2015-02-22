@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 11:27:15
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:43:56
+* @Last Modified time: 2015-02-20 20:43:21
 */
 
 module.exports = function(AdminSchema, hasher, sessionManager, appMessages) {
@@ -24,7 +24,7 @@ module.exports = function(AdminSchema, hasher, sessionManager, appMessages) {
             }
         },
         checkPassword: function(correctPassword, attemptedPassword) {
-            return correctPassword === hasher.encrpyt(attemptedPassword);
+            return correctPassword === hasher.encrypt(attemptedPassword);
         },
         findUser: function(info) {
             return AdminSchema.findOne({'username': info.username}).exec();

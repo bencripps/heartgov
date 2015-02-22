@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-19 21:10:00
+* @Last Modified time: 2015-02-22 12:58:57
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -89,6 +89,19 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
      app.get('/groups', function(req, res) {
+
+        //testing no need login
+        // if (true){
+        //     res.render('groups', getTemplateConfig({   
+        //         local: path,
+        //         scripts: format.call(groupsScripts),
+        //         currentUser: 'bencripps12',
+        //         headers: appMessages.textDistribution.displayFields,
+        //         userLevel: false,
+        //         activeMarker: '/groups',
+        //         userDetails: true
+        //     }));  
+        // }
 
         if (sessionManager.isLoggedIn(req.sessionID)) {
 

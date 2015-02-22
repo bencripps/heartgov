@@ -4,7 +4,6 @@ module.exports = {
     options: {
         limit: 4
     },
-
     // Dev tasks
     devFirst: [
         'clean'
@@ -13,7 +12,6 @@ module.exports = {
         'sass:dev',
         'uglify'
     ],
-
     // Production tasks
     prodFirst: [
         'clean:all'
@@ -30,5 +28,8 @@ module.exports = {
         'clean:cssOnly',
         'sass:prod',
         'uglify'
+    ],
+    test: [
+        'test:jasmine'
     ]
 };

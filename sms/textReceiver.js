@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-15 14:50:37
+* @Last Modified time: 2015-02-21 10:18:22
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer) {
@@ -102,18 +102,28 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
         },
         utils: {
             idRegex: function(body) {
-                return /#/.exec(body);
+                return /#.{8}/.exec(body);
             },
             getCategory: function(body) {
                 var re = /\([0-4]\)/.exec(body);
-                return re.input.substring(re.index + 2, re.index + 1);
+                if (re) {
+                    return re.input.substring(re.index + 2, re.index + 1);
+                }
+                else {
+                    return false;
+                }
             },
             mentionsCategory: function(body) {
                 if (/\([0-4]\)/.exec(body)) return true;
             },
             getId: function(body) {
                 var idRegex = this.idRegex(body);
-                return idRegex.input.substring(idRegex.index + 1);
+                if (idRegex && Array.isArray(idRegex)) {
+                    return idRegex[0].replace(' ', '').length === 9 ? idRegex[0].substring(1) : false;
+                }
+                else {
+                    return false;
+                }
             },
             listCategories: function(cats) {
                 return cats.map(function(a,b) {return b + 1 + ' ' + a;}).join(', ');

@@ -2,13 +2,13 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 19:32:26
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:43:49
+* @Last Modified time: 2015-02-20 20:44:39
 */
 
 'use strict';
 
 var hasher = {
-    encrpyt: function(password) {
+    encrypt: function(password) {
         var hash = 0, i, chr, len;
         if (password.length === 0) return hash;
         

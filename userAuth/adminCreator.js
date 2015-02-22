@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-15 13:41:35
+* @Last Modified time: 2015-02-20 20:43:53
 */
 
 module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMessages, mailer) {
@@ -49,7 +49,7 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
             return {
                 userId: idGenerator.getId(),
                 username: data.username,
-                password: hasher.encrpyt(data.password),
+                password: hasher.encrypt(data.password),
                 name: {
                     first: data.firstName,
                     last: data.lastName

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-14 21:19:53
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-15 13:23:03
+* @Last Modified time: 2015-02-20 20:43:39
 */
 
 module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) {
@@ -13,7 +13,7 @@ module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) 
         },
         getNewUserObj: function(userData) {
             return {
-                password: parseInt(userData.password) ? userData.password : hasher.encrpyt(userData.password),
+                password: parseInt(userData.password) ? userData.password : hasher.encrypt(userData.password),
                 name: {
                     first: userData.firstName,
                     last: userData.lastName
@@ -53,7 +53,7 @@ module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) 
                 console.log(newPassword);
                 AdminModel.findOneAndUpdate(
                     {username: userData.username},
-                    {password: hasher.encrpyt(newPassword)},
+                    {password: hasher.encrypt(newPassword)},
                     this.sendResetEmail.bind(this, server, userData, newPassword),
                     this.displayMessage.bind(this, server, appMessages.edit.error));
             }

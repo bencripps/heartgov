@@ -7,9 +7,11 @@ block content
             div
                 h4 group management
             button(class='btn btn-success btn-sm' id='create-group') create group
-            button(class='btn btn-danger btn-sm') modify group
-            button(class='btn btn-info btn-sm') delete group
+
         span(class='hgov-key' style='display: none;') #{userLevel}
+        
+        div(id='groupTable')
+
         table(class="table table-bordered table-striped" id="#{prefix}group-table")
             tr(id='no-groups' style='display: none;') 
                 td There are no groups available at this time.

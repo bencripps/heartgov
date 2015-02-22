@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-17 23:03:43
+* @Last Modified time: 2015-02-22 12:37:12
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -44,7 +44,12 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
             }
 
             else {
-                //to do: filter for only available groups
+               this.utils.getGroups(
+                    {$or: [{'creator.username': user.username}, 
+                    {'associatedUsers': user.username}]})
+                        .then(
+                            this.returnGroups.bind(this, server),
+                            this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
             }
         },
         addGroupToDB: function(server, groupInfo, user) {
@@ -67,6 +72,7 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
         },
         utils: {
             getGroups: function(filter) {
+                if (filter) return GroupSchema.find(filter).exec();
                 return GroupSchema.find().exec();
             },
             doesGroupNameExist: function(groupName) {
