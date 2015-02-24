@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-22 12:58:57
+* @Last Modified time: 2015-02-23 21:58:26
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -193,9 +193,9 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         //     res.render('database', getTemplateConfig({   
         //         local: path,
         //         scripts: format.call(mainScripts),
-        //         currentUser: 'bencripps1',
+        //         currentUser: 'bencripps12',
         //         headers: appMessages.textDistribution.displayFields,
-        //         userLevel: true,
+        //         userLevel: false,
         //         activeMarker: '/database',
         //         userDetails: true
         //     }));  

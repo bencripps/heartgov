@@ -10,19 +10,21 @@ html
     - each s in scripts
       script(src=s)
   body
-    
-    span(class='hgov-key' style='display: none;') #{userLevel}
-    span(id='#{prefix}user-information') #{currentUser}
 
     include ./templates/modal/text-reply-modal.jade
 
-    include ./templates/pageheader.jade
-
-    include ./templates/modal/modal.jade
+    include ./templates/modal/general-modal.jade
 
     include ./templates/modal/group-modal.jade
 
     include ./templates/modal/create-group-modal.jade
+    
+    include ./templates/modal/text-details-modal.jade
+
+    span(class='hgov-key' style='display: none;') #{userLevel}
+    span(id='#{prefix}user-information') #{currentUser}
+
+    include ./templates/pageheader.jade
 
     div(class="#{prefix}container" style='min-height:470px;')
 

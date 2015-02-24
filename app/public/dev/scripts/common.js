@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 16:58:02
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-21 11:01:55
+* @Last Modified time: 2015-02-22 15:33:43
 */
 
 'use strict';
@@ -24,6 +24,7 @@ require.config({
         myAccountService: 'dev/scripts/modules/myAccountService',
         groupsService: 'dev/scripts/modules/groupsService',
         utilities: 'dev/scripts/modules/utilities',
-        groupTable: 'dev/scripts/modules/react/js/groupTable'
+        groupTable: 'dev/scripts/modules/react/js/groupTable',
+        textTable: 'dev/scripts/modules/react/js/textTable'
     }
 });

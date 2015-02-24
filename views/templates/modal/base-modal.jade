@@ -1,0 +1,9 @@
+block vars
+div(class='modal fade #{prefix}#{id}')
+    div(class='modal-dialog')
+        div(class='modal-content')
+            div(class='modal-header')
+                button(type='button' class='close' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true')
+                h4(class='modal-title #{prefix}modal-title') #{modalTitle}
+            block modal

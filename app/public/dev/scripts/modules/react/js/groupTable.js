@@ -88,10 +88,10 @@ define('groupTable', ['react'], function(React){
                 };
 
                 return ( 
-                        React.createElement("td", {className: "group-button hgov-text-function"}, 
-                            React.createElement("span", {className: "glyphicon glyphicon-remove", onClick: remove.bind(this, this.props.group)})
-                        )
-                       );
+                    React.createElement("td", {className: "group-button hgov-text-function"}, 
+                        React.createElement("span", {className: "glyphicon glyphicon-remove", onClick: remove.bind(this, this.props.group)})
+                    )
+                );
             }
         })
     };

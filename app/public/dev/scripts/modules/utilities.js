@@ -2,10 +2,10 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-22 12:45:31
+* @Last Modified time: 2015-02-23 21:56:52
 */
 
-define('utilities', ['groupTable'], function(groupTable){
+define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
     'use strict';
     
     var utilities = {
@@ -70,7 +70,8 @@ define('utilities', ['groupTable'], function(groupTable){
             general: '.hgov-modal',
             textReply: '.hgov-reply-modal',
             addPhoneNumberToGroup: '.hgov-group-modal',
-            createGroup: '.hgov-create-group-modal'
+            createGroup: '.hgov-create-group-modal',
+            textDetails: '.hgov-text-details'
         },
         closest: function(selector, elem) {
             var matchesSelector = elem.matches || elem.webkitMatchesSelector || elem.mozMatchesSelector || elem.msMatchesSelector;
@@ -89,6 +90,9 @@ define('utilities', ['groupTable'], function(groupTable){
         reactClasses: {
             getGroupTable: function(id) {
                 groupTable.init(id, utilities);
+            },
+            getTextTable: function(id, service){
+                textTable.init(id, utilities, service);
             }
         }
     };

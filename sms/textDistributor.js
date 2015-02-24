@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:44:16
+* @Last Modified time: 2015-02-23 21:49:42
 */
 
 module.exports = function(mongoose, TextSchema, appMessages) {
@@ -27,7 +27,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                     category: text.textInformation.category.name ? textDistributor.utils.capFirstLetter(text.textInformation.category.name) : 'None Assigned',
                     categoryId: text.textInformation.category.id || 'None Assigned',
                     lastResponder: text.textInformation.lastResponder ? text.textInformation.lastResponder : 'None Assigned',
-                    allResponses: text.textInformation.responders.length,
+                    allResponses: text.textInformation.responders,
                     status: text.textInformation.status || 'New',
                     trackingNumber: text.textInformation.trackingNumber || 'None Assigned',
                     zipCode: text.textInformation.zipcode || 'None Provided',
@@ -52,7 +52,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                textObj= {};
             });
 
-            server.send({result: ret, displayTemplate: appMessages.displayBarTemplate, innerLayoutTemplate: appMessages.innerLayoutTemplate });
+            server.send({result: ret});
 
         },
         textSuccessfullyDeleted: function(server) {

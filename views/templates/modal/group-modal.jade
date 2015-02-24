@@ -1,25 +1,23 @@
-div(class='modal fade #{prefix}group-modal')
-    div(class='modal-dialog')
-        div(class='modal-content')
-            div(class='modal-header')
-                button(type='button' class='close' data-dismiss='modal' aria-label='Close')
-                    span(aria-hidden='true')
-                h4(class='modal-title #{prefix}modal-title') Add Phone Number to Group
-            div(class='modal-body #{prefix}modal-body' style='text-align:center;')
+extend ./base-modal
+block vars
+    - var id = 'group-modal'
+    - var modalTitle = 'Add Phone Number to Group'
+block modal
+    div(class='modal-body #{prefix}modal-body' style='text-align:center;')
 
-                form(name='add-to-group-form')
-               
-                    div(class='form-group') 
-                        div(class='input-group #{prefix}form-group')
-                            div(class='input-group-addon #{prefix}form-label') phone number
-                            input(type='text' name='phoneNumber' class='form-control input-sm #{prefix}disabled add-number' disabled='')
-              
-                    div(class='form-group')
-                        div(class='input-group #{prefix}form-group')
-                            div(class='input-group-addon #{prefix}form-label' style='padding-bottom:2px;') group
-                            select(name='groupId' class='form-control input-sm add-number' id='all-groups')
-                            
+        form(name='add-to-group-form')
+       
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') phone number
+                    input(type='text' name='phoneNumber' class='form-control input-sm #{prefix}disabled add-number' disabled='')
+      
+            div(class='form-group')
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label' style='padding-bottom:2px;') group
+                    select(name='groupId' class='form-control input-sm add-number' id='all-groups')
+                    
 
-            div(class='modal-footer')
-                button(class='btn btn-success #{prefix}modal-add-group' data-dismiss='modal') add
-                button(class='btn btn-default #{prefix}modal-close' data-dismiss='modal') close
+    div(class='modal-footer')
+        button(class='btn btn-success #{prefix}modal-add-group' data-dismiss='modal') add
+            button(class='btn btn-default #{prefix}modal-close' data-dismiss='modal') close

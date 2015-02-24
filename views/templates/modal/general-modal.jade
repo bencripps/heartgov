@@ -1,0 +1,10 @@
+extend ./base-modal
+block vars
+    - var id = 'modal'
+    - var modalTitle = '<3 Gov Message'
+block modal
+    div(class='modal-body #{prefix}modal-body-all' style='text-align:center;')
+        span
+    div(class='modal-footer')
+        button(class='btn btn-danger #{prefix}modal-text-delete' data-dismiss='modal' style='display:none;') delete
+        button(class='btn btn-default #{prefix}modal-close' data-dismiss='modal') close

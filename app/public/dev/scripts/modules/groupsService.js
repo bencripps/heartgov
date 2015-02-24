@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-22 10:58:32
+* @Last Modified time: 2015-02-22 14:28:54
 */
 
 define('groupsService', ['utilities'], function(utilities) {
@@ -43,7 +43,6 @@ define('groupsService', ['utilities'], function(utilities) {
                 return name.length >= 6;
             }
         }
-
     };
 
     return groupsService;

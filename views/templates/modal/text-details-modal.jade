@@ -1,0 +1,56 @@
+extend ./base-modal
+block vars
+    - var id = 'text-details'
+    - var modalTitle = 'Text Details'
+block modal
+    div(class='modal-body #{prefix}modal-body' style='text-align:center;')
+
+        form(name='add-group-form')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') phone number
+                    input(type='text' name='phoneNumber' class='form-control input-sm #{prefix}disabled' disabled='')
+       
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') message content
+                    input(type='text' name='content' class='form-control input-sm #{prefix}disabled' disabled='')
+                    
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') date
+                    input(type='text' name='date' class='form-control input-sm #{prefix}disabled' disabled='')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') status
+                    input(type='text' name='status' class='form-control input-sm #{prefix}disabled' disabled='')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') tracking number
+                    input(type='text' name='trackingNumber' class='form-control input-sm #{prefix}disabled' disabled='')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') zipcode
+                    input(type='text' name='zipCode' class='form-control input-sm #{prefix}disabled' disabled='')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') # of responses
+                    input(type='text' name='totalResponses' class='form-control input-sm #{prefix}disabled' disabled='')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') last responder
+                    input(type='text' name='lastResponder' class='form-control input-sm #{prefix}disabled' disabled='')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') category
+                    input(type='text' name='category' class='form-control input-sm #{prefix}disabled' disabled='')
+
+    div(class='modal-footer')
+        button(class='btn btn-default #{prefix}modal-close' data-dismiss='modal') close
