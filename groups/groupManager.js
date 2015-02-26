@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-22 12:37:12
+* @Last Modified time: 2015-02-25 21:56:05
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -38,15 +38,15 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
         },
         distributeGroups: function(server, user){
             if (user.superUser){
-                this.utils.getGroups(null).then(
+                this.utils.getGroups({visible: true}).then(
                     this.returnGroups.bind(this, server),
                     this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
             }
 
             else {
                this.utils.getGroups(
-                    {$or: [{'creator.username': user.username}, 
-                    {'associatedUsers': user.username}]})
+                    {$and: [{visible: true},
+                    {$or: [{'creator.username': user.username}, {'associatedUsers': user.username}]}]})
                         .then(
                             this.returnGroups.bind(this, server),
                             this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
@@ -69,6 +69,12 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
         },
         modifyPhoneNumbers: function(server, method, group) {
             console.log(group, method);
+        },
+        deleteGroup: function(id, server) {
+            GroupSchema.findOneAndUpdate({_id: id}, 
+                    {visible: false}, 
+                    groupManager.utils.displayMessage.bind(this, server, appMessages.groupSuccessfullyDeleted), 
+                    groupManager.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },
         utils: {
             getGroups: function(filter) {

@@ -5,7 +5,7 @@ block vars
 block modal
     div(class='modal-body #{prefix}modal-body' style='text-align:center;')
 
-        form(name='add-group-form')
+        form(name='text-details-form')
 
             div(class='form-group') 
                 div(class='input-group #{prefix}form-group')
@@ -40,7 +40,7 @@ block modal
             div(class='form-group') 
                 div(class='input-group #{prefix}form-group')
                     div(class='input-group-addon #{prefix}form-label') # of responses
-                    input(type='text' name='totalResponses' class='form-control input-sm #{prefix}disabled' disabled='')
+                    input(type='text' name='allResponses' class='form-control input-sm #{prefix}disabled' disabled='')
 
             div(class='form-group') 
                 div(class='input-group #{prefix}form-group')
@@ -51,6 +51,18 @@ block modal
                 div(class='input-group #{prefix}form-group')
                     div(class='input-group-addon #{prefix}form-label') category
                     input(type='text' name='category' class='form-control input-sm #{prefix}disabled' disabled='')
+            
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') name
+                    input(type='text' name='name' class='form-control input-sm #{prefix}disabled' disabled='')
 
-    div(class='modal-footer')
-        button(class='btn btn-default #{prefix}modal-close' data-dismiss='modal') close
+
+        div(class='modal-header')
+            h4(class='modal-title hgov-modal-title') All Responses
+                div(class='modal-body #{prefix}modal-body' style='text-align:center;')
+                
+                form(name='text-responses')
+
+        div(class='modal-footer')
+            button(class='btn btn-default #{prefix}modal-close' data-dismiss='modal') close

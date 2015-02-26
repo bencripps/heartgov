@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-23 20:27:07
+* @Last Modified time: 2015-02-23 23:13:13
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -18,10 +18,10 @@ module.exports = function(client, appMessages, schemas) {
         processOutGoingText: function(response, receiver) {
 
             var sms = client.sms.messages.create({
-                to: receiver,
-                from: this.twilioNumber,
-                body: response
-            });
+                    to: receiver,
+                    from: this.twilioNumber,
+                    body: response
+                });
 
             return sms;
         },

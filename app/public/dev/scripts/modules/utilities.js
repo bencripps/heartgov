@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-23 21:56:52
+* @Last Modified time: 2015-02-25 21:17:36
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -64,7 +64,8 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
             return document.getElementById('hgov-user-information').innerHTML;
         },
         getCurrentUserLevel: function() {
-            return document.querySelector('.hgov-key').innerHTML;
+            /*jslint evil: true */
+            return eval(document.querySelector('.hgov-key').innerHTML);
         },
         modals: {
             general: '.hgov-modal',
@@ -88,8 +89,8 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
         return false;
         },
         reactClasses: {
-            getGroupTable: function(id) {
-                groupTable.init(id, utilities);
+            getGroupTable: function(id, service) {
+                groupTable.init(id, utilities, service);
             },
             getTextTable: function(id, service){
                 textTable.init(id, utilities, service);

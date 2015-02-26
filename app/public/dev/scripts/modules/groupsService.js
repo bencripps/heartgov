@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-22 14:28:54
+* @Last Modified time: 2015-02-25 21:33:32
 */
 
 define('groupsService', ['utilities'], function(utilities) {
@@ -14,7 +14,7 @@ define('groupsService', ['utilities'], function(utilities) {
             this.form.addEventListener('keydown', utilities.resetState.bind(this, '#groupName-help-block'));
             document.getElementById('create-group').addEventListener('click', this.createGroupModal.bind(this));
             document.getElementById('submit-create-group').addEventListener('click', this.createGroup.bind(this));
-            utilities.reactClasses.getGroupTable('groupTable');
+            utilities.reactClasses.getGroupTable('groupTable', this);
         },
         createGroupModal: function() {
             document.querySelector('input[name=\'creator\']').value = this.userName;
@@ -36,6 +36,24 @@ define('groupsService', ['utilities'], function(utilities) {
                     utilities.showModal(response);
                 });
             }
+        },
+        viewGroupModal: function(group){
+            console.log(group);
+        },
+        editGroupModal: function(group){
+            console.log(group);
+        },
+        removeGroupModal: function(group){
+            var response = {result: 'Are you sure you\'d like to delete this group for all users?'},
+                deleteButton = document.querySelector('.hgov-modal-text-delete');
+
+            deleteButton.style.display = '';
+            
+            deleteButton.removeEventListener('click', utilities.ajax, false);
+            deleteButton.addEventListener('click', utilities.ajax.bind(this, {id: group._id}, 'post', '/delete/group', function(response) {  
+                window.location.reload();
+            }));
+            utilities.showModal(response);
         },
         validate: {
             create: function() {

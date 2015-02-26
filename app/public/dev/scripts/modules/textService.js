@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-23 21:56:27
+* @Last Modified time: 2015-02-25 21:36:40
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -15,7 +15,7 @@ define('textService', ['utilities'], function(utilities) {
             document.addEventListener('keydown', utilities.resetState.bind(this, '.hgov-help-block-reply-form'));
             document.querySelector('.hgov-modal-add-group').addEventListener('click', this.addPhoneNumberToGroup);
             this.loadAvailableGroups();
-            utilities.reactClasses.getTextTable('text-table', textService);
+            utilities.reactClasses.getTextTable('text-table', this);
         },
         loadAvailableGroups: function() {
             utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(data){
@@ -77,15 +77,52 @@ define('textService', ['utilities'], function(utilities) {
 
             deleteButton.style.display = '';
 
-            deleteButton.removeEventListener('click', utilities.ajax);
             deleteButton.addEventListener('click', utilities.ajax.bind(this, {id: data._id}, 'post', '/delete/text', function(response) {  
                 window.location.reload();
             }));
             utilities.showModal(response);
         },
         showDetailsModal: function(data) {
+            var form = document.querySelector('form[name="text-details-form"]'),
+                responseForm = document.querySelector('form[name="text-responses"]'),
+                responses = this.getResponseDivs(data),
+                input;
+
+            Object.keys(data).forEach(function(k){
+                input = form.querySelector('input[name="' + k + '"]');
+                if (input) input.value = data[k];
+                if (k === 'allResponses') input.value = data[k].length;
+            });
+
+            responseForm.innerHTML = '';
+            responseForm.appendChild(responses);
+
             utilities.modalPrompt('textDetails', 'show');
-            console.log(data);
+        },
+        getResponseDivs: function(data){
+            var container = document.createElement('div');
+
+            data.allResponses.forEach(function(t){
+                var formGroup = document.createElement('div'),
+                    inputGroup = document.createElement('div'),
+                    addOn = document.createElement('div'),
+                    input = document.createElement('input');
+
+                formGroup.className = 'form-group';
+                inputGroup.className = 'input-group hgov-form-group';
+                addOn.className = 'input-group-addon hgov-form-label';
+                input.className = 'form-control input-sm hgov-disabled';
+
+                addOn.innerHTML = t.from;
+                input.value = t.content;
+                input.disabled = true;
+                inputGroup.appendChild(addOn);
+                inputGroup.appendChild(input);
+                formGroup.appendChild(inputGroup);
+                container.appendChild(formGroup);
+            });
+            
+            return container;
         },
         addToGroup: function(data) {
             document.querySelector('.hgov-group-modal input').value = data.phoneNumber;

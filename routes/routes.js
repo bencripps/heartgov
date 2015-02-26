@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-23 21:58:26
+* @Last Modified time: 2015-02-25 21:55:53
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -289,6 +289,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.post('/delete/text', function(req, res) {
         textDistributor.utils.deleteText(req.body.id, res);
+    });
+
+    app.post('/delete/group', function(req, res) {
+        groupManager.deleteGroup(req.body.id, res);
     });
 
     app.post('/create/group', function(req, res) {

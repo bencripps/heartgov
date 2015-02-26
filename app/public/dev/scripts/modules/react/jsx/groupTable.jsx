@@ -9,15 +9,16 @@ define('groupTable', ['react'], function(React){
     'use strict';
     
     var groupTable = {
-        init: function(id, utils) {
-            React.render(<this.table utils={utils}/>, document.getElementById(id));
+        init: function(id, utils, service) {
+            React.render(<this.table utils={utils} service={service}/>, document.getElementById(id));
         },
         table: React.createClass({
             getInitialState: function() {
                 return {
                     groups: [],
                     user: this.props.utils.getCurrentUserName(),
-                    level: this.props.utils.getCurrentUserLevel()
+                    level: this.props.utils.getCurrentUserLevel(),
+                    groupService: this.props.service
                 }
             },
             componentWillMount: function(){
@@ -42,28 +43,38 @@ define('groupTable', ['react'], function(React){
         }),
         row: React.createClass({
             render: function() {
-                var edit = !eval(this.props.level) ? null : <groupTable.editButton group={this.props.info} />,
-                    remove = !eval(this.props.level) ? null : <groupTable.deleteButton group={this.props.info} />,
-                    view = !eval(this.props.level) ? null : <groupTable.viewButton group={this.props.info} />;
+                var editable = function(groupInfo) {
+                    return this.state.level || this.state.user === groupInfo.creator.username;
+                };
+                var view = <groupTable.viewButton group={this.props.info} />,
+                    options = editable.call(this._owner, this.props.info) ? [<groupTable.deleteButton group={this.props.info} />, <groupTable.editButton group={this.props.info} />] : [<groupTable.emptyCell />, <groupTable.emptyCell />];
                 return (
                     <tr>
                         {view}
-                        {edit}
-                        {remove}
+                        {options}
                         <td>{this.props.info.groupName}</td>
                     </tr>
                 );
             }
         }),
+        emptyCell: React.createClass({ 
+            render: function() {
+                return (
+                        <td>
+                            <span></span>
+                        </td>
+                    )
+            }
+        }),
         viewButton: React.createClass({
             render: function(){
                 var view = function(group) {
-                    console.log(group);
+                    this.state.groupService.viewGroupModal(group);
                 };
 
                 return (
                     <td className='group-button hgov-text-function'>
-                        <span className='glyphicon glyphicon-search' onClick={view.bind(this, this.props.group)}></span>
+                        <span className='glyphicon glyphicon-search' onClick={view.bind(this._owner._owner, this.props.group)}></span>
                     </td>
                 );
             }
@@ -71,12 +82,12 @@ define('groupTable', ['react'], function(React){
         editButton: React.createClass({
             render: function(){
                 var edit = function(group) {
-                    console.log(group);
+                    this.state.groupService.editGroupModal(group);
                 };
 
                 return (
                     <td className='group-button hgov-text-function'>
-                        <span className='glyphicon glyphicon-pencil' onClick={edit.bind(this, this.props.group)}></span>
+                        <span className='glyphicon glyphicon-pencil' onClick={edit.bind(this._owner._owner, this.props.group)}></span>
                     </td>
                 );
             }
@@ -84,12 +95,12 @@ define('groupTable', ['react'], function(React){
         deleteButton: React.createClass({
             render: function(){
                 var remove = function(group) {
-                    console.log(group);
+                    this.state.groupService.removeGroupModal(group);
                 };
 
                 return ( 
                     <td className='group-button hgov-text-function'>
-                        <span className='glyphicon glyphicon-remove' onClick={remove.bind(this, this.props.group)}></span>
+                        <span className='glyphicon glyphicon-remove' onClick={remove.bind(this._owner._owner, this.props.group)}></span>
                     </td>
                 );
             }
