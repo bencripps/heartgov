@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-01 14:44:16
+* @Last Modified time: 2015-03-01 17:36:00
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -54,7 +54,7 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
 
                 if (ob.iterable) {
                     ob.values.forEach(function(val){
-                        document.querySelector('form[name="' + ob.id + '"]').appendChild(utilities.getFormGroup(ob.label, val.value, !edit));
+                        document.querySelector('form[name="' + ob.id + '"]').appendChild(utilities.getFormGroup(ob.label, val.value, !ob.editable));
                     });
                 }
             });
@@ -78,6 +78,7 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
                 saveButton.className = 'btn btn-success';
                 saveButton.innerHTML = 'Save';
                 saveButton.addEventListener('click', model.save);
+                saveButton.setAttribute('data-dismiss', 'modal');
                 document.getElementById('save-button').appendChild(saveButton);
             } 
         },

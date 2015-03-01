@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-01 14:51:59
+* @Last Modified time: 2015-03-01 17:24:53
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -91,31 +91,31 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
      app.get('/groups', function(req, res) {
 
         //testing no need login
-        // if (true){
-        //     res.render('groups', getTemplateConfig({   
-        //         local: path,
-        //         scripts: format.call(groupsScripts),
-        //         currentUser: 'bencripps1',
-        //         headers: appMessages.textDistribution.displayFields,
-        //         userLevel: true,
-        //         activeMarker: '/groups',
-        //         userDetails: true
-        //     }));  
-        // }
-
-        if (sessionManager.isLoggedIn(req.sessionID)) {
-
-            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
-                res.render('groups', getTemplateConfig({   
-                    local: path,
-                    scripts: format.call(groupsScripts),
-                    currentUser: sessionManager.getLoggedInUser(req.sessionID),
-                    userLevel: user.superUser,
-                    activeMarker: '/groups',
-                    userDetails: user
-                }));             
-            });
+        if (true){
+            res.render('groups', getTemplateConfig({   
+                local: path,
+                scripts: format.call(groupsScripts),
+                currentUser: 'bencripps1',
+                headers: appMessages.textDistribution.displayFields,
+                userLevel: true,
+                activeMarker: '/groups',
+                userDetails: true
+            }));  
         }
+
+        // if (sessionManager.isLoggedIn(req.sessionID)) {
+
+        //     myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
+        //         res.render('groups', getTemplateConfig({   
+        //             local: path,
+        //             scripts: format.call(groupsScripts),
+        //             currentUser: sessionManager.getLoggedInUser(req.sessionID),
+        //             userLevel: user.superUser,
+        //             activeMarker: '/groups',
+        //             userDetails: user
+        //         }));             
+        //     });
+        // }
 
         else {
             res.render('unauthorized', getTemplateConfig({   
@@ -281,6 +281,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.post('/find/texts', function(req, res) {
         textDistributor.findTextsBy(req.body, res);
+    });
+
+    app.post('/edit/group', function(req, res){
+        groupManager.updateGroup(req.body, res);
     });
 
      app.post('/find/availableGroups', function(req, res) {

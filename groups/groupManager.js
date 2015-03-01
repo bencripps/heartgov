@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-25 21:56:05
+* @Last Modified time: 2015-03-01 17:33:52
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -70,6 +70,16 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
         modifyPhoneNumbers: function(server, method, group) {
             console.log(group, method);
         },
+        updateGroup: function(data, server) {
+            var id = this.utils.getGroupValue(data, 'id'),
+                orgName = this.utils.getGroupValue(data, 'organizationName'),
+                groupName = this.utils.getGroupValue(data, 'groupName');
+
+            GroupSchema.findOneAndUpdate({_id: id}, 
+                {groupName: groupName, 'organization.name': orgName}, 
+                groupManager.utils.displayMessage.bind(this, server, appMessages.groupSuccessfullyUpdated), 
+                groupManager.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
+        },
         deleteGroup: function(id, server) {
             GroupSchema.findOneAndUpdate({_id: id}, 
                     {visible: false}, 
@@ -80,6 +90,9 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
             getGroups: function(filter) {
                 if (filter) return GroupSchema.find(filter).exec();
                 return GroupSchema.find().exec();
+            },
+            getGroupValue: function(data, key) {
+                return data[data.map(function(ob){ return ob.id; }).indexOf(key)].value;
             },
             doesGroupNameExist: function(groupName) {
                 return GroupSchema.findOne({groupName: groupName}).exec();

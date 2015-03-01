@@ -23,6 +23,7 @@
         "phoneNumberSuccessfullyAdded": "This phone number has been successfully added to your group!",
         "groupSuccessfullyCreated": "You group has been successfully created! You can now add numbers to this group.",
         "groupSuccessfullyDeleted": "This group has been successfully deleted!",
+        "groupSuccessfullyUpdated": "This group has been successfully updated!",
         "errorOccurred": "An error occurred while processing your request. If this problem continues, please contact an administrator."
     },
     "textDistribution": {

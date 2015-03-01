@@ -92,7 +92,7 @@ define('groupModel', ['utilities'], function(utilities) {
                         id: 'assoc-users',
                         iterable: true,
                         visible: true,
-                        editable: true,
+                        editable: false,
                         label: 'Username'
                     },
                     {
@@ -102,7 +102,7 @@ define('groupModel', ['utilities'], function(utilities) {
                         id: 'assoc-numbers',
                         iterable: true,
                         visible: true,
-                        editable: true,
+                        editable: false,
                         label: 'Phone Number'
                     }
                 ];
@@ -119,13 +119,12 @@ define('groupModel', ['utilities'], function(utilities) {
                     });
                 },
                 editListener: function(ob, data, e) {
-                    var index = data.map(function(o){ return o.id; }).indexOf(e.target.name);
-                    data[index].value = e.target.value;
+                    if (!ob.iterable) data[data.map(function(o){ return o.id; }).indexOf(e.target.name)].value = e.target.value;
                 },
                 save: function(data) {
-                    console.log(data);
-                    // to do, group save
-                    // utilities.ajax()
+                    utilities.ajax(data, 'post', '/edit/group', function(response){
+                        utilities.showModal(response);
+                    });
                 }
             },
             helpers: {
