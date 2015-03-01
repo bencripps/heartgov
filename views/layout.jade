@@ -24,12 +24,12 @@ html
     span(class='hgov-key' style='display: none;') #{userLevel}
     span(id='#{prefix}user-information') #{currentUser}
 
-    include ./templates/pageheader.jade
+    include ./components/pageheader.jade
 
     div(class="#{prefix}container" style='min-height:470px;')
 
         block content
           
-    include ./templates/footer.jade
+    include ./components/footer.jade
 
     

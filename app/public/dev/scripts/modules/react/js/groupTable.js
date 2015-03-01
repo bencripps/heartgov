@@ -71,7 +71,7 @@ define('groupTable', ['react'], function(React){
                 var view = function(group) {
                     this.state.groupService.viewGroupModal(group);
                 };
-
+                console.log(this.props.group)
                 return (
                     React.createElement("td", {className: "group-button hgov-text-function"}, 
                         React.createElement("span", {className: "glyphicon glyphicon-search", onClick: view.bind(this._owner._owner, this.props.group)})

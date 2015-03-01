@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-25 21:17:36
+* @Last Modified time: 2015-02-26 21:34:31
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -72,7 +72,8 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
             textReply: '.hgov-reply-modal',
             addPhoneNumberToGroup: '.hgov-group-modal',
             createGroup: '.hgov-create-group-modal',
-            textDetails: '.hgov-text-details'
+            textDetails: '.hgov-text-details',
+            groupDetails: '.hgov-group-details'
         },
         closest: function(selector, elem) {
             var matchesSelector = elem.matches || elem.webkitMatchesSelector || elem.mozMatchesSelector || elem.msMatchesSelector;
@@ -95,7 +96,26 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
             getTextTable: function(id, service){
                 textTable.init(id, utilities, service);
             }
-        }
+        },
+        getFormGroup: function(label, value, isDisabled) {
+            var formGroup = document.createElement('div'),
+                inputGroup = document.createElement('div'),
+                addOn = document.createElement('div'),
+                input = document.createElement('input');
+
+            formGroup.className = 'form-group';
+            inputGroup.className = 'input-group hgov-form-group';
+            addOn.className = 'input-group-addon hgov-form-label';
+            input.className = 'form-control input-sm hgov-disabled';
+
+            addOn.innerHTML = label;
+            input.value = value;
+            input.disabled = isDisabled;
+            inputGroup.appendChild(addOn);
+            inputGroup.appendChild(input);
+            formGroup.appendChild(inputGroup);
+            return formGroup;
+        }   
     };
 
     return utilities;

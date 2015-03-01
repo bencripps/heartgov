@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-25 21:55:53
+* @Last Modified time: 2015-03-01 14:51:59
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -95,9 +95,9 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         //     res.render('groups', getTemplateConfig({   
         //         local: path,
         //         scripts: format.call(groupsScripts),
-        //         currentUser: 'bencripps12',
+        //         currentUser: 'bencripps1',
         //         headers: appMessages.textDistribution.displayFields,
-        //         userLevel: false,
+        //         userLevel: true,
         //         activeMarker: '/groups',
         //         userDetails: true
         //     }));  
@@ -193,9 +193,9 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         //     res.render('database', getTemplateConfig({   
         //         local: path,
         //         scripts: format.call(mainScripts),
-        //         currentUser: 'bencripps12',
+        //         currentUser: 'bencripps1',
         //         headers: appMessages.textDistribution.displayFields,
-        //         userLevel: false,
+        //         userLevel: true,
         //         activeMarker: '/database',
         //         userDetails: true
         //     }));  

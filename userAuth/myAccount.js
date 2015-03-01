@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-14 21:19:53
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-20 20:43:39
+* @Last Modified time: 2015-03-01 00:02:58
 */
 
 module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) {
@@ -50,12 +50,12 @@ module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) 
 
             if (userData) {
                 newPassword = shortId.getId();
-                console.log(newPassword);
+                
                 AdminModel.findOneAndUpdate(
                     {username: userData.username},
                     {password: hasher.encrypt(newPassword)},
-                    this.sendResetEmail.bind(this, server, userData, newPassword),
-                    this.displayMessage.bind(this, server, appMessages.edit.error));
+                        this.sendResetEmail.bind(this, server, userData, newPassword),
+                        this.displayMessage.bind(this, server, appMessages.edit.error));
             }
             else {
                 this.displayMessage(server, appMessages.edit.resetUserCouldNotBeFound);

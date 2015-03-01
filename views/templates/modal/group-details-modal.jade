@@ -1,0 +1,50 @@
+extend ./base-modal
+block vars
+    - var id = 'group-details'
+    - var modalTitle = 'Group Details'
+block modal
+    div(class='modal-body #{prefix}modal-body' style='text-align:center;')
+
+        form(name='group-details-form')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') creator
+                    input(type='text' name='creatorUsername' class='form-control input-sm #{prefix}disabled' disabled='')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') date created
+                    input(type='text' name='dateCreated' class='form-control input-sm #{prefix}disabled' disabled='')
+                        
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') creator email address
+                    input(type='text' name='creatorEmailAddress' class='form-control input-sm #{prefix}disabled' disabled='')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') name
+                    input(type='text' name='groupName' class='form-control input-sm #{prefix}disabled' disabled='')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label') organization name
+                    input(type='text' name='organizationName' class='form-control input-sm #{prefix}disabled' disabled='')
+            
+
+        div(class='modal-header')
+            h4(class='modal-title hgov-modal-title') Associated Phone Numbers
+                div(class='modal-body #{prefix}modal-body' style='text-align:center;')
+                
+                form(name='assoc-numbers')
+
+        div(class='modal-header')
+            h4(class='modal-title hgov-modal-title') Associated Users
+                div(class='modal-body #{prefix}modal-body' style='text-align:center;')
+
+                form(name='assoc-users')
+
+        div(class='modal-footer group-details-footer')
+            div(id='save-button' style='display:inline-block; margin-right:1%;')
+            button(class='btn btn-default #{prefix}modal-close' data-dismiss='modal') close

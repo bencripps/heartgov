@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-25 21:36:40
+* @Last Modified time: 2015-02-28 23:54:32
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -60,10 +60,6 @@ define('textService', ['utilities'], function(utilities) {
                 document.querySelector('.hgov-help-block-reply-form').style.display = 'block';
             }
         },
-        initClickEvents: function(node, e) {
-            var current = document.getElementById('hide_' + node.id).style.display;
-            document.getElementById('hide_' + node.id).style.display = current === 'table-row' ? 'none' : 'table-row';
-        },
         showRespondModal: function(data) {
             utilities.modalPrompt('textReply', 'show');
             document.getElementsByName('to')[0].value = data.phoneNumber;
@@ -103,23 +99,7 @@ define('textService', ['utilities'], function(utilities) {
             var container = document.createElement('div');
 
             data.allResponses.forEach(function(t){
-                var formGroup = document.createElement('div'),
-                    inputGroup = document.createElement('div'),
-                    addOn = document.createElement('div'),
-                    input = document.createElement('input');
-
-                formGroup.className = 'form-group';
-                inputGroup.className = 'input-group hgov-form-group';
-                addOn.className = 'input-group-addon hgov-form-label';
-                input.className = 'form-control input-sm hgov-disabled';
-
-                addOn.innerHTML = t.from;
-                input.value = t.content;
-                input.disabled = true;
-                inputGroup.appendChild(addOn);
-                inputGroup.appendChild(input);
-                formGroup.appendChild(inputGroup);
-                container.appendChild(formGroup);
+                container.appendChild(utilities.getFormGroup(t.from, t.content, true));
             });
             
             return container;

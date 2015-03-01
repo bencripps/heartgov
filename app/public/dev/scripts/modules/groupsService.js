@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-25 21:33:32
+* @Last Modified time: 2015-03-01 14:44:16
 */
 
-define('groupsService', ['utilities'], function(utilities) {
+define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
     'use strict';
     var groupsService = {
         init: function() {
@@ -37,11 +37,55 @@ define('groupsService', ['utilities'], function(utilities) {
                 });
             }
         },
-        viewGroupModal: function(group){
-            console.log(group);
+        viewGroupModal: function(group, edit){
+
+            var form = document.querySelector('form[name="group-details-form"]'),
+                input,
+                groupModel = Group.create(group);
+
+            this.resetInputs(form.querySelectorAll('input'));
+
+            groupModel.values.forEach(function(ob){
+                if (!ob.iterable && ob.visible) {
+                    input = form.querySelector('input[name="' + ob.id + '"]');
+                    input.value = ob.value;
+                }
+                if (!ob.iterable && ob.editable && edit) input.disabled = false;
+
+                if (ob.iterable) {
+                    ob.values.forEach(function(val){
+                        document.querySelector('form[name="' + ob.id + '"]').appendChild(utilities.getFormGroup(ob.label, val.value, !edit));
+                    });
+                }
+            });
+
+            this.getSaveButton(groupModel, edit);
+
+            utilities.modalPrompt('groupDetails', 'show');
+        },
+        resetInputs: function(inputs){
+            document.querySelector('form[name="assoc-numbers"]').innerHTML = '';
+            document.querySelector('form[name="assoc-users"]').innerHTML = '';
+            Array.prototype.forEach.call(inputs, function(input){
+                input.disabled = true;
+            });
+        },
+        getSaveButton: function(model, edit) {
+            document.getElementById('save-button').innerHTML = '';
+
+            if (edit) {
+                var saveButton = document.createElement('button');
+                saveButton.className = 'btn btn-success';
+                saveButton.innerHTML = 'Save';
+                saveButton.addEventListener('click', model.save);
+                document.getElementById('save-button').appendChild(saveButton);
+            } 
+        },
+        deleteSpan: function(group, data) {
+            return '<span title="delete number from group" class="glyphicon glyphicon-remove"></span>';
         },
         editGroupModal: function(group){
-            console.log(group);
+            this.viewGroupModal(group, true);
         },
         removeGroupModal: function(group){
             var response = {result: 'Are you sure you\'d like to delete this group for all users?'},
