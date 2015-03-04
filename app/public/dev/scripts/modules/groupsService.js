@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-01 17:36:00
+* @Last Modified time: 2015-03-03 20:22:35
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -10,11 +10,15 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
     var groupsService = {
         init: function() {
             this.userName = document.getElementById('hgov-user-information').innerHTML;
+            this.setEvents();
+            utilities.reactClasses.getGroupTable('groupTable', this);
+        },
+        setEvents: function() {
             this.form = document.querySelector('form[name=\'add-group-form\']');
             this.form.addEventListener('keydown', utilities.resetState.bind(this, '#groupName-help-block'));
             document.getElementById('create-group').addEventListener('click', this.createGroupModal.bind(this));
             document.getElementById('submit-create-group').addEventListener('click', this.createGroup.bind(this));
-            utilities.reactClasses.getGroupTable('groupTable', this);
+            document.getElementById('import-num').addEventListener('click', this.showImportModal);
         },
         createGroupModal: function() {
             document.querySelector('input[name=\'creator\']').value = this.userName;
@@ -61,6 +65,8 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
 
             this.getSaveButton(groupModel, edit);
 
+            this.getModifyButton(groupModel, edit);
+
             utilities.modalPrompt('groupDetails', 'show');
         },
         resetInputs: function(inputs){
@@ -82,8 +88,15 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
                 document.getElementById('save-button').appendChild(saveButton);
             } 
         },
-        deleteSpan: function(group, data) {
-            return '<span title="delete number from group" class="glyphicon glyphicon-remove"></span>';
+        getModifyButton: function(model, edit) {
+            document.getElementById('modify-button').innerHTML = '';
+
+            if (edit) {
+                var modButton = document.createElement('button');
+                modButton.className = 'btn btn-info';
+                modButton.innerHTML = 'Modify Group Users/Numbers';
+                document.getElementById('modify-button').appendChild(modButton);
+            } 
         },
         editGroupModal: function(group){
             this.viewGroupModal(group, true);
@@ -99,6 +112,9 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
                 window.location.reload();
             }));
             utilities.showModal(response);
+        },
+        showImportModal: function() {
+            utilities.modalPrompt('importNum', 'show');
         },
         validate: {
             create: function() {

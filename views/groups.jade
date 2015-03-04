@@ -1,7 +1,8 @@
 extend ./layout
 
 block content
-
+    
+    include ./templates/modal/import-modal.jade
     include ./templates/modal/group-details-modal.jade
 
     .container
@@ -9,6 +10,7 @@ block content
             div
                 h4 group management
             button(class='btn btn-success btn-sm' id='create-group') create group
+            button(class='btn btn-info btn-sm' id='import-num' style='margin-left:1%') import numbers to group
 
         span(class='hgov-key' style='display: none;') #{userLevel}
         

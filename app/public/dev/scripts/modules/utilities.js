@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-26 21:34:31
+* @Last Modified time: 2015-03-03 20:23:01
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -73,7 +73,8 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
             addPhoneNumberToGroup: '.hgov-group-modal',
             createGroup: '.hgov-create-group-modal',
             textDetails: '.hgov-text-details',
-            groupDetails: '.hgov-group-details'
+            groupDetails: '.hgov-group-details',
+            importNum: '.hgov-import-group-modal'
         },
         closest: function(selector, elem) {
             var matchesSelector = elem.matches || elem.webkitMatchesSelector || elem.mozMatchesSelector || elem.msMatchesSelector;

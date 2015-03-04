@@ -1,0 +1,20 @@
+extend ./base-modal
+block vars
+    - var id = 'import-group-modal'
+    - var modalTitle = 'Import Numbers'
+block modal
+    div(class='modal-body #{prefix}modal-body' style='text-align:center;')
+
+        form(name='import-num-form')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label')
+                        span(class='glyphicon glyphicon-folder-open')
+                    input(type='file' name='creator' class='form-control input-sm #{prefix}disabled')
+
+        
+            
+    div(class='modal-footer')
+        button(class='btn btn-success #{prefix}modal' id='submit-import') add
+        button(class='btn btn-default #{prefix}modal-close' data-dismiss='modal') close
