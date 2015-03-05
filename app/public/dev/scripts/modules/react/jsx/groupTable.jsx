@@ -10,7 +10,7 @@ define('groupTable', ['react'], function(React){
     
     var groupTable = {
         init: function(id, utils, service) {
-            React.render(<this.table utils={utils} service={service}/>, document.getElementById(id));
+            return React.render(<this.table utils={utils} service={service}/>, document.getElementById(id));
         },
         table: React.createClass({
             getInitialState: function() {
@@ -71,7 +71,7 @@ define('groupTable', ['react'], function(React){
                 var view = function(group) {
                     this.state.groupService.viewGroupModal(group);
                 };
-                console.log(this.props.group)
+
                 return (
                     <td className='group-button hgov-text-function'>
                         <span className='glyphicon glyphicon-search' onClick={view.bind(this._owner._owner, this.props.group)}></span>

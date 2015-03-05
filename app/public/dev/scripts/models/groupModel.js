@@ -2,7 +2,7 @@ define('groupModel', ['utilities'], function(utilities) {
     'use strict';
 
     var Group = {
-            create: function(data) {
+            create: function(data, reactTable) {
 
                 var modelData = this.model(data),
                     groupModel = {
@@ -121,9 +121,12 @@ define('groupModel', ['utilities'], function(utilities) {
                 editListener: function(ob, data, e) {
                     if (!ob.iterable) data[data.map(function(o){ return o.id; }).indexOf(e.target.name)].value = e.target.value;
                 },
-                save: function(data) {
+                save: function(data, reactTable) {
                     utilities.ajax(data, 'post', '/edit/group', function(response){
                         utilities.showModal(response);
+                        utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(response) {
+                            reactTable.setState({groups: response.groups});
+                        });
                     });
                 }
             },

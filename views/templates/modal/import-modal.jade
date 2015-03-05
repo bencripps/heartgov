@@ -11,10 +11,10 @@ block modal
                 div(class='input-group #{prefix}form-group')
                     div(class='input-group-addon #{prefix}form-label')
                         span(class='glyphicon glyphicon-folder-open')
-                    input(type='file' name='creator' class='form-control input-sm #{prefix}disabled')
+                    input(type='file' id='fileUpload' name='fileUpload' class='form-control input-sm #{prefix}disabled')
 
         
             
     div(class='modal-footer')
-        button(class='btn btn-success #{prefix}modal' id='submit-import') add
+        button(class='btn btn-success' id='submit-import') add
         button(class='btn btn-default #{prefix}modal-close' data-dismiss='modal') close

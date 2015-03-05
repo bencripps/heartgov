@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-03 20:23:01
+* @Last Modified time: 2015-03-04 20:47:56
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -92,7 +92,7 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
         },
         reactClasses: {
             getGroupTable: function(id, service) {
-                groupTable.init(id, utilities, service);
+                return groupTable.init(id, utilities, service);
             },
             getTextTable: function(id, service){
                 textTable.init(id, utilities, service);
@@ -116,7 +116,27 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
             inputGroup.appendChild(input);
             formGroup.appendChild(inputGroup);
             return formGroup;
-        }   
+        },        
+        uploadFile: function(id) {
+            var input = document.getElementById(id);
+
+            if (input.files.length !== 0) {
+
+                if (input.files[0].name.match('.xlsx')) {
+                    utilities.ajax(input.files[0], 'post', '/upload/import', function(response){
+                        utilities.modalPrompt('importNum', 'hide');
+                        utilities.showModal({result: 'Your file has been successfully uploaded'});
+                    });
+
+                }
+
+                else {
+                    utilities.modalPrompt('importNum', 'hide');
+                    utilities.showModal({result: 'Only Excel Files are accepted (.xlsx).'});
+                }
+            }
+
+        }
     };
 
     return utilities;

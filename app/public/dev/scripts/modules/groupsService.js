@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-03 20:22:35
+* @Last Modified time: 2015-03-04 20:22:56
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -10,8 +10,8 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
     var groupsService = {
         init: function() {
             this.userName = document.getElementById('hgov-user-information').innerHTML;
+            this.reactTable = utilities.reactClasses.getGroupTable('groupTable', this);
             this.setEvents();
-            utilities.reactClasses.getGroupTable('groupTable', this);
         },
         setEvents: function() {
             this.form = document.querySelector('form[name=\'add-group-form\']');
@@ -19,6 +19,7 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
             document.getElementById('create-group').addEventListener('click', this.createGroupModal.bind(this));
             document.getElementById('submit-create-group').addEventListener('click', this.createGroup.bind(this));
             document.getElementById('import-num').addEventListener('click', this.showImportModal);
+            document.getElementById('submit-import').addEventListener('click', utilities.uploadFile.bind(this, 'fileUpload'));
         },
         createGroupModal: function() {
             document.querySelector('input[name=\'creator\']').value = this.userName;
@@ -83,7 +84,7 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
                 var saveButton = document.createElement('button');
                 saveButton.className = 'btn btn-success';
                 saveButton.innerHTML = 'Save';
-                saveButton.addEventListener('click', model.save);
+                saveButton.addEventListener('click', model.save.bind(this, this.reactTable));
                 saveButton.setAttribute('data-dismiss', 'modal');
                 document.getElementById('save-button').appendChild(saveButton);
             } 

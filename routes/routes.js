@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-01 17:24:53
+* @Last Modified time: 2015-03-04 20:48:24
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -318,6 +318,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.post('/send/outgoingText', function(req, res) {
         twilioWrapper.sendOutGoingText(req.body.content, req.body.to, req.body._id, req.body.from, res);
+    });
+
+    app.post('/upload/import', function(req, res){
+        console.log(req.body);
     });
 
 };
