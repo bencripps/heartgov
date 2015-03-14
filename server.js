@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2014-12-01 10:10:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:46:04
+* @Last Modified time: 2015-03-14 18:00:47
 */
 
 'use strict';
@@ -18,6 +18,7 @@ var express = require('express'),
     appMessages = require('./config/appMessages'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
+    favicon = require('serve-favicon'),
     sessionOptions = {
         secret: process.env.sessionKey,
         path: '/', 
@@ -40,6 +41,8 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 
 app.set('view engine', 'jade');
+
+app.use(favicon('favicon.ico'));
 
 app.use(express.static('app/public'));
 
