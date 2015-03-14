@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-01 17:33:52
+* @Last Modified time: 2015-03-14 14:01:12
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -73,10 +73,12 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
         updateGroup: function(data, server) {
             var id = this.utils.getGroupValue(data, 'id'),
                 orgName = this.utils.getGroupValue(data, 'organizationName'),
-                groupName = this.utils.getGroupValue(data, 'groupName');
+                groupName = this.utils.getGroupValue(data, 'groupName'),
+                phoneNumbers = this.utils.getGroupValue(data, 'assoc-numbers'),
+                users = this.utils.getGroupValue(data, 'assoc-users');
 
             GroupSchema.findOneAndUpdate({_id: id}, 
-                {groupName: groupName, 'organization.name': orgName}, 
+                {groupName: groupName, 'organization.name': orgName, associatedPhoneNumbers: phoneNumbers, associatedUsers: users}, 
                 groupManager.utils.displayMessage.bind(this, server, appMessages.groupSuccessfullyUpdated), 
                 groupManager.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },

@@ -86,24 +86,26 @@ define('groupModel', ['utilities'], function(utilities) {
                         label: 'Organization Name'
                     },
                     {
-                        values: group.associatedUsers.map(function(usr){
+                        value: group.associatedUsers.map(function(usr){
                             return {value: usr};
                         }),
                         id: 'assoc-users',
                         iterable: true,
                         visible: true,
                         editable: false,
-                        label: 'Username'
+                        label: 'Username',
+                        validator: function(val) { return val.length > 4;}
                     },
                     {
-                        values: group.associatedPhoneNumbers.map(function(num){
+                        value: group.associatedPhoneNumbers.map(function(num){
                             return {value: num};
                         }),
                         id: 'assoc-numbers',
                         iterable: true,
                         visible: true,
                         editable: false,
-                        label: 'Phone Number'
+                        label: 'Phone Number',
+                        validator: function(val) { return val.length === 10;}
                     }
                 ];
 
@@ -122,7 +124,7 @@ define('groupModel', ['utilities'], function(utilities) {
                     if (!ob.iterable) data[data.map(function(o){ return o.id; }).indexOf(e.target.name)].value = e.target.value;
                 },
                 save: function(data, reactTable) {
-                    utilities.ajax(data, 'post', '/edit/group', function(response){
+                    utilities.ajax(this.helpers.saveUsersAndNumbers(data), 'post', '/edit/group', function(response){
                         utilities.showModal(response);
                         utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(response) {
                             reactTable.setState({groups: response.groups});
@@ -134,6 +136,19 @@ define('groupModel', ['utilities'], function(utilities) {
                 attachEvent: function(form, ob, data){
                     var selector = document.querySelector('form[name="' + form + '"] input[name="'+ ob.id +'"]'),
                         eventId = selector.addEventListener('keyup', Group.liseners.editListener.bind(this, ob, data), false);
+                },
+                saveUsersAndNumbers: function(data) {
+                    data.filter(function(n){return n.iterable;}).forEach(function(ob){
+                        var temp = [];
+                        Array.prototype.forEach.call(document.querySelectorAll('form[name="' + ob.id + '"] input'), function(input) {
+                            if (ob.validator(input.value)){
+                                temp.push(input.value);
+                            }
+                        });
+                        var idx = data.map(function(y){return y.id}).indexOf(ob.id);
+                        data[idx].value = temp;
+                    });
+                    return data;
                 }
             }
     };

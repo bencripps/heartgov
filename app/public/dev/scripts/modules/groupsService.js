@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-04 20:22:56
+* @Last Modified time: 2015-03-14 13:59:16
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -58,7 +58,7 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
                 if (!ob.iterable && ob.editable && edit) input.disabled = false;
 
                 if (ob.iterable) {
-                    ob.values.forEach(function(val){
+                    ob.value.forEach(function(val){
                         document.querySelector('form[name="' + ob.id + '"]').appendChild(utilities.getFormGroup(ob.label, val.value, !ob.editable));
                     });
                 }
@@ -66,7 +66,7 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
 
             this.getSaveButton(groupModel, edit);
 
-            this.getModifyButton(groupModel, edit);
+            this.getModifyButtons(groupModel, edit);
 
             utilities.modalPrompt('groupDetails', 'show');
         },
@@ -89,15 +89,27 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
                 document.getElementById('save-button').appendChild(saveButton);
             } 
         },
-        getModifyButton: function(model, edit) {
-            document.getElementById('modify-button').innerHTML = '';
+        getModifyButtons: function(model, edit) {
+            document.getElementById('add-numbers').innerHTML = '';
+            document.getElementById('add-users').innerHTML = '';
 
             if (edit) {
-                var modButton = document.createElement('button');
-                modButton.className = 'btn btn-info';
-                modButton.innerHTML = 'Modify Group Users/Numbers';
-                document.getElementById('modify-button').appendChild(modButton);
+                var addNumbers = document.createElement('button'),
+                    addUsers = document.createElement('button');
+                addNumbers.className = 'btn';
+                addUsers.className = 'btn';
+                addNumbers.innerHTML = 'Add Numbers';
+                addUsers.innerHTML = 'Add Users';
+                document.getElementById('add-numbers').appendChild(addNumbers);
+                document.getElementById('add-users').appendChild(addUsers);
+
+                addUsers.addEventListener('click', this.addInputToGroup.bind(this, 'assoc-users', 'User Name'));
+                addNumbers.addEventListener('click', this.addInputToGroup.bind(this, 'assoc-numbers', 'Phone Number'));
             } 
+        },
+        addInputToGroup: function(name, label) {
+            var form = document.querySelector('form[name="' + name + '"]');
+            form.appendChild(utilities.getFormGroup(label, '', false));
         },
         editGroupModal: function(group){
             this.viewGroupModal(group, true);
