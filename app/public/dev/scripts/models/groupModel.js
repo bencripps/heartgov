@@ -124,11 +124,14 @@ define('groupModel', ['utilities'], function(utilities) {
                     if (!ob.iterable) data[data.map(function(o){ return o.id; }).indexOf(e.target.name)].value = e.target.value;
                 },
                 save: function(data, reactTable) {
-                    utilities.ajax(this.helpers.saveUsersAndNumbers(data), 'post', '/edit/group', function(response){
-                        utilities.showModal(response);
-                        utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(response) {
+                    utilities.ajax({ data: this.helpers.saveUsersAndNumbers(data), username: utilities.getCurrentUserName()},'post', '/edit/group', function(response){
+                        if (!response.result) {
+                            utilities.showModal({result: 'This group has been successfully updated!'});
                             reactTable.setState({groups: response.groups});
-                        });
+                        }
+                        else {
+                            utilities.showModal(response);
+                        }
                     });
                 }
             },

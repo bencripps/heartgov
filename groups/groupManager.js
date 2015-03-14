@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-14 14:01:12
+* @Last Modified time: 2015-03-14 15:36:52
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -70,8 +70,10 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
         modifyPhoneNumbers: function(server, method, group) {
             console.log(group, method);
         },
-        updateGroup: function(data, server) {
-            var id = this.utils.getGroupValue(data, 'id'),
+        updateGroup: function(obj, server) {
+            var data = obj.data,
+                user = obj.username,
+                id = this.utils.getGroupValue(data, 'id'),
                 orgName = this.utils.getGroupValue(data, 'organizationName'),
                 groupName = this.utils.getGroupValue(data, 'groupName'),
                 phoneNumbers = this.utils.getGroupValue(data, 'assoc-numbers'),
@@ -79,7 +81,7 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
 
             GroupSchema.findOneAndUpdate({_id: id}, 
                 {groupName: groupName, 'organization.name': orgName, associatedPhoneNumbers: phoneNumbers, associatedUsers: users}, 
-                groupManager.utils.displayMessage.bind(this, server, appMessages.groupSuccessfullyUpdated), 
+                groupManager.utils.displayMessage.bind(this, server, appMessages.groupSuccessfullyUpdated, user), 
                 groupManager.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },
         deleteGroup: function(id, server) {
@@ -99,8 +101,15 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
             doesGroupNameExist: function(groupName) {
                 return GroupSchema.findOne({groupName: groupName}).exec();
             },
-            displayMessage: function(server, msg) {
-                server.send({result: msg});
+            displayMessage: function(server, msg, username) {
+
+                if (username) {
+                    this.findAvailableGroups(username, server);
+                }
+
+                else {
+                    server.send({result: msg});
+                }
             },
             getGroupSchema: function(groupInfo, user) {
                 return {

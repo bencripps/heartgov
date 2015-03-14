@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-04 20:48:24
+* @Last Modified time: 2015-03-14 16:01:53
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
@@ -91,31 +91,31 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
      app.get('/groups', function(req, res) {
 
         //testing no need login
-        if (true){
-            res.render('groups', getTemplateConfig({   
-                local: path,
-                scripts: format.call(groupsScripts),
-                currentUser: 'bencripps1',
-                headers: appMessages.textDistribution.displayFields,
-                userLevel: true,
-                activeMarker: '/groups',
-                userDetails: true
-            }));  
-        }
-
-        // if (sessionManager.isLoggedIn(req.sessionID)) {
-
-        //     myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
-        //         res.render('groups', getTemplateConfig({   
-        //             local: path,
-        //             scripts: format.call(groupsScripts),
-        //             currentUser: sessionManager.getLoggedInUser(req.sessionID),
-        //             userLevel: user.superUser,
-        //             activeMarker: '/groups',
-        //             userDetails: user
-        //         }));             
-        //     });
+        // if (true){
+        //     res.render('groups', getTemplateConfig({   
+        //         local: path,
+        //         scripts: format.call(groupsScripts),
+        //         currentUser: 'bencripps1',
+        //         headers: appMessages.textDistribution.displayFields,
+        //         userLevel: true,
+        //         activeMarker: '/groups',
+        //         userDetails: true
+        //     }));  
         // }
+
+        if (sessionManager.isLoggedIn(req.sessionID)) {
+
+            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
+                res.render('groups', getTemplateConfig({   
+                    local: path,
+                    scripts: format.call(groupsScripts),
+                    currentUser: sessionManager.getLoggedInUser(req.sessionID),
+                    userLevel: user.superUser,
+                    activeMarker: '/groups',
+                    userDetails: user
+                }));             
+            });
+        }
 
         else {
             res.render('unauthorized', getTemplateConfig({   
@@ -214,13 +214,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
      app.get('/myaccount', function(req, res) {
 
-        var options,
-            localPath;
+        var options;
 
         if (sessionManager.isLoggedIn(req.sessionID)) {
 
             myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
-                localPath = 'myaccount';
                 options = getTemplateConfig({   
                     local: path,
                     scripts: format.call(myAccountScripts),
@@ -228,19 +226,18 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
                     userDetails: user,
                     activeMarker: '/myaccount'
                 });
-                res.render(localPath, options);             
+                res.render('myaccount', options);             
             });
         }
 
         else {
-            localPath = 'unauthorized';
             options = getTemplateConfig({   
                 local: path,
                 scripts: format.call(indexScripts),
                 currentUser: sessionManager.getLoggedInUser(req.sessionID),
                 activeMarker: '/'
             });
-            res.render(localPath, options);
+            res.render('unauthorized', options);
         }
 
     });

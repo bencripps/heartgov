@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-14 13:59:16
+* @Last Modified time: 2015-03-14 15:56:32
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -59,7 +59,8 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
 
                 if (ob.iterable) {
                     ob.value.forEach(function(val){
-                        document.querySelector('form[name="' + ob.id + '"]').appendChild(utilities.getFormGroup(ob.label, val.value, !ob.editable));
+                        document.querySelector('form[name="' + ob.id + '"]').appendChild(utilities.getFormGroup(ob.label, val.value, !ob.editable, edit));
+                        
                     });
                 }
             });
@@ -96,6 +97,7 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
             if (edit) {
                 var addNumbers = document.createElement('button'),
                     addUsers = document.createElement('button');
+                    
                 addNumbers.className = 'btn';
                 addUsers.className = 'btn';
                 addNumbers.innerHTML = 'Add Numbers';
@@ -109,7 +111,7 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
         },
         addInputToGroup: function(name, label) {
             var form = document.querySelector('form[name="' + name + '"]');
-            form.appendChild(utilities.getFormGroup(label, '', false));
+            form.appendChild(utilities.getFormGroup(label, '', false, true));
         },
         editGroupModal: function(group){
             this.viewGroupModal(group, true);

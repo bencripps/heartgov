@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-04 20:47:56
+* @Last Modified time: 2015-03-14 15:54:41
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -98,18 +98,26 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
                 textTable.init(id, utilities, service);
             }
         },
-        getFormGroup: function(label, value, isDisabled) {
+        getFormGroup: function(label, value, isDisabled, isRemoveable) {
             var formGroup = document.createElement('div'),
                 inputGroup = document.createElement('div'),
                 addOn = document.createElement('div'),
-                input = document.createElement('input');
+                input = document.createElement('input'),
+                del = document.createElement('span');
 
             formGroup.className = 'form-group';
             inputGroup.className = 'input-group hgov-form-group';
             addOn.className = 'input-group-addon hgov-form-label';
             input.className = 'form-control input-sm hgov-disabled';
+            del.className = 'glyphicon glyphicon-remove del';
 
             addOn.innerHTML = label;
+
+            if (isRemoveable) {
+                del.addEventListener('click', this.removeFormGroup.bind(this, formGroup));
+                addOn.appendChild(del);
+            }   
+            
             input.value = value;
             input.disabled = isDisabled;
             inputGroup.appendChild(addOn);
@@ -117,6 +125,9 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
             formGroup.appendChild(inputGroup);
             return formGroup;
         },        
+        removeFormGroup: function(formGroup) {
+            formGroup.remove();
+        },
         uploadFile: function(id) {
             var input = document.getElementById(id);
 
