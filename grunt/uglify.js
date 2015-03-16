@@ -1,7 +1,10 @@
 module.exports = {
     all: {
-        files: {
-            'app/public/min/scripts/main.min.js': ['app/public/dev/scripts/main.js']
-        }
+        files: [{
+            expand: true,
+            cwd: 'app/public/dev',
+            src: 'scripts/**/*.js',
+            dest: 'app/public/min'
+        }]
     }
 };

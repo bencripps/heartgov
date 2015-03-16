@@ -2,12 +2,12 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-14 16:01:53
+* @Last Modified time: 2015-03-15 17:29:10
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
     'use strict';
- 
+
     var format = require('../config/format')(path),
         jade = require('jade'),
         shortid = require('../config/generateId'),

@@ -7,7 +7,7 @@ define('groupModel', ['utilities'], function(utilities) {
                 var modelData = this.model(data),
                     groupModel = {
                         values: modelData,
-                        save: this.liseners.save.bind(this, modelData)
+                        save: this.listeners.save.bind(this, modelData)
                     };
 
                 return groupModel;
@@ -109,10 +109,10 @@ define('groupModel', ['utilities'], function(utilities) {
                     }
                 ];
 
-                this.liseners.edit(data);
+                this.listeners.edit(data);
                 return data;
             },
-            liseners: {
+            listeners: {
                 edit: function(data) {
                     data.forEach(function(ob){
                         if (ob.visible && ob.editable && !ob.iterable) {
@@ -138,17 +138,19 @@ define('groupModel', ['utilities'], function(utilities) {
             helpers: {
                 attachEvent: function(form, ob, data){
                     var selector = document.querySelector('form[name="' + form + '"] input[name="'+ ob.id +'"]'),
-                        eventId = selector.addEventListener('keyup', Group.liseners.editListener.bind(this, ob, data), false);
+                        eventId = selector.addEventListener('keyup', Group.listeners.editListener.bind(this, ob, data), false);
                 },
                 saveUsersAndNumbers: function(data) {
                     data.filter(function(n){return n.iterable;}).forEach(function(ob){
-                        var temp = [];
+                        var temp = [],
+                            idx = data.map(function(y){return y.id;}).indexOf(ob.id);
+                            
                         Array.prototype.forEach.call(document.querySelectorAll('form[name="' + ob.id + '"] input'), function(input) {
                             if (ob.validator(input.value)){
                                 temp.push(input.value);
                             }
                         });
-                        var idx = data.map(function(y){return y.id}).indexOf(ob.id);
+                        
                         data[idx].value = temp;
                     });
                     return data;

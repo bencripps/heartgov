@@ -1,0 +1,1 @@
+"use strict";require(["jquery","bootstrap","utilities"],function(a,b,c){var d={init:function(){document.getElementById("reset-password").addEventListener("click",this.resetPassword.bind(this))},resetPassword:function(){var a={username:document.querySelector("input[name='username']").value};c.ajax(a,"post","/reset/password",function(a){c.showModal(a)})}};d.init()});

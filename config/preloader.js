@@ -2,13 +2,12 @@
 * @Author: ben_cripps
 * @Date:   2015-02-02 18:20:43
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-02 18:46:32
+* @Last Modified time: 2015-03-15 19:53:24
 */
 
 'use strict';
 
-var fs = require('fs'),
-    walker = require('walk');
+var walker = require('walk');
 
 module.exports = function(paths) {
 

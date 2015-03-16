@@ -5,8 +5,10 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet' href='vendor/css/bootstrap.min.css')
     link(rel='stylesheet', href='min/styles/main.css')
+    script(type='text/javascript')
+        | var path = "#{local}";
     script(src='vendor/js/require.min.js')
-    script(src='dev/scripts/common.js')
+    script(src= '#{local}/scripts/common.js')
     - each s in scripts
       script(src=s)
   body

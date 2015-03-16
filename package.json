@@ -6,7 +6,8 @@
     "predef": [
       "$",
       "require",
-      "define"
+      "define",
+      "path"
     ],
     "node": "true",
     "jasmine": "true"

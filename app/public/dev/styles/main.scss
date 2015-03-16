@@ -515,6 +515,17 @@ a:link, a:hover {
     }
 }
 
+//sign up page
+
+.signup-links {
+    span {
+        font-size: 3.5vw;
+    }
+    a {
+        font-size: 2.5vw !important;
+    }
+}
+
 .group-button {
     width: 10%;
 }
@@ -567,6 +578,8 @@ a:link, a:hover {
 .#{$prefix}-expand:hover {
     color: #419641;
 }
+
+//random utils
 
 .del {
     float: right;

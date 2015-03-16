@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 16:58:02
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-01 14:44:08
+* @Last Modified time: 2015-03-15 19:44:43
 */
 
 'use strict';
@@ -18,14 +18,14 @@ require.config({
         jquery: 'vendor/js/jquery.min',
         bootstrap: 'vendor/js/bootstrap.min',
         react: 'vendor/js/react.min',
-        loginService: 'dev/scripts/modules/loginService',
-        signUpService: 'dev/scripts/modules/signUpService',
-        textService: 'dev/scripts/modules/textService',
-        myAccountService: 'dev/scripts/modules/myAccountService',
-        groupsService: 'dev/scripts/modules/groupsService',
-        utilities: 'dev/scripts/modules/utilities',
-        groupTable: 'dev/scripts/modules/react/js/groupTable',
-        textTable: 'dev/scripts/modules/react/js/textTable',
-        groupModel: 'dev/scripts/models/groupModel',
+        loginService: path + '/scripts/modules/loginService',
+        signUpService: path + '/scripts/modules/signUpService',
+        textService: path + '/scripts/modules/textService',
+        myAccountService: path + '/scripts/modules/myAccountService',
+        groupsService: path + '/scripts/modules/groupsService',
+        utilities: path + '/scripts/modules/utilities',
+        groupTable: path + '/scripts/modules/react/js/groupTable',
+        textTable: path + '/scripts/modules/react/js/textTable',
+        groupModel: path + '/scripts/models/groupModel',
     }
 });

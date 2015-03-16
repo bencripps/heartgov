@@ -1,0 +1,1 @@
+"use strict";require(["jquery","bootstrap","loginService","signUpService"],function(a,b,c,d){c.init(),d.init()});
