@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 20:17:49
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-15 17:30:00
+* @Last Modified time: 2015-03-16 20:45:23
 */
 
 module.exports = function(messages, path) {
@@ -21,7 +21,6 @@ module.exports = function(messages, path) {
         Object.keys(map).forEach( function(k) {
             baseTemplate[k] = map[k];
         });
-
         return baseTemplate;
     };
 

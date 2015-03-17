@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-14 15:56:32
+* @Last Modified time: 2015-03-16 20:28:33
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -130,6 +130,19 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
         },
         showImportModal: function() {
             utilities.modalPrompt('importNum', 'show');
+            var select = document.getElementById('importGroups');
+
+            if (select.options.selectedIndex === -1) {
+                utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(data) {
+                    
+                    data.groups.forEach(function(ob) {
+                        var option = document.createElement('option');
+                        option.value = ob._id;
+                        option.text = ob.groupName;
+                        select.appendChild(option);
+                    });
+                });
+            }
         },
         validate: {
             create: function() {

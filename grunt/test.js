@@ -3,7 +3,7 @@ module.exports = {
         all: {
             src: '../*.js',
             options: {
-                specs: ['../tests/sms/textReceiver-spec.js']
+                specs: ['../tests/**/*.js']
             }
         }
     }

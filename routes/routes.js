@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-15 17:29:10
+* @Last Modified time: 2015-03-16 20:55:42
 */
 
-module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths) {
+module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
     'use strict';
 
     var format = require('../config/format')(path),
@@ -37,7 +37,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
         textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution),
-        getTemplateConfig = require('../config/template')(appMessages.templateConfig, path);
+        getTemplateConfig = require('../config/template')(appMessages.templateConfig, path),
+        dev = env === 'dev';
 
     app.get('/', function(req, res) {
 
@@ -90,29 +91,16 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
      app.get('/groups', function(req, res) {
 
-        //testing no need login
-        // if (true){
-        //     res.render('groups', getTemplateConfig({   
-        //         local: path,
-        //         scripts: format.call(groupsScripts),
-        //         currentUser: 'bencripps1',
-        //         headers: appMessages.textDistribution.displayFields,
-        //         userLevel: true,
-        //         activeMarker: '/groups',
-        //         userDetails: true
-        //     }));  
-        // }
-
-        if (sessionManager.isLoggedIn(req.sessionID)) {
+        if (sessionManager.isLoggedIn(req.sessionID) || dev) {
 
             myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
                 res.render('groups', getTemplateConfig({   
                     local: path,
                     scripts: format.call(groupsScripts),
-                    currentUser: sessionManager.getLoggedInUser(req.sessionID),
-                    userLevel: user.superUser,
+                    currentUser: dev ? devCredentials.currentUser : sessionManager.getLoggedInUser(req.sessionID),
+                    userLevel: dev ? devCredentials.userLevel : user.superUser,
                     activeMarker: '/groups',
-                    userDetails: user
+                    userDetails: dev ? devCredentials.userDetails : user
                 }));             
             });
         }
@@ -173,33 +161,20 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.get('/database', function(req, res) {
 
-        if (sessionManager.isLoggedIn(req.sessionID)) {
+        if (sessionManager.isLoggedIn(req.sessionID) || dev) {
 
             myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
                 res.render('database', getTemplateConfig({   
                     local: path,
                     scripts: format.call(mainScripts),
-                    currentUser: sessionManager.getLoggedInUser(req.sessionID),
+                    currentUser: dev ? devCredentials.currentUser : sessionManager.getLoggedInUser(req.sessionID),
                     headers: appMessages.textDistribution.displayFields,
-                    userLevel: user.superUser,
+                    userLevel: dev ? devCredentials.userLevel : user.superUser,
                     activeMarker: '/database',
-                    userDetails: user
+                    userDetails: dev ? devCredentials.userDetails : user
                 }));             
             });
         }
-
-        //testing no need login
-        // if (true){
-        //     res.render('database', getTemplateConfig({   
-        //         local: path,
-        //         scripts: format.call(mainScripts),
-        //         currentUser: 'bencripps1',
-        //         headers: appMessages.textDistribution.displayFields,
-        //         userLevel: true,
-        //         activeMarker: '/database',
-        //         userDetails: true
-        //     }));  
-        // }
 
         else {
             res.render('unauthorized', getTemplateConfig({   
@@ -216,16 +191,17 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
         var options;
 
-        if (sessionManager.isLoggedIn(req.sessionID)) {
+        if (sessionManager.isLoggedIn(req.sessionID) || dev) {
 
             myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
                 options = getTemplateConfig({   
                     local: path,
                     scripts: format.call(myAccountScripts),
-                    currentUser: sessionManager.getLoggedInUser(req.sessionID),
-                    userDetails: user,
+                    currentUser: dev ? devCredentials.currentUser : sessionManager.getLoggedInUser(req.sessionID),
+                    userDetails: dev ? devCredentials.userDetails : user,
                     activeMarker: '/myaccount'
                 });
+
                 res.render('myaccount', options);             
             });
         }

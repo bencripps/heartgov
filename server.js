@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2014-12-01 10:10:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-14 18:00:47
+* @Last Modified time: 2015-03-16 20:53:27
 */
 
 'use strict';
@@ -32,7 +32,28 @@ var express = require('express'),
     accountSID = process.env.accountSID,
     authToken = process.env.authToken,
     twilio = require('twilio')(accountSID, authToken),
-    app = express();
+    app = express(),
+    devCredentials = {
+        currentUser: 'bencripps1',
+        userLevel: true,
+        userDetails: {
+            _id: '54e561d7a7244f3f34d4f8ac',
+            userId: 'XyMMqcPw',
+            username: 'bencripps1',
+            password: '1216985755',
+            zipcode: null,
+            emailAddress: 'bencripps1@gmail.com',
+            lastLogin: 'Wed Feb 18 2015 22:08:55 GMT-0600 (CST)',
+            superUser: true,
+            name: {
+                first: 'Ben',
+                last: 'Cripps'
+            },
+            phoneNumber: {
+                string: '4438788369'
+            }
+        }
+    };
 
 mongoose.connect(database.url);
 
@@ -52,7 +73,7 @@ app.use(cookieParser('my secret here'));
 
 app.use(session(sessionOptions));
 
-require('./routes/routes.js')(app, env, fs, url, path(env), database, mongoose, appMessages, twilio, staticPaths);
+require('./routes/routes.js')(app, env, fs, url, path(env), database, mongoose, appMessages, twilio, staticPaths, devCredentials);
 
 app.listen(app.get('port'), function() {
     console.log('This app is running in ' + env + ' mode, on port ' + app.get('port'));

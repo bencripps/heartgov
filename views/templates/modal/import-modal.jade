@@ -9,7 +9,12 @@ block modal
 
             div(class='form-group') 
                 div(class='input-group #{prefix}form-group')
-                    div(class='input-group-addon #{prefix}form-label')
+                    div(class='input-group-addon #{prefix}form-label') choose group for import
+                    select(name='importGroups' class='form-control input-sm' id='importGroups')
+
+            div(class='form-group') 
+                div(class='input-group #{prefix}form-group')
+                    div(class='input-group-addon #{prefix}form-label' style='width:178px !important;')
                         span(class='glyphicon glyphicon-folder-open')
                     input(type='file' id='fileUpload' name='fileUpload' class='form-control input-sm #{prefix}disabled')
 
