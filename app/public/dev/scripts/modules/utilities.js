@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-18 19:31:18
+* @Last Modified time: 2015-03-18 20:03:58
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -47,15 +47,6 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
                 var img = document.createElement('img');
                 img.src = n.innerHTML;
             });
-        },
-        fixpolygon: function() {
-            // var angle = document.querySelector('.angle-left');
-            // if (angle) {
-            //     angle.style.borderLeft = (0.9665 * window.innerWidth) + 'px solid transparent';
-            //     window.addEventListener('resize', function() {
-            //         angle.style.borderLeft = (0.9665 * window.innerWidth) + 'px solid transparent';
-            //     });
-            // }
         },
         modalPrompt: function(selector, method) {
             $(this.modals[selector]).modal(method);

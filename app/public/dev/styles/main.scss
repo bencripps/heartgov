@@ -141,7 +141,7 @@ a:link, a:hover {
       z-index: 0;
       left:1%;
       width: 98%;
-      height: 20%;
+      height: 30%;
       background-color: $primary-blue;
       -webkit-transform: skewY(4deg);
       -moz-transform: skewY(4deg);
@@ -150,13 +150,6 @@ a:link, a:hover {
       transform: skewY(4deg);
     }
 }
-
-// .angle-left {
-//     width: 0;
-//     height: 0;
-//     border-top: 50px solid $primary-blue;
-//     border-left: 980px solid transparent;
-// }
 
 #neighbors {
     text-align: left;

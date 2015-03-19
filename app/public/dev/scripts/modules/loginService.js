@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 16:30:36
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-07 12:21:25
+* @Last Modified time: 2015-03-18 20:03:45
 */
 
 define('loginService', ['utilities'], function(utilities) {
@@ -13,7 +13,7 @@ define('loginService', ['utilities'], function(utilities) {
             var whichButton = document.getElementById('main-login') || document.getElementById('main-logout'),
                 imageDiv =  document.getElementById('all-image-src'),
                 method = document.getElementById('main-login') ? this.attemptLogin.bind(this,{}) : this.logout.bind(this);
-            utilities.fixpolygon();
+
             if (whichButton) whichButton.addEventListener('click', method);
             if (imageDiv) utilities.preloadImages();
         },
