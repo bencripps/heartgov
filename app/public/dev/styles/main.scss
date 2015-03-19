@@ -120,20 +120,43 @@ a:link, a:hover {
 #next-middle {
     background-color: $primary-blue;
     color: $white;
-    padding: 10% 0 10% 0;
-    div h4 {
-        margin: 0px auto;
-        width: 80%;
-        font-size: 3.2vw;
+    padding: 15% 0 10% 0;
+    width:100%;
+    margin-bottom: 35%;
+
+    div  {
+        
+        vertical-align: middle;
+
+        h4 {
+            margin: 0px auto;
+            width: 80%;
+            font-size: 3.5vw;
+        }
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left:1%;
+      width: 98%;
+      height: 20%;
+      background-color: $primary-blue;
+      -webkit-transform: skewY(4deg);
+      -moz-transform: skewY(4deg);
+      -ms-transform: skewY(4deg);
+      -o-transform: skewY(4deg);
+      transform: skewY(4deg);
     }
 }
 
-.angle-left {
-    width: 0;
-    height: 0;
-    border-top: 50px solid $primary-blue;
-    border-left: 980px solid transparent;
-}
+// .angle-left {
+//     width: 0;
+//     height: 0;
+//     border-top: 50px solid $primary-blue;
+//     border-left: 980px solid transparent;
+// }
 
 #neighbors {
     text-align: left;
@@ -247,7 +270,6 @@ a:link, a:hover {
 }
 
 .team-circle-cont {
-    background-color: $teal;
     position: relative;
     border-radius: 50%;
     width: 50%;
@@ -302,13 +324,13 @@ a:link, a:hover {
         padding: 2%;
 
         .title {
-            font-size:2vw;
+            font-size:3.7vw;
             font-weight: bold;
             margin-bottom: 3%;
         }
 
         .content {
-            font-size:1.7vw;
+            font-size:2.7vw;
         }
     }
 }
@@ -390,7 +412,10 @@ a:link, a:hover {
 
 .active {
     border-bottom: 2px solid $primary-blue;
-    background-color: $teal !important;
+
+    a {
+        background-color: $teal !important;
+    }
 }
 
 .#{$prefix}-primary-button {
@@ -434,6 +459,10 @@ a:link, a:hover {
    background: transparent;
    border: none;
    box-shadow: none;
+
+    li > a:link {
+        color: blue;
+    }
 }
 
 ##{$prefix}-header li a{

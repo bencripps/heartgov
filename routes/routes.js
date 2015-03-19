@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-16 20:55:42
+* @Last Modified time: 2015-03-17 22:41:35
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -10,6 +10,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     var format = require('../config/format')(path),
         jade = require('jade'),
+        excelParser = require('excel-parser'),
         shortid = require('../config/generateId'),
         indexScripts = ['/scripts/views/loginView.js'],
         adminCreateScripts = ['/scripts/views/createUserView.js'],
@@ -294,7 +295,12 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.post('/upload/import', function(req, res){
-        console.log(req.body);
+
+        excelParser.worksheets({inFile: req.body.name}, function(err, worksheets){
+          if (err) console.error(err);
+          console.log(worksheets);
+        });
+        
     });
 
 };

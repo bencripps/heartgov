@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-16 20:28:33
+* @Last Modified time: 2015-03-17 21:04:05
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -19,7 +19,6 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
             document.getElementById('create-group').addEventListener('click', this.createGroupModal.bind(this));
             document.getElementById('submit-create-group').addEventListener('click', this.createGroup.bind(this));
             document.getElementById('import-num').addEventListener('click', this.showImportModal);
-            document.getElementById('submit-import').addEventListener('click', utilities.uploadFile.bind(this, 'fileUpload'));
         },
         createGroupModal: function() {
             document.querySelector('input[name=\'creator\']').value = this.userName;
@@ -142,6 +141,8 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
                         select.appendChild(option);
                     });
                 });
+
+                document.getElementById('submit-import').addEventListener('click', utilities.uploadFile.bind(this, 'fileUpload'));
             }
         },
         validate: {
