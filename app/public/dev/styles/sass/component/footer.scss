@@ -8,34 +8,94 @@
     text-align:center;
     margin-bottom: -10px;
     padding-bottom: 3%;
+    font-size: 1.5vw;
+
+    @include mobile { 
+        padding-bottom: 1%;
+    }
 
     .footer-block {
         margin-top: 10px;
-    }
 
-    #footer-right {
-        font-size: 1.5vw;
-        text-align: left;
-        a {
-            font-size: 1.5vw;
+        .footer-logo {
+            width: 40%;
+        }
+
+        .copy {
+            font-size:2vw;
+
+            &::after {
+                content: "Copyright 2015 | heartgov";
+            }
+        }
+
+        @include mobile {
+            .footer-logo {
+                width: 90%;
+            }
+            .copy {
+                font-size: 4vw;
+                &::after {
+                    content: "Copyright 2015";
+                }
+            }
         }
     }
 
     #footer-left {
+        text-align: left;
+
+        .follow {
+            padding-top:25px
+        }
+
+        @include mobile {
+            .follow {
+                display: none;
+            }
+        }
+    }
+
+    #footer-right {
         text-align: right;
-        font-size: 1.5vw;
 
         label {
             display: block;
             margin-bottom: 2px;
         }
+
         a {
             font-size: 1.5vw;
+        }
+
+        @include mobile { 
+           font-size: 3vw;
+
+           a {
+            font-size: 2.5vw;
+           }
         }
     }
 
     .social-square {
         width: 12%;
         margin: 10px;
+
+        &.fb {
+            margin-left: 0px;
+        }
+
+        @include mobile {
+            width: 28%;
+            display: block;
+
+            div:first-child {
+                display: none;
+            }
+
+            &.fb {
+                margin-left: 10px;
+            }
+        }
     }
 }

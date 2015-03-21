@@ -57,6 +57,17 @@
       -o-transform: skewY(4deg);
       transform: skewY(4deg);
     }
+
+    @include mobile {
+        div {
+            h4 {
+                font-size: 4.5vw;
+            }
+        }
+        &:after {
+            height: 21%;
+        }
+    }
 }
 
 #neighbors {

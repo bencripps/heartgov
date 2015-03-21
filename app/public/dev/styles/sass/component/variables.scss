@@ -1,10 +1,16 @@
 $prefix: "hgov";
-$mobile: 800px;
+$mobile-width: 780px;
 
 $primary-blue: #1F6BD1;
 $teal: #5ADED5;
 $black: #333333;
 $white: #FFFFFF;
+
+@mixin mobile {
+  @media (max-width: #{$mobile-width}) {
+    @content;
+  }
+}
 
 @mixin hero-image($image) {
     background-size: contain;
