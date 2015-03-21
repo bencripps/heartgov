@@ -1,0 +1,54 @@
+.#{$prefix}-innerlayout-td{
+    text-align: left;
+}
+
+.#{$prefix}-header-button {
+    border: 1px solid black;
+}
+
+.#{$prefix}-disabled {
+    cursor: default !important;
+}
+
+.#{$prefix}-hidden-row {
+    display: none;
+}
+
+.#{$prefix}-template-td {
+    text-align: center;
+}
+
+.#{$prefix}-template-label {
+    font-weight: bold;
+    font-size: 16px;
+    border-radius:50px;
+}
+
+.#{$prefix}-expand {
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.#{$prefix}-text-function {
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.#{$prefix}-text-function {
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.#{$prefix}-text-function:hover{
+     color: #2aabd2
+}
+
+.#{$prefix}-expand:hover {
+    color: #419641;
+}
+
+//random utils
+
+.del {
+    float: right;
+}

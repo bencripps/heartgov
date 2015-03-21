@@ -1,0 +1,41 @@
+$prefix: "hgov";
+$mobile: 800px;
+
+$primary-blue: #1F6BD1;
+$teal: #5ADED5;
+$black: #333333;
+$white: #FFFFFF;
+
+@mixin hero-image($image) {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    background-image: $image;
+    width: 100%;
+
+    table {
+        margin: 13% auto auto;
+        position:absolute;
+        color: $white;
+        width: 65%;
+        height: 50%;
+        top: 0; 
+        left: 0; 
+        bottom: 0; 
+        right: 0;
+        overflow: auto;
+
+        h1 {
+            font-size: 2.5vw;
+        }
+
+        h2 {
+            font-size: 8vw;
+        }
+
+        span a {
+            font-size: 1.5vw;
+        }
+    }
+}

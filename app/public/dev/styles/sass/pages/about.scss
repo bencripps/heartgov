@@ -1,0 +1,102 @@
+#about-hero {
+    @include hero-image(url("/min/images/about-hero.jpg"));
+}
+
+#about-bubble {
+    width: 20%;
+}
+
+#about-quote {
+    color: $primary-blue;
+}
+
+#about-left {
+    font-size: 1.7vw;
+
+    div:first-child {
+        margin:2% 0 0 3%;
+        padding: 1%;
+        text-align: left;
+    }
+
+    div {
+        padding-left: 3%;
+        margin: 0 0 0 -3%;
+    }
+}
+
+#about-middle {
+    background-color: $primary-blue;
+    width: 100%;
+    margin: 0px auto;
+
+    div:first-child {
+        text-align: center;
+        img {
+            width:60%; 
+            margin: 5% 0 0 5%;
+        }
+    }
+
+    div {
+        font-size: 1.7vw;
+        color: $white;
+        margin: 5% 0 5% 0;
+        text-align: left;
+    }
+}
+
+#about-next-middle {
+    div:first-child {
+        font-size:1.7vw;
+        text-align: left;
+        margin: 0 0 0 3%; 
+    }
+
+    div {
+        margin: 0 0 0 -3%;
+        text-align: left;
+
+        #sub-next {
+            margin-top:1.5%; font-size:1.75vw;
+        }
+
+        #title {
+            display: block;
+            margin-top: 5%;
+        }
+    }
+}
+
+.team-circle-cont {
+    position: relative;
+    border-radius: 50%;
+    width: 50%;
+    height: auto;
+    padding-top: 50%;
+    margin: 0px auto;
+}
+
+.member-name {
+    font-weight: bold;
+    font-size: 1.5vw;
+}
+
+.member-title {
+    font-size: 1.25vw;
+}
+
+.social-network-bio {
+    margin-top: -8%;
+    a img {
+        width: 15%;
+        margin: 0px auto;
+        display: inline-block;
+    }
+}
+
+.bio-pic {
+    background-position:center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}

@@ -20,11 +20,9 @@ module.exports = {
             sourceMap: false
         },
         files: [{
-            expand: true,
-            cwd: 'app/public/dev/styles/',
-            src: ['*.scss'],
-            dest: 'app/public/min/styles',
-            ext: '.css'
+            expand: false,
+            src: 'app/public/dev/styles/hgov.scss',
+            dest: 'app/public/min/styles/main.css'
         }]
     }
 };
