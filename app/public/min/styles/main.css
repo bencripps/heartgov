@@ -469,6 +469,34 @@ hgov-main-table td {
     #press-background-cover table span a {
       font-size: 1.5vw; }
 
+.press.container {
+  padding-top: 30%; }
+
+.hgov-story {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  background-image: '';
+  width: 100%; }
+  .hgov-story table {
+    margin: 13% auto auto;
+    position: absolute;
+    color: #FFFFFF;
+    width: 65%;
+    height: 50%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto; }
+    .hgov-story table h1 {
+      font-size: 2.5vw; }
+    .hgov-story table h2 {
+      font-size: 8vw; }
+    .hgov-story table span a {
+      font-size: 1.5vw; }
+
 .story-overlay {
   position: absolute;
   top: 0;
@@ -492,14 +520,24 @@ hgov-main-table td {
   .story-cover h4 {
     font-weight: bold;
     font-size: 1.7vw; }
+    @media (max-width: 780px) {
+      .story-cover h4 {
+        font-size: 3.5vw; } }
   .story-cover p {
     font-size: 1.3vw; }
+    @media (max-width: 780px) {
+      .story-cover p {
+        font-size: 2.5vw; } }
   .story-cover h5 {
     margin-top: 10%; }
     .story-cover h5 a {
       font-size: 1.5vw;
       color: #FFFFFF;
       transition: color 0.5s; }
+    @media (max-width: 780px) {
+      .story-cover h5 a {
+        font-size: 2.5vw; }
+ }
     .story-cover h5 a:hover {
       color: #5ADED5; }
 

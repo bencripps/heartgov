@@ -10,13 +10,13 @@ block content
                         
                 tr 
                     td
-                        h1 Heartgov in the news!
+                        h2 Heartgov in the news!
 
-    div(class='container')
+    div(class='container press')
         div(class='row' style='margin-top:-200px;')
             - each obj in stories
-                div(class='col-xs-6' style='margin-bottom:15%;')
-                    div(class='#{prefix}story #{prefix}hero-image' style="background-image:url(#{obj.img});")
+                div(class='col-md-6' style='margin-bottom:15%;')
+                    div(class='#{prefix}story' style="background-image:url(#{obj.img});")
                         img(src='#{obj.img}' style='visibility:hidden; width:100%;')
                         div(class='story-overlay')
                             div(class='story-cover')

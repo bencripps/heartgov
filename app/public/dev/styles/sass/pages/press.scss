@@ -8,6 +8,15 @@
     @include hero-image('');
 }
 
+.press {
+    &.container {
+        padding-top: 30%;
+    }
+}
+
+.hgov-story {
+    @include hero-image('');
+}
 .story-overlay {
     position:absolute; 
     top: 0; 
@@ -34,10 +43,18 @@
     h4 {
         font-weight: bold;
         font-size: 1.7vw;
+
+        @include mobile {
+            font-size: 3.5vw;
+        }
     }
 
     p {
         font-size: 1.3vw;
+
+        @include mobile {
+            font-size: 2.5vw;
+        }
     }   
 
     h5 {
@@ -47,6 +64,13 @@
             font-size: 1.5vw;
             color: $white;
             transition: color .5s;
+        }
+
+
+        @include mobile {
+            a {
+                font-size: 2.5vw;
+            }
         }
 
         a:hover {
