@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 14:08:04
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-07 17:52:59
+* @Last Modified time: 2015-03-24 20:49:42
 */
 
 define('signUpService', ['utilities'], function(utilities) {
@@ -18,19 +18,19 @@ define('signUpService', ['utilities'], function(utilities) {
         validateForm: function() {
             var values = this.getFormValues();
 
-            if (values.username.length < 1) return 0;
+            if (values.username.length < 1) return 1;
 
-            else if (values.password < 6) return 1;
+            else if (values.password < 6) return 2;
 
-            else if (values.firstName.length < 1) return 2;
+            else if (values.firstName.length < 1) return 3;
 
-            else if (values.lastName.length < 1) return 3;
+            else if (values.lastName.length < 1) return 4;
 
-            else if (!/^\S+@\S+\.\S+$/.test(values.emailAddress)) return 4;
+            else if (!/^\S+@\S+\.\S+$/.test(values.emailAddress)) return 5;
 
-            else if (values.phoneNumber.length < 10) return 5;
+            else if (values.phoneNumber.length < 10) return 6;
 
-            else if (values.signupPassword.length < 1) return 6;
+            else if (values.signupPassword.length < 1) return 7;
 
             else return 7;
 
@@ -38,7 +38,7 @@ define('signUpService', ['utilities'], function(utilities) {
         getFormValues: function() {
             var obj = {};
 
-            Array.prototype.forEach.call( document.getElementsByTagName('input'), function(n) {
+            Array.prototype.forEach.call(document.querySelectorAll('form[name="userSignup"] input'), function(n) {
                 obj[n.name] = n.value;
             });
 
@@ -47,7 +47,6 @@ define('signUpService', ['utilities'], function(utilities) {
         showFormError: function(num) {
             var helpblocks = document.querySelectorAll('.hgov-help-block');
             helpblocks[num].style.display = 'block';
-            console.log(helpblocks[num])
         },
         formSubmitted: function(e) {
             e.preventDefault();

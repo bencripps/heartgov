@@ -1,5 +1,9 @@
 #signup-hero {
-    @include hero-image(url("/min/images/signupform-background.jpg"));
+    @include hero-image(url("/min/images/signupform-background.jpg"), true);
+
+    table {
+        margin: 4% auto auto;
+    }
 }
 
 .active {

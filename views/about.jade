@@ -13,27 +13,28 @@ block content
                     td
                         h1 A text messaged based platform designed to connect local government &amp; residents.
 
-    div(class='row' id='about-left')
-        div(class='col-xs-6')
-            span HeartGov was designed with one idea in mind: make it easier for people, community organizations, and government to connect to each other. HeartGov is a text message based platform designed to better connect and create a two-way communication between local government, community based organizations, and residents.  HeartGov provides the space for conversation and collaboration between communities and government on a platform while crossing the digital divide between web and mobile technology. 
-        div(class='col-xs-6')
-            img(src='min/images/about-project.jpg' style='width:100%;')
+    div(class='hgov-mobile-hidden')
+        div(class='row' id='about-left')
+            div(class='col-xs-6')
+                span HeartGov was designed with one idea in mind: make it easier for people, community organizations, and government to connect to each other. HeartGov is a text message based platform designed to better connect and create a two-way communication between local government, community based organizations, and residents.  HeartGov provides the space for conversation and collaboration between communities and government on a platform while crossing the digital divide between web and mobile technology. 
+            div(class='col-xs-6')
+                img(src='min/images/about-project.jpg' style='width:100%;')
 
-    div(class='row' id='about-middle')
-        div(class='col-xs-6')
-            img(src='min/images/about-infographic.png')
-        div(class='col-xs-6')
-            span The technology of <3 Gov is divided into two components: the SMS interface and the backend. The SMS interface is the text message component, which users will interact with in order to communicate their ideas and respond to requests. The back end is a database of the text messages that come in, displayed on a private website accessible to governmental users and community group users.
-    
-    div(class='row' style='margin-top:5%;' id='about-next-middle')
-        div(class='col-xs-6')
-            span In an interview with Nancy Romer, local Brooklyn organizer, we talked about how to keep people engaged inthe civic process she explained, "you have to have things people can do in their own communities small policy change, but it's what keeps fueling activism, you have to feel like you win something." With <3 Gov we hope to allow a space for community members to voice their ideas, create relationships with government agents, and create a means to create and promote small wins.
-        div(class='col-xs-6' id='about-quote')
-            div(id='sub-next')
-                span "you have to have things people can do in their own communities small policy change, but it's what keeps fueling activism, you have to feel like you win something."
-                span(id='title')
-                    span(style='color:black;') Nancy Romer, 
-                    span(style='color:#5ADED5') local organizer
+        div(class='row' id='about-middle')
+            div(class='col-xs-6')
+                img(src='min/images/about-infographic.png')
+            div(class='col-xs-6')
+                span The technology of <3 Gov is divided into two components: the SMS interface and the backend. The SMS interface is the text message component, which users will interact with in order to communicate their ideas and respond to requests. The back end is a database of the text messages that come in, displayed on a private website accessible to governmental users and community group users.
+        
+        div(class='row' style='margin-top:5%;' id='about-next-middle')
+            div(class='col-xs-6')
+                span In an interview with Nancy Romer, local Brooklyn organizer, we talked about how to keep people engaged inthe civic process she explained, "you have to have things people can do in their own communities small policy change, but it's what keeps fueling activism, you have to feel like you win something." With <3 Gov we hope to allow a space for community members to voice their ideas, create relationships with government agents, and create a means to create and promote small wins.
+            div(class='col-xs-6' id='about-quote')
+                div(id='sub-next')
+                    span "you have to have things people can do in their own communities small policy change, but it's what keeps fueling activism, you have to feel like you win something."
+                    span(id='title')
+                        span(style='color:black;') Nancy Romer, 
+                        span(style='color:#5ADED5') local organizer
 
 
     div(class='row' style='margin-top:5%;')
@@ -41,7 +42,7 @@ block content
 
     div(class='row' style='margin-top:5%;')
         - each member in team.teamMembers.row1
-            div(class='col-xs-4')
+            div(class='col-sm-4')
                 div(class='team-circle-cont bio-pic' style="background-image: url(#{member.image}); background-size: #{member.backgroundSize}%")
                 div(class='social-network-bio')
                     - each network in member.socialNetworks
@@ -52,7 +53,7 @@ block content
 
     div(class='row' style='margin-top:5%;')
         - each member in team.teamMembers.row2
-            div(class='col-xs-4')
+            div(class='col-sm-4')
                 div(class='team-circle-cont bio-pic' style="background-image: url(#{member.image}); background-size: #{member.backgroundSize}%")
                 div(class='social-network-bio')
                     - each network in member.socialNetworks
@@ -67,7 +68,7 @@ block content
 
     div(class='row' style='margin-top:5%;')
         - each member in team.keyAdvisors.row1
-            div(class='col-xs-4')
+            div(class='col-sm-4')
                 div(class='team-circle-cont bio-pic' style="background-image: url(#{member.image}); background-size: #{member.backgroundSize}%")
                 div(class='social-network-bio')
                     - each network in member.socialNetworks

@@ -12,7 +12,7 @@ $white: #FFFFFF;
   }
 }
 
-@mixin hero-image($image) {
+@mixin hero-image($image, $hidden) {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -42,6 +42,16 @@ $white: #FFFFFF;
 
         span a {
             font-size: 1.5vw;
+        }
+    }
+
+    @if $hidden {
+         @include mobile {
+            background-image: none;
+
+            table {
+                color: $black;
+            }
         }
     }
 }

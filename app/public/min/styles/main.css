@@ -193,6 +193,10 @@ hgov-main-table td {
   color: red;
   display: none; }
 
+@media (max-width: 780px) {
+  .hgov-mobile-hidden {
+    display: none; } }
+
 .group-button {
   width: 10%; }
 
@@ -295,15 +299,23 @@ hgov-main-table td {
     padding: 20px;
     padding-bottom: 1000px;
     margin-bottom: -1000px; }
-    .convoboxes div h3 {
-      margin-left: 5%;
-      text-align: left;
-      font-size: 2.5vw; }
-    .convoboxes div h5 {
-      color: #5ADED5;
-      margin-left: 5%;
-      text-align: left;
-      font-size: 1.5vw; }
+    .convoboxes div span {
+      display: table-cell;
+      vertical-align: middel;
+      height: 180px; }
+      .convoboxes div span h3 {
+        text-align: left;
+        font-size: 2.5vw; }
+        @media (max-width: 780px) {
+          .convoboxes div span h3 {
+            font-size: 4.5vw; } }
+      .convoboxes div span h5 {
+        color: #5ADED5;
+        text-align: left;
+        font-size: 1.5vw; }
+        @media (max-width: 780px) {
+          .convoboxes div span h5 {
+            font-size: 2.5vw; } }
 
 #about-hero {
   background-size: contain;
@@ -345,6 +357,9 @@ hgov-main-table td {
   #about-left div {
     padding-left: 3%;
     margin: 0 0 0 -3%; }
+  @media (max-width: 780px) {
+    #about-left {
+      font-size: 2.7vw; } }
 
 #about-middle {
   background-color: #1F6BD1;
@@ -385,10 +400,16 @@ hgov-main-table td {
 
 .member-name {
   font-weight: bold;
-  font-size: 1.5vw; }
+  font-size: 1.75vw; }
+  @media (max-width: 780px) {
+    .member-name {
+      font-size: 2.7vw; } }
 
 .member-title {
-  font-size: 1.25vw; }
+  font-size: 1.5vw; }
+  @media (max-width: 780px) {
+    .member-title {
+      font-size: 2.5vw; } }
 
 .social-network-bio {
   margin-top: -8%; }
@@ -565,6 +586,13 @@ hgov-main-table td {
       font-size: 8vw; }
     #signup-hero table span a {
       font-size: 1.5vw; }
+  @media (max-width: 780px) {
+    #signup-hero {
+      background-image: none; }
+      #signup-hero table {
+        color: #333333; } }
+  #signup-hero table {
+    margin: 4% auto auto; }
 
 .active {
   border-bottom: 2px solid #1F6BD1; }

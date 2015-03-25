@@ -1,5 +1,5 @@
 #about-hero {
-    @include hero-image(url("/min/images/about-hero.jpg"));
+    @include hero-image(url("/min/images/about-hero.jpg"), false);
 }
 
 #about-bubble {
@@ -22,6 +22,10 @@
     div {
         padding-left: 3%;
         margin: 0 0 0 -3%;
+    }
+
+    @include mobile {
+        font-size: 2.7vw;
     }
 }
 
@@ -79,11 +83,19 @@
 
 .member-name {
     font-weight: bold;
-    font-size: 1.5vw;
+    font-size: 1.75vw;
+
+    @include mobile {
+        font-size: 2.7vw;
+    }
 }
 
 .member-title {
-    font-size: 1.25vw;
+    font-size: 1.5vw;
+
+    @include mobile {
+        font-size: 2.5vw;
+    }
 }
 
 .social-network-bio {

@@ -5,7 +5,7 @@
     max-height: 1000px;
     min-height: 600px;
 
-    @include hero-image('');
+    @include hero-image('', false);
 }
 
 .press {
@@ -15,7 +15,7 @@
 }
 
 .hgov-story {
-    @include hero-image('');
+    @include hero-image('', false);
 }
 .story-overlay {
     position:absolute; 
