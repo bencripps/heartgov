@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-17 22:41:35
+* @Last Modified time: 2015-03-26 20:04:51
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -219,15 +219,9 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
-    app.get('/recievedPublicText', function(req, res) {
-
-        // var response = textReceiver.handleResponse(req.body, twilioWrapper);
-        var response = textReceiver.handleResponse({
-            from: '4438788369',
-            to: '1234567890',
-            body: 'im a new texter and Im messaging about (2)'
-        }, twilioWrapper);
-
+    app.post('/recievedPublicText', function(req, res) {
+        
+        textReceiver.handleResponse(req.body, twilioWrapper);
         res.send({result: appMessages.twilio.dataReceived});
 
     });

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-23 23:13:13
+* @Last Modified time: 2015-03-26 20:04:29
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -12,8 +12,7 @@ module.exports = function(client, appMessages, schemas) {
         twilioNumber: process.env.twilioNumber,
         sendOutGoingText: function(response, receiver, _id, user, server) {
             this.processOutgoingSave(response, receiver, _id, user, server);
-            // this is disabled for right now, because we dont want to send a ton of texts -- this functionality works
-            //this.processOutGoingText(response, receiver).then(this.twilioSuccess.bind(this, server), this.twilioError.bind(this,server));
+            this.processOutGoingText(response, receiver).then(this.twilioSuccess.bind(this, server), this.twilioError.bind(this,server));
         },
         processOutGoingText: function(response, receiver) {
 

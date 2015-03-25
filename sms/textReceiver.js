@@ -2,14 +2,20 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-21 10:18:22
+* @Last Modified time: 2015-03-25 21:22:32
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer) {
     'use strict';
     
     var textReceiver = {
-        handleResponse: function(message, twilioWrapper) {
+        handleResponse: function(incomingMessage, twilioWrapper) {
+            
+            var message = {
+                to: incomingMessage.To,
+                from: incomingMessage.From,
+                body: incomingMessage.Body
+            };
 
             mailer.sendMailtoSuperUsers('newTextReceived', {textDetails: message});
 

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2014-12-01 10:10:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-16 20:53:27
+* @Last Modified time: 2015-03-26 19:55:52
 */
 
 'use strict';
@@ -68,6 +68,8 @@ app.use(favicon('favicon.ico'));
 app.use(express.static('app/public'));
 
 app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(cookieParser('my secret here'));
 
