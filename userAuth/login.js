@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 11:27:15
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-20 20:43:21
+* @Last Modified time: 2015-03-28 09:36:02
 */
 
-module.exports = function(AdminSchema, hasher, sessionManager, appMessages) {
+module.exports = function(AdminSchema, hasher, sessionManager, myAccount, appMessages) {
     'use strict';
     
     var loginService = {
@@ -17,6 +17,7 @@ module.exports = function(AdminSchema, hasher, sessionManager, appMessages) {
         },
         hasCorrectPassword: function(server, info, session, result) {
             if (result && this.checkPassword(result.password, info.password)) {
+                myAccount.updateLastLogin(info);
                 server.send({result: appMessages.success, code: appMessages.successCode, key: !!sessionManager.addUserToSession(session, info.username)});
             }
             else {

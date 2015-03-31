@@ -2,13 +2,13 @@
 * @Author: ben_cripps
 * @Date:   2015-01-14 21:19:53
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-01 00:02:58
+* @Last Modified time: 2015-03-28 16:46:46
 */
 
 module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) {
     'use strict';
     var myAccount = {
-        getUser: function(username, server){
+        getUser: function(username){
             return AdminModel.findOne({username: username}).exec();
         },
         getNewUserObj: function(userData) {
@@ -45,7 +45,12 @@ module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) 
             this.displayMessage(server, appMessages.edit.resetSuccess);
             mailSender.sendMail(userData.emailAddress, 'resetSuccess', {password:newPassword});
         },
-        resetPassword: function(server, userData,err){
+        updateLastLogin: function(user){
+            AdminModel.findOneAndUpdate(
+                {username: user.username},
+                {lastLogin: new Date()}, function(){console.log(arguments);});
+        },
+        resetPassword: function(server, userData){
             var newPassword;
 
             if (userData) {
@@ -60,8 +65,6 @@ module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) 
             else {
                 this.displayMessage(server, appMessages.edit.resetUserCouldNotBeFound);
             }
-
-            
         }
     };
 

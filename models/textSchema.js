@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 19:43:27
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-14 13:46:22
+* @Last Modified time: 2015-03-30 21:03:58
 */
 
 module.exports = function(mongoose){
@@ -31,7 +31,19 @@ module.exports = function(mongoose){
             lastResponder: String,
             trackingNumber: String,
             searchable: [],
-            visible: {type: Boolean, default: true}
+            visible: {type: Boolean, default: true},
+            sid: String,
+            location: {
+                fromCity: String,
+                fromState: String,
+                fromZip: String,
+                fromCountry: String,
+                toCity: String,
+                toState: String,
+                toZip: String,
+                toCountry: String
+            }
+
         }
     });
 };

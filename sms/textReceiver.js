@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-25 21:22:32
+* @Last Modified time: 2015-03-30 21:29:09
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer) {
@@ -11,11 +11,7 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
     var textReceiver = {
         handleResponse: function(incomingMessage, twilioWrapper) {
             
-            var message = {
-                to: incomingMessage.To,
-                from: incomingMessage.From,
-                body: incomingMessage.Body
-            };
+            var message = this.utils.translateTwilioModel(incomingMessage);
 
             mailer.sendMailtoSuperUsers('newTextReceived', {textDetails: message});
 
@@ -157,8 +153,35 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
                         responders: [textReceiver.utils.formatOutGoingResponseForSave(outGoingResponse, message.from)],
                         lastResponder: 'System',
                         trackingNumber: assocciatedTrackingNumber || null,
-                        searchable: message.body.split(' ')
+                        sid: message.sid,
+                        searchable: message.body.split(' '),
+                        location: {
+                            fromCity: message.fromCity,
+                            fromState: message.fromState,
+                            fromZip: message.fromZip,
+                            fromCountry: message.fromCountry,
+                            toCity: message.toCity,
+                            toState: message.toState,
+                            toZip: message.toZip,
+                            toCountry: message.toCountry,
+                        }
                     }
+                };
+            },
+            translateTwilioModel: function(msg) {
+                return {
+                    to: msg.To,
+                    from: msg.From,
+                    body: msg.Body,
+                    fromCity: msg.FromCity,
+                    fromState: msg.FromState,
+                    fromZip: msg.FromZip,
+                    fromCountry: msg.FromCountry,
+                    toCity: msg.ToCity,
+                    toState: msg.ToState,
+                    toZip: msg.ToZip,
+                    toCountry: msg.ToCountry,
+                    sid: msg.MessageSid
                 };
             },
             formatOutGoingResponseForSave: function(response, to) {

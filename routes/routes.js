@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-26 20:04:51
+* @Last Modified time: 2015-03-28 09:34:40
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -34,7 +34,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         hasher = require('../userAuth/hasher'),
         myAccount = require('../userAuth/myAccount')(schemas.admin, hasher, appMessages.myAccountMessages, shortid, mailSender),
         groupManager = require('../groups/groupManager')(mongoose, myAccount, schemas.groups, shortid, appMessages.groupMessages),
-        loginService = require('../userAuth/login')(schemas.admin, hasher, sessionManager, appMessages.loginMessages),
+        loginService = require('../userAuth/login')(schemas.admin, hasher, sessionManager, myAccount, appMessages.loginMessages),
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
         textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution),
