@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-14 15:36:52
+* @Last Modified time: 2015-05-09 13:32:27
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -36,6 +36,16 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
         returnGroups: function(server, groups) {
             server.send({groups: groups});
         },
+        importNumbers: function(obj, server) {
+            var _this = this;
+
+            this.utils.getGroups({_id: obj.group}).then(function(group, err) {
+                _this.modifyPhoneNumbers(
+                    _this.utils.getUniqueNumbers(group[0].associatedPhoneNumbers, obj.data), 
+                    obj.group, server);
+            });
+            
+        },
         distributeGroups: function(server, user){
             if (user.superUser){
                 this.utils.getGroups({visible: true}).then(
@@ -67,8 +77,12 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
                 this.utils.displayMessage.bind(this, server, appMessages.phoneNumberSuccessfullyAdded),
                 this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },
-        modifyPhoneNumbers: function(server, method, group) {
-            console.log(group, method);
+        modifyPhoneNumbers: function(nums, id, server) {
+            GroupSchema.findOneAndUpdate(
+                {_id: id}, 
+                {associatedPhoneNumbers: nums},
+                this.utils.displayMessage.bind(this, server, appMessages.phoneNumberSuccessfullyAdded),
+                this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },
         updateGroup: function(obj, server) {
             var data = obj.data,
@@ -91,6 +105,10 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
                     groupManager.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },
         utils: {
+            getUniqueNumbers: function(existing, newNums) {
+                var tempArr = newNums.split('\r').filter(groupManager.utils.numberValidator);
+                return existing.concat(tempArr.filter(function(z) { return existing.indexOf(z) < 0;}));
+            },
             getGroups: function(filter) {
                 if (filter) return GroupSchema.find(filter).exec();
                 return GroupSchema.find().exec();
@@ -110,6 +128,9 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
                 else {
                     server.send({result: msg});
                 }
+            },
+            numberValidator: function(num) {
+                return parseInt(num) && num.length === 10;
             },
             getGroupSchema: function(groupInfo, user) {
                 return {

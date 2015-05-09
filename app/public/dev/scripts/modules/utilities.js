@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-18 20:03:58
+* @Last Modified time: 2015-05-08 18:35:48
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -12,15 +12,16 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
         redirect: function(location) {
             window.location.pathname = location;
         },
-        ajax: function(data, method, to, callback) {
+        ajax: function(data, method, to, callback, type) {
 
             var req = new XMLHttpRequest(),
                 reqData = data ? JSON.stringify(data) : undefined,
+                contentType = type ? type : 'application/json',
                 response;
-
+            console.log(contentType)
             req.open(method, to, true);
 
-            req.setRequestHeader('Content-Type', 'application/json');
+            req.setRequestHeader('Content-Type', contentType);
 
             req.onreadystatechange = function() {
                 if (req.readyState === 4) {
@@ -119,22 +120,31 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
         removeFormGroup: function(formGroup) {
             formGroup.remove();
         },
-        uploadFile: function(id) {
-            var input = document.getElementById(id);
+        uploadFile: function(id, select) {
+            var input = document.getElementById(id),
+                group = select.selectedOptions.valueOf()[0].value,
+                fileReader = new FileReader();
 
             if (input.files.length !== 0) {
 
-                if (input.files[0].name.match('.xlsx')) {
-                    utilities.ajax(input.files[0], 'post', '/upload/import', function(response){
-                        utilities.modalPrompt('importNum', 'hide');
-                        utilities.showModal({result: 'Your file has been successfully uploaded'});
-                    });
+                if (input.files[0].name.match('.csv')) {
+
+                    fileReader.onload = function(e) {
+                        
+                        utilities.ajax({data: e.target.result, group: group}, 'post', '/upload/import', function(response){
+                            utilities.modalPrompt('importNum', 'hide');
+                            utilities.showModal({result: 'Your file has been successfully uploaded'});
+                        });
+
+                    };
+
+                    fileReader.readAsText(input.files[0]);
 
                 }
 
                 else {
                     utilities.modalPrompt('importNum', 'hide');
-                    utilities.showModal({result: 'Only Excel Files are accepted (.xlsx).'});
+                    utilities.showModal({result: 'Only CSV are accepted (.csv).'});
                 }
             }
 

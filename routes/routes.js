@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-28 09:34:40
+* @Last Modified time: 2015-05-08 18:25:22
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -10,7 +10,6 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     var format = require('../config/format')(path),
         jade = require('jade'),
-        excelParser = require('excel-parser'),
         shortid = require('../config/generateId'),
         indexScripts = ['/scripts/views/loginView.js'],
         adminCreateScripts = ['/scripts/views/createUserView.js'],
@@ -45,13 +44,18 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
         allImages = allImages || preloader.getImages();
 
-    	res.render('index', getTemplateConfig({   
-            local: path,
-            scripts: format.call(indexScripts),
-            currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            allImages: allImages,
-            activeMarker: '/'
-        }));
+        textDistributor.execute().then(function(results){
+
+        	res.render('index', getTemplateConfig({   
+                local: path,
+                scripts: format.call(indexScripts),
+                currentUser: sessionManager.getLoggedInUser(req.sessionID),
+                allImages: allImages,
+                activeMarker: '/',
+                results: results.slice(0,4)
+            }));
+
+        });
 
     });
 
@@ -289,12 +293,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.post('/upload/import', function(req, res){
-
-        excelParser.worksheets({inFile: req.body.name}, function(err, worksheets){
-          if (err) console.error(err);
-          console.log(worksheets);
-        });
-        
+        groupManager.importNumbers(req.body, res);
     });
 
 };

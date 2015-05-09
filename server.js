@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2014-12-01 10:10:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-26 19:55:52
+* @Last Modified time: 2015-05-09 08:35:10
 */
 
 'use strict';
@@ -69,6 +69,7 @@ app.use(express.static('app/public'));
 
 app.use(bodyParser.json());
 
+//do not change, this is required for twilio post reqs
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(cookieParser('my secret here'));
