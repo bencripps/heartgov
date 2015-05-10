@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-10 17:21:13
+* @Last Modified time: 2015-05-10 18:15:38
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {

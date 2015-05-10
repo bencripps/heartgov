@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-08 18:35:48
+* @Last Modified time: 2015-05-10 18:14:39
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -12,13 +12,13 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
         redirect: function(location) {
             window.location.pathname = location;
         },
-        ajax: function(data, method, to, callback, type) {
+        ajax: function(data, method, to, callback) {
 
             var req = new XMLHttpRequest(),
                 reqData = data ? JSON.stringify(data) : undefined,
-                contentType = type ? type : 'application/json',
+                contentType = 'application/json',
                 response;
-            console.log(contentType)
+            
             req.open(method, to, true);
 
             req.setRequestHeader('Content-Type', contentType);
