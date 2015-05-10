@@ -47,7 +47,7 @@ define('groupTable', ['react'], function(React){
                     return this.state.level || this.state.user === groupInfo.creator.username;
                 };
                 var view = <groupTable.viewButton group={this.props.info} />,
-                    options = editable.call(this._owner, this.props.info) ? [<groupTable.deleteButton group={this.props.info} />, <groupTable.editButton group={this.props.info} />] : [<groupTable.emptyCell />, <groupTable.emptyCell />];
+                    options = editable.call(this._owner, this.props.info) ? [<groupTable.deleteButton group={this.props.info} />, <groupTable.editButton group={this.props.info} />, <groupTable.sendButton group={this.props.info} />] : [<groupTable.emptyCell />, <groupTable.emptyCell />];
                 return (
                     <tr>
                         {view}
@@ -101,6 +101,19 @@ define('groupTable', ['react'], function(React){
                 return ( 
                     <td className='group-button hgov-text-function'>
                         <span className='glyphicon glyphicon-remove' onClick={remove.bind(this._owner._owner, this.props.group)}></span>
+                    </td>
+                );
+            }
+        }),
+        sendButton: React.createClass({
+            render: function() {
+                var send = function(group) {
+                    this.state.groupService.sendGroupModal(group);
+                }
+
+                return (
+                    <td className='group-button hgov-text-function'>
+                        <span className='glyphicon glyphicon-comment' onClick={send.bind(this._owner._owner, this.props.group)}></span>
                     </td>
                 );
             }

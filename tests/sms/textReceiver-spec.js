@@ -2,12 +2,46 @@
 * @Author: ben_cripps
 * @Date:   2015-02-19 21:41:51
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-21 10:22:39
+* @Last Modified time: 2015-05-10 10:33:32
 */
 
 'use strict';
 //need to add dependencies 
 var textReceiver = require('../../sms/textReceiver.js')();
+
+var sampleTwilResponse = {
+    AccountSid: 'AC5ef872f6da5a21de157d80997a64bd33',
+    ApiVersion: '2008-08-01',
+    Body: 'Hey Jenny why aren\'t you returning my calls?',
+    DateCreated: 'Mon, 16 Aug 2010 03:45:01 +0000',
+    DateSent: 'Mon, 16 Aug 2010 03:45:03 +0000',
+    DateUpdated: 'Mon, 16 Aug 2010 03:45:03 +0000',
+    Direction: 'outbound-api',
+    From: '+14158141829',
+    Price: '-0.02000',
+    MessageSid: 'SM800f449d0399ed014aae2bcc0cc2f2ec',
+    Status: 'sent',
+    To: '+14159978453',
+    Uri: '/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM800f449d0399ed014aae2bcc0cc2f2ec.json',
+    FromCity: 'Baltimore',
+    FromState: 'MD',
+    FromZip: '21228',
+    FromCountry: 'USA',
+    ToCity: 'Austin',
+    ToState: 'TX',
+    ToZip: '78751',
+    ToCountry: 'USA'
+};
+
+describe('Text Receiver should translate Twilio Model Successfully', function() {
+
+    var model = textReceiver.utils.translateTwilioModel(sampleTwilResponse);
+
+    it('Should have no fields undefined', function() {
+        expect(Object.keys(model).every(function(k){ return model[k] !== undefined;})).toBeTruthy();
+    });
+
+});
 
 describe('Text Receiver\'s Get Category Function', function(){
 

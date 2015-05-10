@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-08 18:35:29
+* @Last Modified time: 2015-05-10 17:21:13
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -23,6 +23,12 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
         createGroupModal: function() {
             document.querySelector('input[name=\'creator\']').value = this.userName;
             utilities.modalPrompt('createGroup', 'show');
+        },
+        sendGroupModal: function(group) {
+            var form = document.querySelector('form[name=\'out-going-text-form\']');
+            form.querySelector('input[name=\'from\'').value = this.userName;
+            form.querySelector('input[name=\'to\'').value = group.groupName;
+            utilities.modalPrompt('textReply', 'show');
         },
         createGroup: function() {
             if (!this.validate.create()){

@@ -47,7 +47,7 @@ define('groupTable', ['react'], function(React){
                     return this.state.level || this.state.user === groupInfo.creator.username;
                 };
                 var view = React.createElement(groupTable.viewButton, {group: this.props.info}),
-                    options = editable.call(this._owner, this.props.info) ? [React.createElement(groupTable.deleteButton, {group: this.props.info}), React.createElement(groupTable.editButton, {group: this.props.info})] : [React.createElement(groupTable.emptyCell, null), React.createElement(groupTable.emptyCell, null)];
+                    options = editable.call(this._owner, this.props.info) ? [React.createElement(groupTable.deleteButton, {group: this.props.info}), React.createElement(groupTable.editButton, {group: this.props.info}), React.createElement(groupTable.sendButton, {group: this.props.info})] : [React.createElement(groupTable.emptyCell, null), React.createElement(groupTable.emptyCell, null)];
                 return (
                     React.createElement("tr", null, 
                         view, 
@@ -101,6 +101,19 @@ define('groupTable', ['react'], function(React){
                 return ( 
                     React.createElement("td", {className: "group-button hgov-text-function"}, 
                         React.createElement("span", {className: "glyphicon glyphicon-remove", onClick: remove.bind(this._owner._owner, this.props.group)})
+                    )
+                );
+            }
+        }),
+        sendButton: React.createClass({displayName: "sendButton",
+            render: function() {
+                var send = function(group) {
+                    this.state.groupService.sendGroupModal(group);
+                }
+
+                return (
+                    React.createElement("td", {className: "group-button hgov-text-function"}, 
+                        React.createElement("span", {className: "glyphicon glyphicon-comment", onClick: send.bind(this._owner._owner, this.props.group)})
                     )
                 );
             }
