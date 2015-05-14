@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-10 18:14:39
+* @Last Modified time: 2015-05-12 20:31:33
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -49,7 +49,13 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
                 img.src = n.innerHTML;
             });
         },
-        modalPrompt: function(selector, method) {
+        modalPrompt: function(selector, method, callbackObj) {
+            if (callbackObj) {
+                //reset for any previously attached events
+                document.querySelector(callbackObj.selector).outerHTML = document.querySelector(callbackObj.selector).outerHTML;
+                document.querySelector(callbackObj.selector).addEventListener(callbackObj.eventType, callbackObj.func);
+            }
+
             $(this.modals[selector]).modal(method);
         },
         getCurrentUserName: function() {

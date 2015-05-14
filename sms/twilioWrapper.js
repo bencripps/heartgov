@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-26 20:04:29
+* @Last Modified time: 2015-05-13 19:59:12
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -11,8 +11,17 @@ module.exports = function(client, appMessages, schemas) {
     var twilioWrapper = {
         twilioNumber: process.env.twilioNumber,
         sendOutGoingText: function(response, receiver, _id, user, server) {
-            this.processOutgoingSave(response, receiver, _id, user, server);
+            if (_id) this.processOutgoingSave(response, receiver, _id, user, server);
             this.processOutGoingText(response, receiver).then(this.twilioSuccess.bind(this, server), this.twilioError.bind(this,server));
+        },
+        sendGroupOutGoingText: function(groupManager, msgData, server) {
+            groupManager.utils.getPhoneNumbers(msgData.groupId).then(function(record) {
+                var numbers = record[0].associatedPhoneNumbers;
+
+                numbers.forEach(function(num) {
+                    twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server);
+                });
+            });
         },
         processOutGoingText: function(response, receiver) {
 
@@ -31,7 +40,7 @@ module.exports = function(client, appMessages, schemas) {
                     $set: {'textInformation.lastResponder': username}, 
                     $push: {'textInformation.responders': formattedResponse}}, 
                     {multi: true}, 
-                    function(err,data) {
+                    function(err) {
                         if (err) console.log(appMessages.messageNotSaved);
             });
             this.addTextToUserAccount(formattedResponse, username);

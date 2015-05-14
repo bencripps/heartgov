@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-10 18:15:38
+* @Last Modified time: 2015-05-13 19:43:31
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -28,7 +28,15 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
             var form = document.querySelector('form[name=\'out-going-text-form\']');
             form.querySelector('input[name=\'from\'').value = this.userName;
             form.querySelector('input[name=\'to\'').value = group.groupName;
-            utilities.modalPrompt('textReply', 'show');
+
+            utilities.modalPrompt('textReply', 'show', {eventType: 'click', selector: '#send-out-going-text', func: this.sendGroupText.bind(this, group, form)});
+        },
+        sendGroupText: function(group, messageInput) {
+            var msg = messageInput.querySelector('textarea').value;
+
+            utilities.ajax({groupId: group._id, message: msg, user: utilities.getCurrentUserName()}, 'post', '/send/outgoingGroupText', function() {
+                alert('hi');
+            });
         },
         createGroup: function() {
             if (!this.validate.create()){
@@ -134,11 +142,12 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
             utilities.showModal(response);
         },
         showImportModal: function() {
-            utilities.modalPrompt('importNum', 'show');
-            var select = document.getElementById('importGroups'), val;
+            var select = document.getElementById('importGroups');
+
+            utilities.modalPrompt('importNum', 'show', {eventType: 'click', func: utilities.uploadFile.bind(this, 'fileUpload', select), selector: '#submit-import'});
+ 
             if (select.options.selectedIndex === -1) {
                 utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(data) {
-                    
                     data.groups.forEach(function(ob) {
                         var option = document.createElement('option');
                         option.value = ob._id;
@@ -146,8 +155,6 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
                         select.appendChild(option);
                     });
                 });
-
-                document.getElementById('submit-import').addEventListener('click', utilities.uploadFile.bind(this, 'fileUpload', select));
             }
         },
         validate: {

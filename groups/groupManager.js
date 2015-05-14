@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-10 18:14:29
+* @Last Modified time: 2015-05-13 19:53:47
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -99,7 +99,6 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
                 groupManager.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },
         deleteGroup: function(id, server) {
-            console.log(id)
             GroupSchema.findOneAndUpdate({_id: id}, 
                     {visible: false}, 
                     groupManager.utils.displayMessage.bind(this, server, appMessages.groupSuccessfullyDeleted), 
@@ -149,6 +148,9 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
                         emailAddress: user.emailAddress
                     }
                 };
+            },
+            getPhoneNumbers: function(id) {
+               return GroupSchema.find({_id: id}).exec();
             }
         }
     };
