@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-28 23:54:32
+* @Last Modified time: 2015-06-23 20:17:53
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -14,6 +14,7 @@ define('textService', ['utilities'], function(utilities) {
             document.getElementById('send-out-going-text').addEventListener('click', this.sendOutGoingText.bind(this));
             document.addEventListener('keydown', utilities.resetState.bind(this, '.hgov-help-block-reply-form'));
             document.querySelector('.hgov-modal-add-group').addEventListener('click', this.addPhoneNumberToGroup);
+            document.querySelector('#send-general-text').addEventListener('click', this.showRespondModal.bind(this));
             this.loadAvailableGroups();
             utilities.reactClasses.getTextTable('text-table', this);
         },
@@ -62,7 +63,8 @@ define('textService', ['utilities'], function(utilities) {
         },
         showRespondModal: function(data) {
             utilities.modalPrompt('textReply', 'show');
-            document.getElementsByName('to')[0].value = data.phoneNumber;
+            document.getElementsByName('to')[0].disabled = !!data.phoneNumber;
+            document.getElementsByName('to')[0].value = data.phoneNumber || '';
             document.getElementsByName('from')[0].value = utilities.getCurrentUserName();
             document.getElementsByName('content')[0].value = '';
             textService.currentText = data;
