@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 14:08:04
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-24 20:49:42
+* @Last Modified time: 2015-07-14 20:27:28
 */
 
 define('signUpService', ['utilities'], function(utilities) {
@@ -38,7 +38,7 @@ define('signUpService', ['utilities'], function(utilities) {
         getFormValues: function() {
             var obj = {};
 
-            Array.prototype.forEach.call(document.querySelectorAll('form[name="userSignup"] input'), function(n) {
+            Array.prototype.forEach.call(document.getElementsByName('userSignup')[0].elements, function(n) {
                 obj[n.name] = n.value;
             });
 

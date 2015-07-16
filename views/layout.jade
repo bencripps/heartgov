@@ -3,14 +3,14 @@ html
   head
     title #{title}
     meta(name='viewport' content='width=device-width, initial-scale=1')
-    link(rel='stylesheet' href='vendor/css/bootstrap.min.css')
-    link(rel='stylesheet', href='min/styles/main.css')
+    link(rel='stylesheet' href='#{escapedDir}vendor/css/bootstrap.min.css')
+    link(rel='stylesheet', href='#{escapedDir}min/styles/main.css')
     script(type='text/javascript')
-        | var path = "#{local}";
-    script(src='vendor/js/require.min.js')
-    script(src= '#{local}/scripts/common.js')
+        | var path = "#{escapedDir}#{local}";
+    script(src='#{escapedDir}vendor/js/require.min.js')
+    script(src= '#{escapedDir}#{local}/scripts/common.js')
     - each s in scripts
-      script(src=s)
+      script(src='#{escapedDir}' + s)
   body
 
     include ./templates/modal/text-reply-modal.jade

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2014-12-01 10:10:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-09 08:35:10
+* @Last Modified time: 2015-07-14 20:49:29
 */
 
 'use strict';
@@ -19,6 +19,7 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     favicon = require('serve-favicon'),
+    Promise = require('bluebird'),
     sessionOptions = {
         secret: process.env.sessionKey,
         path: '/', 
@@ -76,7 +77,7 @@ app.use(cookieParser('my secret here'));
 
 app.use(session(sessionOptions));
 
-require('./routes/routes.js')(app, env, fs, url, path(env), database, mongoose, appMessages, twilio, staticPaths, devCredentials);
+require('./routes/routes.js')(app, env, fs, Promise, url, path(env), database, mongoose, appMessages, twilio, staticPaths, devCredentials);
 
 app.listen(app.get('port'), function() {
     console.log('This app is running in ' + env + ' mode, on port ' + app.get('port'));

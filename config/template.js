@@ -2,19 +2,21 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 20:17:49
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-16 20:45:23
+* @Last Modified time: 2015-07-14 20:05:10
 */
 
 module.exports = function(messages, path) {
     'use strict';
     
     var baseTemplate =  {
-        title : messages.pageTitle, 
-        local: path,
-        scripts: null,
-        prefix: messages.cssPrefix,
-        loggedIn: null
-    };
+            escapedDir: '',  
+            title : messages.pageTitle, 
+            local: path,
+            scripts: null,
+            prefix: messages.cssPrefix,
+            loggedIn: null,
+            location: null
+        };
 
     var getUpdatedTemplate = function(map) {
 

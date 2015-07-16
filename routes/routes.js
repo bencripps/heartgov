@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-13 19:24:02
+* @Last Modified time: 2015-07-15 19:30:37
 */
 
-module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
+module.exports = function(app, env, fs, Promise, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
     'use strict';
 
     var format = require('../config/format')(path),
@@ -20,7 +20,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         mainScripts = ['/scripts/views/mainView.js'],
         myAccountScripts = ['/scripts/views/myAccountView.js'],
         loggedInUsers = [],
-        sessionManager = require('../userAuth/sessionManager')(shortid, loggedInUsers),
+        sessionManager = require('../userAuth/sessionManager')(shortid, Promise, loggedInUsers),
         schemas = {
             admin: require('../models/adminSchema')(mongoose),
             text: require('../models/textSchema')(mongoose),
@@ -94,30 +94,36 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
-     app.get('/groups', function(req, res) {
+     app.get('/:city/groups', function(req, res) {
 
-        if (sessionManager.isLoggedIn(req.sessionID) || dev) {
+        sessionManager.isLoggedIn(req.sessionID, devCredentials).then(function(resp) {
+            
+            if (resp.isSuccessful) {
+                
+                myAccount.getUser(resp.user.username).then(function(user){
+                        
+                    res.render('groups', getTemplateConfig({  
+                        escapedDir: '../', 
+                        local: path,
+                        location: req.params.city,
+                        scripts: format.call(groupsScripts),
+                        currentUser: user,
+                        userLevel: user.superUser,
+                        activeMarker: '/groups',
+                        userDetails: user
+                    }));             
+                });
+            }
 
-            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
-                res.render('groups', getTemplateConfig({   
+            else {
+                res.render('unauthorized', getTemplateConfig({   
                     local: path,
-                    scripts: format.call(groupsScripts),
-                    currentUser: dev ? devCredentials.currentUser : sessionManager.getLoggedInUser(req.sessionID),
-                    userLevel: dev ? devCredentials.userLevel : user.superUser,
-                    activeMarker: '/groups',
-                    userDetails: dev ? devCredentials.userDetails : user
-                }));             
-            });
-        }
-
-        else {
-            res.render('unauthorized', getTemplateConfig({   
-                local: path,
-                scripts: format.call(indexScripts),
-                currentUser: sessionManager.getLoggedInUser(req.sessionID),
-                activeMarker: '/'
-            }));
-        }
+                    scripts: format.call(indexScripts),
+                    currentUser: false,
+                    activeMarker: '/'
+                }));
+            }
+        });
 
     });
 
@@ -150,7 +156,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             local: path,
             scripts: format.call(adminCreateScripts),
             currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            activeMarker: ''
+            activeMarker: '',
+            cities: appMessages.cities
         }));
 
     });
@@ -164,12 +171,14 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         }));
     });
 
-    app.get('/database', function(req, res) {
+    app.get('/:city/database', function(req, res) {
 
         if (sessionManager.isLoggedIn(req.sessionID) || dev) {
 
             myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
-                res.render('database', getTemplateConfig({   
+                res.render('database', getTemplateConfig({
+                    escapedDir: '../',
+                    location: req.params.city,   
                     local: path,
                     scripts: format.call(mainScripts),
                     currentUser: dev ? devCredentials.currentUser : sessionManager.getLoggedInUser(req.sessionID),
@@ -181,18 +190,18 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             });
         }
 
-        else {
-            res.render('unauthorized', getTemplateConfig({   
-                local: path,
-                scripts: format.call(indexScripts),
-                currentUser: sessionManager.getLoggedInUser(req.sessionID),
-                activeMarker: '/'
-            }));
-        }
+        // else {
+        //     res.render('unauthorized', getTemplateConfig({   
+        //         local: path,
+        //         scripts: format.call(indexScripts),
+        //         currentUser: sessionManager.getLoggedInUser(req.sessionID),
+        //         activeMarker: '/'
+        //     }));
+        // }
 
     });
 
-     app.get('/myaccount', function(req, res) {
+     app.get('/:city/myaccount', function(req, res) {
 
         var options;
 
@@ -201,6 +210,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
                 options = getTemplateConfig({   
                     local: path,
+                    location: req.params.city, 
                     scripts: format.call(myAccountScripts),
                     currentUser: dev ? devCredentials.currentUser : sessionManager.getLoggedInUser(req.sessionID),
                     userDetails: dev ? devCredentials.userDetails : user,

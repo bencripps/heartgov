@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-20 20:43:53
+* @Last Modified time: 2015-07-14 20:34:13
 */
 
 module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMessages, mailer) {
@@ -29,7 +29,7 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
                 }
                 else {
                     adminCreator.user.addToDB(data, server);
-                    sessionManager.addUserToSession(request, data.username);
+                    sessionManager.addUserToSession(request, data);
                 }
             },
             addToDB: function(data, server) {
@@ -62,7 +62,8 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
                 },
                 lastLogin: new Date(),
                 messagesSent: [],
-                superUser: data.signupPassword === process.env.adminSignUpPassword
+                superUser: data.signupPassword === process.env.adminSignUpPassword,
+                assignedCities: [data.city]
             };
 
         },

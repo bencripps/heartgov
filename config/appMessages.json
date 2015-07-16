@@ -1,4 +1,14 @@
 {   
+    "cities": [
+        {
+            "name": "austin",
+            "id": "austin"
+        },
+        {
+            "name": "brooklyn",
+            "id": "brooklyn"
+        }
+    ],
     "templateConfig": {
         "pageTitle": "Welcome to <3 Gov!",
         "cssPrefix": "hgov-"
