@@ -1,0 +1,5 @@
+div(style='display: block; float: right;')
+    label context switcher
+    select(name='context-switcher' style='margin-left: 10px;')
+        - for city in cities
+            option(value='#{city.id}') #{city.name}

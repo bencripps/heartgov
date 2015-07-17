@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 20:17:49
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-14 20:05:10
+* @Last Modified time: 2015-07-17 11:57:16
 */
 
 module.exports = function(messages, path) {
@@ -10,12 +10,13 @@ module.exports = function(messages, path) {
     
     var baseTemplate =  {
             escapedDir: '',  
-            title : messages.pageTitle, 
+            title : messages.templateConfig.pageTitle, 
             local: path,
             scripts: null,
-            prefix: messages.cssPrefix,
+            prefix: messages.templateConfig.cssPrefix,
             loggedIn: null,
-            location: null
+            location: null,
+            cities: messages.cities
         };
 
     var getUpdatedTemplate = function(map) {

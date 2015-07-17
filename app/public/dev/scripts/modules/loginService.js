@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 16:30:36
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-18 20:03:45
+* @Last Modified time: 2015-07-17 10:59:27
 */
 
 define('loginService', ['utilities'], function(utilities) {
@@ -25,7 +25,8 @@ define('loginService', ['utilities'], function(utilities) {
             utilities.ajax(obj, 'post', '/login', function(response) {
                 utilities.showModal(response);
                 document.cookie = 'key ' + response.key;
-                if (response.code > 0) setTimeout(utilities.redirect.bind(this, '/database'), 1000);
+                console.log(response);
+                if (response.code > 0) setTimeout(utilities.redirect.bind(this, response.city + '/database'), 1000);
             });
         },
         logout: function() {

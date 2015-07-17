@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 11:27:15
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-28 09:36:02
+* @Last Modified time: 2015-07-17 10:58:47
 */
 
 module.exports = function(AdminSchema, hasher, sessionManager, myAccount, appMessages) {
@@ -18,7 +18,8 @@ module.exports = function(AdminSchema, hasher, sessionManager, myAccount, appMes
         hasCorrectPassword: function(server, info, session, result) {
             if (result && this.checkPassword(result.password, info.password)) {
                 myAccount.updateLastLogin(info);
-                server.send({result: appMessages.success, code: appMessages.successCode, key: !!sessionManager.addUserToSession(session, info.username)});
+
+                server.send({result: appMessages.success, code: appMessages.successCode, key: !!sessionManager.addUserToSession(session, result), city: result.assignedCities[0]});
             }
             else {
                 server.send({result: appMessages.incorrect, code: appMessages.failCode});

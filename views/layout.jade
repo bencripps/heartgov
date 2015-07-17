@@ -24,7 +24,7 @@ html
     include ./templates/modal/text-details-modal.jade
 
     span(class='hgov-key' style='display: none;') #{userLevel}
-    span(id='#{prefix}user-information') #{currentUser}
+    span(id='#{prefix}user-information') #{currentUser.username}
 
     include ./components/pageheader.jade
 

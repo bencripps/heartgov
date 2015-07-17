@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-15 19:30:37
+* @Last Modified time: 2015-07-17 11:56:45
 */
 
-module.exports = function(app, env, fs, Promise, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
+module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
     'use strict';
 
     var format = require('../config/format')(path),
@@ -20,7 +20,6 @@ module.exports = function(app, env, fs, Promise, url, path, database, mongoose, 
         mainScripts = ['/scripts/views/mainView.js'],
         myAccountScripts = ['/scripts/views/myAccountView.js'],
         loggedInUsers = [],
-        sessionManager = require('../userAuth/sessionManager')(shortid, Promise, loggedInUsers),
         schemas = {
             admin: require('../models/adminSchema')(mongoose),
             text: require('../models/textSchema')(mongoose),
@@ -32,12 +31,13 @@ module.exports = function(app, env, fs, Promise, url, path, database, mongoose, 
         twilioWrapper = require('../sms/twilioWrapper')(twilio, appMessages.twilio, schemas),
         hasher = require('../userAuth/hasher'),
         myAccount = require('../userAuth/myAccount')(schemas.admin, hasher, appMessages.myAccountMessages, shortid, mailSender),
+        sessionManager = require('../userAuth/sessionManager')(shortid, loggedInUsers, myAccount),
         groupManager = require('../groups/groupManager')(mongoose, myAccount, schemas.groups, shortid, appMessages.groupMessages),
         loginService = require('../userAuth/login')(schemas.admin, hasher, sessionManager, myAccount, appMessages.loginMessages),
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
         textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution),
-        getTemplateConfig = require('../config/template')(appMessages.templateConfig, path),
+        getTemplateConfig = require('../config/template')(appMessages, path),
         dev = env === 'dev';
 
     app.get('/', function(req, res) {
@@ -46,14 +46,18 @@ module.exports = function(app, env, fs, Promise, url, path, database, mongoose, 
 
         textDistributor.execute().then(function(results){
 
-        	res.render('index', getTemplateConfig({   
-                local: path,
-                scripts: format.call(indexScripts),
-                currentUser: sessionManager.getLoggedInUser(req.sessionID),
-                allImages: allImages,
-                activeMarker: '/',
-                results: results.slice(0,4)
-            }));
+            sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+                
+            	res.render('index', getTemplateConfig({   
+                    local: path,
+                    scripts: format.call(indexScripts),
+                    currentUser: resp.user,
+                    allImages: allImages,
+                    activeMarker: '/',
+                    results: results.slice(0,4),
+                    location: resp.location
+                }));
+            });
 
         });
 
@@ -61,63 +65,165 @@ module.exports = function(app, env, fs, Promise, url, path, database, mongoose, 
 
     app.get('/about', function(req, res) {
 
-        res.render('about', getTemplateConfig({   
-            local: path,
-            team: appMessages.aboutPage,
-            scripts: format.call(indexScripts),
-            currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            activeMarker: '/about'
-        }));
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+            res.render('about', getTemplateConfig({   
+                local: path,
+                team: appMessages.aboutPage,
+                scripts: format.call(indexScripts),
+                currentUser: resp.user,
+                activeMarker: '/about',
+                location: resp.location
+            }));
+        });
 
     });
 
      app.get('/press', function(req, res) {
 
-        res.render('press', getTemplateConfig({   
-            local: path,
-            scripts: format.call(indexScripts),
-            stories: appMessages.pressPage.stories,
-            currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            activeMarker: '/press'
-        }));
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+            res.render('press', getTemplateConfig({   
+                local: path,
+                stories: appMessages.pressPage.stories,
+                scripts: format.call(indexScripts),
+                currentUser: resp.user,
+                activeMarker: '/press',
+                location: resp.location
+            }));
+        });
 
     });
 
     app.get('/contact', function(req, res) {
 
-        res.render('contact', getTemplateConfig({   
-            local: path,
-            scripts: format.call(indexScripts),
-            currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            activeMarker: '/contact'
-        }));
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+            res.render('contact', getTemplateConfig({   
+                local: path,
+                scripts: format.call(indexScripts),
+                currentUser: resp.user,
+                activeMarker: '/contact',
+                location: resp.location
+            }));
+        });
+
 
     });
 
      app.get('/:city/groups', function(req, res) {
 
-        sessionManager.isLoggedIn(req.sessionID, devCredentials).then(function(resp) {
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
             
             if (resp.isSuccessful) {
-                
-                myAccount.getUser(resp.user.username).then(function(user){
-                        
-                    res.render('groups', getTemplateConfig({  
-                        escapedDir: '../', 
-                        local: path,
-                        location: req.params.city,
-                        scripts: format.call(groupsScripts),
-                        currentUser: user,
-                        userLevel: user.superUser,
-                        activeMarker: '/groups',
-                        userDetails: user
-                    }));             
-                });
+            
+                res.render('groups', getTemplateConfig({  
+                    escapedDir: '../', 
+                    local: path,
+                    location: req.params.city,
+                    scripts: format.call(groupsScripts),
+                    headers: appMessages.textDistribution.displayFields,
+                    currentUser: resp.user,
+                    userLevel: resp.user.superUser,
+                    activeMarker: '/groups',
+                    userDetails: resp.user
+                }));             
+              
             }
 
             else {
+
                 res.render('unauthorized', getTemplateConfig({   
                     local: path,
+                    escapedDir: '../', 
+                    scripts: format.call(indexScripts),
+                    currentUser: false,
+                    activeMarker: '/'
+                }));
+            }
+        });
+
+
+    });
+
+    app.get('/faq', function(req, res) {
+
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+            res.render('faq', getTemplateConfig({   
+                local: path,
+                scripts: format.call(indexScripts),
+                faq: appMessages.faqPage.questions,
+                currentUser: resp.user,
+                activeMarker: '/faq',
+                location: resp.location
+            }));
+        });
+
+    });
+
+    app.get('/signin', function(req, res) {
+
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+            res.render('signin', getTemplateConfig({   
+                local: path,
+                scripts: format.call(indexScripts),
+                currentUser: resp.user,
+                activeMarker: '/signin',
+                location: resp.location
+            }));
+        });
+
+    });
+
+    app.get('/signup', function(req, res) {
+
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+            res.render('createUser', getTemplateConfig({   
+                local: path,
+                scripts: format.call(adminCreateScripts),
+                currentUser: resp.user,
+                activeMarker: '',
+                cities: appMessages.cities,
+                location: resp.location
+            }));
+        });
+
+    });
+
+    app.get('/forgotpassword', function(req, res){
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+            res.render('forgotpassword', getTemplateConfig({   
+                local: path,
+                scripts: format.call(forgotPasswordScripts),
+                currentUser: resp.user,
+                activeMarker: '',
+                location: resp.location
+            }));
+        });
+    });
+
+    app.get('/:city/database', function(req, res) {
+
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+            
+            if (resp.isSuccessful) {
+            
+                res.render('database', getTemplateConfig({  
+                    escapedDir: '../', 
+                    local: path,
+                    location: req.params.city,
+                    scripts: format.call(mainScripts),
+                    headers: appMessages.textDistribution.displayFields,
+                    currentUser: resp.user,
+                    userLevel: resp.user.superUser,
+                    activeMarker: '/database',
+                    userDetails: resp.user
+                }));             
+              
+            }
+
+            else {
+
+                res.render('unauthorized', getTemplateConfig({   
+                    local: path,
+                    escapedDir: '../', 
                     scripts: format.call(indexScripts),
                     currentUser: false,
                     activeMarker: '/'
@@ -127,109 +233,38 @@ module.exports = function(app, env, fs, Promise, url, path, database, mongoose, 
 
     });
 
-    app.get('/faq', function(req, res) {
+    app.get('/:city/myaccount', function(req, res) {
 
-        res.render('faq', getTemplateConfig({   
-            local: path,
-            scripts: format.call(indexScripts),
-            currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            faq: appMessages.faqPage.questions,
-            activeMarker: '/faq'
-        }));
-
-    });
-
-    app.get('/signin', function(req, res) {
-
-        res.render('signin', getTemplateConfig({   
-            local: path,
-            scripts: format.call(indexScripts),
-            currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            activeMarker: '/signin'
-        }));
-
-    });
-
-    app.get('/signup', function(req, res) {
-
-        res.render('createUser', getTemplateConfig({   
-            local: path,
-            scripts: format.call(adminCreateScripts),
-            currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            activeMarker: '',
-            cities: appMessages.cities
-        }));
-
-    });
-
-    app.get('/forgotpassword', function(req, res){
-        res.render('forgotpassword', getTemplateConfig({   
-            local: path,
-            scripts: format.call(forgotPasswordScripts),
-            currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            activeMarker: ''
-        }));
-    });
-
-    app.get('/:city/database', function(req, res) {
-
-        if (sessionManager.isLoggedIn(req.sessionID) || dev) {
-
-            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
-                res.render('database', getTemplateConfig({
-                    escapedDir: '../',
-                    location: req.params.city,   
+        sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
+            
+            if (resp.isSuccessful) {
+                
+                res.render('myaccount', getTemplateConfig({  
+                    escapedDir: '../', 
                     local: path,
-                    scripts: format.call(mainScripts),
-                    currentUser: dev ? devCredentials.currentUser : sessionManager.getLoggedInUser(req.sessionID),
-                    headers: appMessages.textDistribution.displayFields,
-                    userLevel: dev ? devCredentials.userLevel : user.superUser,
-                    activeMarker: '/database',
-                    userDetails: dev ? devCredentials.userDetails : user
-                }));             
-            });
-        }
-
-        // else {
-        //     res.render('unauthorized', getTemplateConfig({   
-        //         local: path,
-        //         scripts: format.call(indexScripts),
-        //         currentUser: sessionManager.getLoggedInUser(req.sessionID),
-        //         activeMarker: '/'
-        //     }));
-        // }
-
-    });
-
-     app.get('/:city/myaccount', function(req, res) {
-
-        var options;
-
-        if (sessionManager.isLoggedIn(req.sessionID) || dev) {
-
-            myAccount.getUser(sessionManager.getLoggedInUser(req.sessionID)).then(function(user){
-                options = getTemplateConfig({   
-                    local: path,
-                    location: req.params.city, 
+                    location: req.params.city,
                     scripts: format.call(myAccountScripts),
-                    currentUser: dev ? devCredentials.currentUser : sessionManager.getLoggedInUser(req.sessionID),
-                    userDetails: dev ? devCredentials.userDetails : user,
-                    activeMarker: '/myaccount'
-                });
+                    currentUser: resp.user,
+                    userLevel: resp.user.superUser,
+                    activeMarker: '/myaccount',
+                    userDetails: resp.user
+                }));             
+              
+            }
 
-                res.render('myaccount', options);             
-            });
-        }
+            else {
 
-        else {
-            options = getTemplateConfig({   
-                local: path,
-                scripts: format.call(indexScripts),
-                currentUser: sessionManager.getLoggedInUser(req.sessionID),
-                activeMarker: '/'
-            });
-            res.render('unauthorized', options);
-        }
+                res.render('unauthorized', getTemplateConfig({   
+                    local: path,
+                    escapedDir: '../', 
+                    scripts: format.call(indexScripts),
+                    currentUser: false,
+                    activeMarker: '/',
+                    location: ''
+                }));
+            }
+        });
+
 
     });
 
@@ -245,7 +280,8 @@ module.exports = function(app, env, fs, Promise, url, path, database, mongoose, 
             local: path,
             scripts: format.call(indexScripts),
             currentUser: sessionManager.getLoggedInUser(req.sessionID),
-            activeMarker: ''
+            activeMarker: '',
+            location: ''
         }));
     });
 
