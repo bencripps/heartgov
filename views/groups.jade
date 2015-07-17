@@ -2,12 +2,13 @@ extend ./layout
 
 block content
     
+    include ./components/contextSwitcher.jade
     include ./templates/modal/import-modal.jade
     include ./templates/modal/group-details-modal.jade
 
     div(style='text-align:left; margin-bottom:30px;')
         div
-            h4 group management
+            h3 group management
         button(class='btn btn-success btn-sm' id='create-group') create group
         button(class='btn btn-info btn-sm' id='import-num' style='margin-left:1%') import numbers to group
 

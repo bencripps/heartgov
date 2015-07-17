@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-06-23 20:17:53
+* @Last Modified time: 2015-07-17 12:01:01
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -17,6 +17,7 @@ define('textService', ['utilities'], function(utilities) {
             document.querySelector('#send-general-text').addEventListener('click', this.showRespondModal.bind(this));
             this.loadAvailableGroups();
             utilities.reactClasses.getTextTable('text-table', this);
+            utilities.initContextSwitcher();
         },
         loadAvailableGroups: function() {
             utilities.ajax({username: utilities.getCurrentUserName()}, 'post', '/find/availableGroups', function(data){

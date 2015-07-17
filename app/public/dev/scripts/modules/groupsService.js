@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-13 19:43:31
+* @Last Modified time: 2015-07-17 12:02:24
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -11,6 +11,7 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
         init: function() {
             this.userName = document.getElementById('hgov-user-information').innerHTML;
             this.reactTable = utilities.reactClasses.getGroupTable('groupTable', this);
+            utilities.initContextSwitcher();
             this.setEvents();
         },
         setEvents: function() {

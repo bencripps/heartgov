@@ -1,8 +1,11 @@
 extend ./layout
 
 block content
+    include ./components/contextSwitcher.jade
+    
+    div(style='text-align:left;')
+        h3 my account
 
-    h3 my account
 
     form(name='userSignup')
 

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-17 12:51:30
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-07 18:01:38
+* @Last Modified time: 2015-07-17 12:02:16
 */
 
 define('myAccountService', ['utilities'], function(utilities) {
@@ -15,6 +15,7 @@ define('myAccountService', ['utilities'], function(utilities) {
 
             this.editButton.addEventListener('click', this.toggleEditFields.bind(this, 'edit'));
             this.saveButton.addEventListener('click', this.saveFields.bind(this, 'save'));
+            utilities.initContextSwitcher();
         },
         toggleButtons: function(action) {
             this.editButton.style.display = action === 'edit' ? 'none' : 'block';

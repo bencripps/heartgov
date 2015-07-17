@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-12 20:31:33
+* @Last Modified time: 2015-07-17 12:30:39
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -154,6 +154,18 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
                 }
             }
 
+        },
+        initContextSwitcher: function() {
+            var switcher = document.querySelector('[name="context-switcher"]');
+            
+            if (switcher) {
+
+                switcher.value = location.pathname.substring(location.pathname.indexOf('/') + 1, location.pathname.lastIndexOf('/'));
+
+                switcher.addEventListener('change', function(e){
+                    location.pathname = e.target.value + location.pathname.substring(location.pathname.lastIndexOf('/'), location.pathname.length);
+                });
+            }
         }
     };
 
