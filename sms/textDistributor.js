@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-17 19:53:32
+* @Last Modified time: 2015-07-17 20:44:06
 */
 
 module.exports = function(mongoose, TextSchema, appMessages) {
@@ -17,8 +17,12 @@ module.exports = function(mongoose, TextSchema, appMessages) {
         },
         categories: Object.keys(appMessages.displayFields),
         execute: function(filter) {
-            
-            return TextSchema.find({'textInformation.visible': true}).exec();
+            var twilNumber = filter && filter.city === '/austin/database' ? 1 : Number(process.env.twilioNumber),
+                query = {'textInformation.visible': true};
+
+            if (twilNumber) query = {'textInformation.visible': true, 'textInformation.toNumber': twilNumber};
+
+            return TextSchema.find(query).exec();
         },
         getTextObjectValues: function(text, name) {
              
