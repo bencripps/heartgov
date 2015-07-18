@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-17 19:48:47
+* @Last Modified time: 2015-07-18 12:55:52
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -335,11 +335,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.post('/send/outgoingText', function(req, res) {
-        twilioWrapper.sendOutGoingText(req.body.content, req.body.to, req.body._id, req.body.from, res);
+        twilioWrapper.sendOutGoingText(req.body.content, req.body.to, req.body._id, req.body.from, res, req.body.city);
     });
 
     app.post('/send/outgoingGroupText', function(req, res) {
-        twilioWrapper.sendGroupOutGoingText(groupManager, req.body, res);
+        twilioWrapper.sendGroupOutGoingText(groupManager, req.body, res, req.body.city);
     });
 
     app.post('/upload/import', function(req, res){

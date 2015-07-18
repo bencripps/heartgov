@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 21:51:52
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-17 12:01:01
+* @Last Modified time: 2015-07-18 12:54:24
 */
 
 define('textService', ['utilities'], function(utilities) {
@@ -50,6 +50,8 @@ define('textService', ['utilities'], function(utilities) {
             var formValues = Array.prototype.forEach.call(document.getElementsByName('out-going-text-form')[0].querySelectorAll('.input-sm'), function(n) {
                 obj[n.name] = n.value;
             });
+
+            obj.city = location.pathname;
             
             if (obj.content) {
                 utilities.ajax(obj, 'post', '/send/outgoingText', function(response){

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-17 12:02:24
+* @Last Modified time: 2015-07-18 13:04:19
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -35,8 +35,8 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
         sendGroupText: function(group, messageInput) {
             var msg = messageInput.querySelector('textarea').value;
 
-            utilities.ajax({groupId: group._id, message: msg, user: utilities.getCurrentUserName()}, 'post', '/send/outgoingGroupText', function() {
-                alert('hi');
+            utilities.ajax({city: location.pathname, groupId: group._id, message: msg, user: utilities.getCurrentUserName()}, 'post', '/send/outgoingGroupText', function() {
+                console.log(arguments);
             });
         },
         createGroup: function() {

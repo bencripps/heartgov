@@ -2,35 +2,34 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-13 19:59:12
+* @Last Modified time: 2015-07-18 13:03:00
 */
 
 module.exports = function(client, appMessages, schemas) {
     'use strict';
     
     var twilioWrapper = {
-        twilioNumber: process.env.twilioNumber,
-        sendOutGoingText: function(response, receiver, _id, user, server) {
+        brooklynNumber: process.env.brooklynNumber,
+        austinNumber: process.env.austinNumber,
+        sendOutGoingText: function(response, receiver, _id, user, server, city) {
             if (_id) this.processOutgoingSave(response, receiver, _id, user, server);
-            this.processOutGoingText(response, receiver).then(this.twilioSuccess.bind(this, server), this.twilioError.bind(this,server));
+            this.processOutGoingText(response, receiver, city).then(this.twilioSuccess.bind(this, server), this.twilioError.bind(this,server));
         },
-        sendGroupOutGoingText: function(groupManager, msgData, server) {
+        sendGroupOutGoingText: function(groupManager, msgData, server, city) {
             groupManager.utils.getPhoneNumbers(msgData.groupId).then(function(record) {
                 var numbers = record[0].associatedPhoneNumbers;
 
                 numbers.forEach(function(num) {
-                    twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server);
+                    twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server, city);
                 });
             });
         },
-        processOutGoingText: function(response, receiver) {
-
+        processOutGoingText: function(response, receiver, city) {
             var sms = client.sms.messages.create({
                     to: receiver,
-                    from: this.twilioNumber,
+                    from: city.substring(0,7) === '/austin' ? this.austinNumber : this.brooklynNumber,
                     body: response
                 });
-
             return sms;
         },
         processOutgoingSave: function(response, receiver, _id, username, server) {
