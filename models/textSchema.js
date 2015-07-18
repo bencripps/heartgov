@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 19:43:27
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-30 21:03:58
+* @Last Modified time: 2015-07-17 19:55:58
 */
 
 module.exports = function(mongoose){
@@ -23,6 +23,7 @@ module.exports = function(mongoose){
                 id: Number,
                 name: String,
             },
+            toNumber: Number,
             body: String,
             status: String,
             zipcode: Number,

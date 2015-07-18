@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 17:35:56
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-17 11:41:02
+* @Last Modified time: 2015-07-17 19:45:40
 */
 
 module.exports = function(shortId, loggedInUsers, adminUsers) {
@@ -47,7 +47,7 @@ module.exports = function(shortId, loggedInUsers, adminUsers) {
                                 success({
                                     isSuccessful: true,
                                     user: user,
-                                    location: user.superUser ? requestedLocation : user.assignedCities[0]
+                                    location: user.superUser && requestedLocation ? requestedLocation : user.assignedCities[0]
                                 });
                             }
 

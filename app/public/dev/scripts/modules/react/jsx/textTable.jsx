@@ -25,7 +25,7 @@ define('textTable', ['react'], function(React){
             },
             componentWillMount: function(){
                 var me = this;
-                this.props.utils.ajax(null, 'post', '/find/texts', function(data) { 
+                this.props.utils.ajax({assignedCities: location.pathname}, 'post', '/find/texts', function(data) { 
                     me.setState({texts: data.result});
                 });
             },

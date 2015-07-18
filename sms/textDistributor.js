@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-04-12 17:30:40
+* @Last Modified time: 2015-07-17 19:53:32
 */
 
 module.exports = function(mongoose, TextSchema, appMessages) {
@@ -17,7 +17,8 @@ module.exports = function(mongoose, TextSchema, appMessages) {
         },
         categories: Object.keys(appMessages.displayFields),
         execute: function(filter) {
-            return TextSchema.find({'textInformation.visible': true}).sort(filter).exec();
+            
+            return TextSchema.find({'textInformation.visible': true}).exec();
         },
         getTextObjectValues: function(text, name) {
              

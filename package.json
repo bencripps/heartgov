@@ -39,6 +39,7 @@
     "walk": "^2.3.9"
   },
   "scripts": {
-    "dev": "env $(cat .env) nodemon server.js dev"
+    "dev": "env $(cat .env) nodemon server.js dev",
+    "start": "env $(cat .env) nodemon server.js"
   }
 }
