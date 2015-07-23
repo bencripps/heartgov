@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-18 12:55:52
+* @Last Modified time: 2015-07-22 22:09:04
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -269,7 +269,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.post('/recievedPublicText', function(req, res) {
-        
+        //to do: determine which number is coming in, and do their work flow
         textReceiver.handleResponse(req.body, twilioWrapper);
         res.send({result: appMessages.twilio.dataReceived});
 

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-18 13:03:00
+* @Last Modified time: 2015-07-22 22:10:20
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -12,6 +12,8 @@ module.exports = function(client, appMessages, schemas) {
         brooklynNumber: process.env.brooklynNumber,
         austinNumber: process.env.austinNumber,
         sendOutGoingText: function(response, receiver, _id, user, server, city) {
+            //need to fix this, but will work for now?
+            city = city ? city : '/brooklyn';
             if (_id) this.processOutgoingSave(response, receiver, _id, user, server);
             this.processOutGoingText(response, receiver, city).then(this.twilioSuccess.bind(this, server), this.twilioError.bind(this,server));
         },

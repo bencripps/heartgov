@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-17 20:00:45
+* @Last Modified time: 2015-07-22 22:09:00
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer) {
