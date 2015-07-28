@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-22 22:09:04
+* @Last Modified time: 2015-07-27 21:36:58
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -35,7 +35,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         groupManager = require('../groups/groupManager')(mongoose, myAccount, schemas.groups, shortid, appMessages.groupMessages),
         loginService = require('../userAuth/login')(schemas.admin, hasher, sessionManager, myAccount, appMessages.loginMessages),
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
-        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender),
+        austinHandler = require('../sms/austin/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
+        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution),
         getTemplateConfig = require('../config/template')(appMessages, path),
         dev = env === 'dev';
@@ -268,11 +269,34 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     });
 
-    app.post('/recievedPublicText', function(req, res) {
-        //to do: determine which number is coming in, and do their work flow
-        textReceiver.handleResponse(req.body, twilioWrapper);
-        res.send({result: appMessages.twilio.dataReceived});
+    //for testing
 
+    app.get('/testResponse', function(req, res) {
+        var sampleTwilResponse = {
+            AccountSid: 'AC5ef872f6da5a21de157d80997a64bd33',
+            ApiVersion: '2008-08-01',
+            Body: 'Hey Jenny why aren\'t you returning my calls?',
+            DateCreated: 'Mon, 16 Aug 2010 03:45:01 +0000',
+            DateSent: 'Mon, 16 Aug 2010 03:45:03 +0000',
+            DateUpdated: 'Mon, 16 Aug 2010 03:45:03 +0000',
+            Direction: 'outbound-api',
+            From: '14438788369',
+            Price: '-0.02000',
+            MessageSid: 'SM800f449d0399ed014aae2bcc0cc2f2ec',
+            Status: 'sent',
+            To: '15126435627',
+            Uri: '/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM800f449d0399ed014aae2bcc0cc2f2ec.json',
+            FromCity: 'Baltimore',
+            FromState: 'MD',
+            FromZip: '21228',
+            FromCountry: 'USA',
+            ToCity: 'Austin',
+            ToState: 'TX',
+            ToZip: '78751',
+            ToCountry: 'USA'
+        };
+
+        textReceiver.handleResponse(sampleTwilResponse, twilioWrapper);
     });
 
     app.get('*', function(req, res){
@@ -283,6 +307,13 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             activeMarker: '',
             location: ''
         }));
+    });
+
+    app.post('/recievedPublicText', function(req, res) {
+        //to do: determine which number is coming in, and do their work flow
+        textReceiver.handleResponse(req.body, twilioWrapper);
+        res.send({result: appMessages.twilio.dataReceived});
+
     });
 
     app.post('/add/phonenumber/group', function(req, res){

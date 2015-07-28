@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-22 22:10:20
+* @Last Modified time: 2015-07-27 21:49:07
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -27,11 +27,13 @@ module.exports = function(client, appMessages, schemas) {
             });
         },
         processOutGoingText: function(response, receiver, city) {
+
             var sms = client.sms.messages.create({
                     to: receiver,
                     from: city.substring(0,7) === '/austin' ? this.austinNumber : this.brooklynNumber,
                     body: response
                 });
+
             return sms;
         },
         processOutgoingSave: function(response, receiver, _id, username, server) {

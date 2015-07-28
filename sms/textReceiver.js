@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-22 22:09:00
+* @Last Modified time: 2015-07-27 21:10:18
 */
 
-module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer) {
+module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler) {
     'use strict';
     
     var textReceiver = {
@@ -13,16 +13,25 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer)
             
             var message = this.utils.translateTwilioModel(incomingMessage);
 
-            mailer.sendMailtoSuperUsers('newTextReceived', {textDetails: message});
+            //un comment this when youre done testing
+            // mailer.sendMailtoSuperUsers('newTextReceived', {textDetails: message});
 
-            if (this.user.hasTrackingNumber(message.body)) {
-                this.utils.findText('textInformation.trackingNumber', this.utils.getId(message.body))
-                    .then(this.responder.withTrackingNumber.bind(this, message, twilioWrapper));
+            //austin
+            if (message.to === process.env.austinNumber) {
+                austinHandler.handleResponse(message, twilioWrapper);
             }
 
-            else {
-                this.user.isNewOrOldTexter(message.from)
-                    .then(this.responder.withoutTrackingNumber.bind(this, message, twilioWrapper));
+            //brookyln
+            else if (message.to === process.env.brooklynNumber) {
+                if (this.user.hasTrackingNumber(message.body)) {
+                    this.utils.findText('textInformation.trackingNumber', this.utils.getId(message.body))
+                        .then(this.responder.withTrackingNumber.bind(this, message, twilioWrapper));
+                }
+
+                else {
+                    this.user.isNewOrOldTexter(message.from)
+                        .then(this.responder.withoutTrackingNumber.bind(this, message, twilioWrapper));
+                }
             }
         },
         responder: {
