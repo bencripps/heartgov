@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-07-27 20:13:12
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-27 21:44:10
+* @Last Modified time: 2015-07-29 19:25:38
 */
 
 
@@ -18,12 +18,12 @@ module.exports = function(mongoose, TextSchema, AdminSchema, shortId, appMessage
         handleOutgoingResponse: function(msg, twilioWrapper, previousMessages) {
             var outgoingMsg;
             
-            if (previousMessages.length >= appMessages.austinConfig.questions.length) {
-                outgoingMsg = appMessages.austinConfig.questions[appMessages.austinConfig.questions.length];
+            if (previousMessages.length < appMessages.austinConfig.questions.length) {
+                outgoingMsg = appMessages.austinConfig.questions[previousMessages.length];
             }
 
             else {
-                outgoingMsg = appMessages.austinConfig.questions[previousMessages.length];
+                outgoingMsg = appMessages.austinConfig.questions[appMessages.austinConfig.questions.length - 1];
             }
 
             this.sendAndSave(msg, outgoingMsg, twilioWrapper);
@@ -35,8 +35,7 @@ module.exports = function(mongoose, TextSchema, AdminSchema, shortId, appMessage
 
             textModel.save();
 
-            // this doesnt seem to work -- find out why twilio isnt sending our message;
-            twilioWrapper.sendOutGoingText(outGoingResponse, message.from, null, null, null, '/austin');
+            twilioWrapper.sendOutGoingText(outGoingResponse, message.from, null, null, null, '/austin/database');
         },
 
         formatOutGoingResponseForSave: function(response, to) {

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-27 21:36:58
+* @Last Modified time: 2015-07-29 19:03:54
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -280,7 +280,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             DateSent: 'Mon, 16 Aug 2010 03:45:03 +0000',
             DateUpdated: 'Mon, 16 Aug 2010 03:45:03 +0000',
             Direction: 'outbound-api',
-            From: '14438788369',
+            From: '4438788369',
             Price: '-0.02000',
             MessageSid: 'SM800f449d0399ed014aae2bcc0cc2f2ec',
             Status: 'sent',

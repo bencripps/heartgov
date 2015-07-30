@@ -4,4 +4,4 @@ block switcher
             label context switcher
             select(name='context-switcher' style='margin-left: 10px;')
                 - for city in cities
-                    option(value='#{city.id}') #{city.name}
+                    option(value='#{city.id}' selected = city.id === location) #{city.name}
