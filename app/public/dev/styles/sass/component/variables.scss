@@ -1,5 +1,6 @@
 $prefix: "hgov";
 $mobile-width: 780px;
+$max-width: 1100px;
 
 $primary-blue: #1F6BD1;
 $teal: #5ADED5;
@@ -8,6 +9,12 @@ $white: #FFFFFF;
 
 @mixin mobile {
   @media (max-width: #{$mobile-width}) {
+    @content;
+  }
+}
+
+@mixin maxWidth {
+  @media (min-width: #{$max-width}) {
     @content;
   }
 }
@@ -34,14 +41,24 @@ $white: #FFFFFF;
 
         h1 {
             font-size: 2.5vw;
+            @include maxWidth {
+                font-size: 40px;
+            }
         }
 
         h2 {
             font-size: 8vw;
+            @include maxWidth {
+                font-size: 70px;
+            }
         }
 
         span a {
             font-size: 1.5vw;
+        }
+
+        @include maxWidth {
+            font-size: 40px;
         }
     }
 

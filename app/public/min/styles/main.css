@@ -164,10 +164,19 @@ hgov-main-table td {
     overflow: auto; }
     #main-hero table h1 {
       font-size: 2.5vw; }
+      @media (min-width: 1100px) {
+        #main-hero table h1 {
+          font-size: 40px; } }
     #main-hero table h2 {
       font-size: 8vw; }
+      @media (min-width: 1100px) {
+        #main-hero table h2 {
+          font-size: 70px; } }
     #main-hero table span a {
       font-size: 1.5vw; }
+    @media (min-width: 1100px) {
+      #main-hero table {
+        font-size: 40px; } }
 
 #middle #iphone {
   margin-top: -20%;
@@ -179,6 +188,9 @@ hgov-main-table td {
     text-align: center;
     margin-top: 8%;
     font-size: 4vw; }
+    @media (min-width: 1100px) {
+      #middle .details h3 {
+        font-size: 59px; } }
   #middle .details h4 {
     margin-top: 8%;
     font-size: 25px; }
@@ -280,10 +292,19 @@ hgov-main-table td {
     overflow: auto; }
     #about-hero table h1 {
       font-size: 2.5vw; }
+      @media (min-width: 1100px) {
+        #about-hero table h1 {
+          font-size: 40px; } }
     #about-hero table h2 {
       font-size: 8vw; }
+      @media (min-width: 1100px) {
+        #about-hero table h2 {
+          font-size: 70px; } }
     #about-hero table span a {
       font-size: 1.5vw; }
+    @media (min-width: 1100px) {
+      #about-hero table {
+        font-size: 40px; } }
 
 #about-bubble {
   width: 20%; }
@@ -428,10 +449,19 @@ hgov-main-table td {
     overflow: auto; }
     #press-background-cover table h1 {
       font-size: 2.5vw; }
+      @media (min-width: 1100px) {
+        #press-background-cover table h1 {
+          font-size: 40px; } }
     #press-background-cover table h2 {
       font-size: 8vw; }
+      @media (min-width: 1100px) {
+        #press-background-cover table h2 {
+          font-size: 70px; } }
     #press-background-cover table span a {
       font-size: 1.5vw; }
+    @media (min-width: 1100px) {
+      #press-background-cover table {
+        font-size: 40px; } }
 
 .press.container {
   padding-top: 30%; }
@@ -456,10 +486,19 @@ hgov-main-table td {
     overflow: auto; }
     .hgov-story table h1 {
       font-size: 2.5vw; }
+      @media (min-width: 1100px) {
+        .hgov-story table h1 {
+          font-size: 40px; } }
     .hgov-story table h2 {
       font-size: 8vw; }
+      @media (min-width: 1100px) {
+        .hgov-story table h2 {
+          font-size: 70px; } }
     .hgov-story table span a {
       font-size: 1.5vw; }
+    @media (min-width: 1100px) {
+      .hgov-story table {
+        font-size: 40px; } }
 
 .story-overlay {
   position: absolute;
@@ -525,10 +564,19 @@ hgov-main-table td {
     overflow: auto; }
     #signup-hero table h1 {
       font-size: 2.5vw; }
+      @media (min-width: 1100px) {
+        #signup-hero table h1 {
+          font-size: 40px; } }
     #signup-hero table h2 {
       font-size: 8vw; }
+      @media (min-width: 1100px) {
+        #signup-hero table h2 {
+          font-size: 70px; } }
     #signup-hero table span a {
       font-size: 1.5vw; }
+    @media (min-width: 1100px) {
+      #signup-hero table {
+        font-size: 40px; } }
   @media (max-width: 780px) {
     #signup-hero {
       background-image: none; }

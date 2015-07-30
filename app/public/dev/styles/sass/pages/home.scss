@@ -17,6 +17,9 @@
             text-align: center; 
             margin-top: 8%;
             font-size: 4vw;
+            @include maxWidth {
+                font-size: 59px;
+            }
         }
         
         h4 {
