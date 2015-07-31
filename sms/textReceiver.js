@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-27 21:10:18
+* @Last Modified time: 2015-08-02 09:43:44
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler) {
@@ -13,16 +13,15 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
             
             var message = this.utils.translateTwilioModel(incomingMessage);
 
-            //un comment this when youre done testing
-            // mailer.sendMailtoSuperUsers('newTextReceived', {textDetails: message});
+            mailer.sendMailtoSuperUsers('newTextReceived', {textDetails: message});
 
             //austin
-            if (message.to === process.env.austinNumber) {
+            if (message.to === '+' + process.env.austinNumber) {
                 austinHandler.handleResponse(message, twilioWrapper);
             }
 
             //brookyln
-            else if (message.to === process.env.brooklynNumber) {
+            else if (message.to === '+' + process.env.brooklynNumber) {
                 if (this.user.hasTrackingNumber(message.body)) {
                     this.utils.findText('textInformation.trackingNumber', this.utils.getId(message.body))
                         .then(this.responder.withTrackingNumber.bind(this, message, twilioWrapper));

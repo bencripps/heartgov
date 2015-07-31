@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-29 19:03:54
+* @Last Modified time: 2015-08-02 09:43:52
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -45,7 +45,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
         allImages = allImages || preloader.getImages();
 
-        textDistributor.execute().then(function(results){
+        // textDistributor.execute({startIndex: 0}).then(function(results){
 
             sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
                 
@@ -55,12 +55,12 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
                     currentUser: resp.user,
                     allImages: allImages,
                     activeMarker: '/',
-                    results: results.slice(0,4),
+                    // results: results.slice(0,4),
                     location: resp.location
                 }));
             });
 
-        });
+        // });
 
     });
 
@@ -284,7 +284,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
             Price: '-0.02000',
             MessageSid: 'SM800f449d0399ed014aae2bcc0cc2f2ec',
             Status: 'sent',
-            To: '15126435627',
+            To: '+15126435627',
             Uri: '/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM800f449d0399ed014aae2bcc0cc2f2ec.json',
             FromCity: 'Baltimore',
             FromState: 'MD',

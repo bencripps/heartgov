@@ -20,20 +20,23 @@ define('textTable', ['react'], function(React){
                     level: this.props.utils.getCurrentUserLevel(),
                     utils: this.props.utils,
                     textService: this.props.service,
+                    startIndex: 0,
+                    total: 0,
                     rows: {}
                 }
             },
             componentWillMount: function(){
                 var me = this;
-                this.props.utils.ajax({city: location.pathname}, 'post', '/find/texts', function(data) { 
+                this.props.utils.ajax({city: location.pathname, startIndex: 0}, 'post', '/find/texts', function(data) { 
                     me.setState({texts: data.result});
+                    me.setState({total: data.count});
                 });
             },
             render: function() {
                 var me = this,
                     level = this.state.level,
                     insert = this.state.texts.length >= 1 ? this.state.texts.map(function(text){ return [<textTable.row text={text}/>,<textTable.detailsRow level={level} text={text} isHidden={me.state.rows[text._id]} />];}) : <tr><td>No Texts have been recieved</td></tr>;
-                
+
                 return (
                     <table className='table table-bordered table-striped' id='main-table'>
                         <tbody>
@@ -41,9 +44,74 @@ define('textTable', ['react'], function(React){
                                 <th colSpan="10" style={{textAlign:'center'}}>all texts</th>
                             </tr>
                             {insert}
+                             <textTable.pagination texts={this.state.texts} total={this.state.total} startIndex={this.state.startIndex}/>
+                            
                         </tbody>
                     </table>
                 );
+            }
+        }),
+        
+        pagination: React.createClass({
+            render: function() {
+                var start = this.props.startIndex * 10,
+                    increment = start + this.props.texts.length;
+
+                return (
+                    <tr>
+                        <td colSpan="10">
+                            <span style={{float: 'left', marginLeft: '2px'}}>
+                                Viewing {start} through {increment} of {this.props.total}
+                            </span>
+                            <span style={{float: 'right', marginRight: '2px'}}>
+                                <textTable.nextButton isDisabled={increment === this.props.total}/>
+                            </span>
+                            <span style={{float: 'right', marginRight: '20px'}}>
+                                <textTable.lastButton isDisabled={start === 0}/>
+                            </span>
+                        </td>
+                    </tr>
+                    );
+            }
+        }),
+
+        nextButton: React.createClass({
+            render: function() {
+                return(
+                    <button class="btn" onClick={this.doClick} disabled={this.props.isDisabled}>Next Page</button>
+                    );
+            },
+
+            doClick: function() {
+                var ctx = this._owner._owner,
+                    currentIndex = ctx.state.startIndex;
+
+                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex + 1}, 'post', '/find/texts', function(data) { 
+                    ctx.setState({texts: data.result});
+                    ctx.setState({total: data.count});
+                    ctx.setState({startIndex: currentIndex + 1});
+                });
+
+            }
+        }),
+        lastButton: React.createClass({
+            render: function() {
+   
+                return(
+                    <button class="btn" onClick={this.doClick} disabled={this.props.isDisabled}>Last Page</button>
+                    );
+            },
+
+            doClick: function() {
+                var ctx = this._owner._owner,
+                    currentIndex = ctx.state.startIndex;
+
+                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex - 1}, 'post', '/find/texts', function(data) { 
+                    ctx.setState({texts: data.result});
+                    ctx.setState({total: data.count});
+                    ctx.setState({startIndex: currentIndex - 1});
+                });
+
             }
         }),
         row: React.createClass({

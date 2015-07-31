@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-18 12:39:11
+* @Last Modified time: 2015-08-02 10:05:13
 */
 
 module.exports = function(mongoose, TextSchema, appMessages) {
@@ -10,20 +10,31 @@ module.exports = function(mongoose, TextSchema, appMessages) {
 
     var textDistributor = {
         findTextsBy: function(filter, server) {
-            this.execute(filter)
-                .then( 
-                    this.returnTexts.bind(this, server), 
-                    this.utils.dbError.bind(this, server));
+            this.execute(filter, server);
         },
         categories: Object.keys(appMessages.displayFields),
-        execute: function(filter) {
-            //to do: add austin number
-            var twilNumber = filter && filter.city === '/austin/database' ?  Number(process.env.austinNumber) : Number(process.env.brooklynNumber),
-                query = {'textInformation.visible': true};
+        execute: function(filter, server) {
 
+            var twilNumber = filter && filter.city === '/austin/database' ?  Number(process.env.austinNumber) : Number(process.env.brooklynNumber),
+                query = {'textInformation.visible': true},
+                skip = filter.startIndex * appMessages.pageSize,
+                me = this;
+  
             if (twilNumber) query = {'textInformation.visible': true, 'textInformation.toNumber': twilNumber};
 
-            return TextSchema.find(query).exec();
+            TextSchema.find(query).exec(function(err, items) {
+
+                var total = items.length,
+                    docs = items.slice(skip, appMessages.pageSize + skip);
+                
+                if (!err) {
+                    me.returnTexts.call(me, server, docs, total);
+                }
+                
+                else {
+                    me.utils.dbError.call(me, server);
+                }   
+            });
         },
         getTextObjectValues: function(text, name) {
              
@@ -46,7 +57,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
 
             return configObject[name];
         },
-        returnTexts: function(server, data) {
+        returnTexts: function(server, data, total) {
             var ret = [],
                 textObj = {};
 
@@ -58,7 +69,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                textObj= {};
             });
 
-            server.send({result: ret});
+            server.send({result: ret, count: total});
 
         },
         textSuccessfullyDeleted: function(server) {
