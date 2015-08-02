@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:07:34
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-14 20:14:00
+* @Last Modified time: 2015-08-02 20:23:00
 */
 
 module.exports = function(mongoose){
@@ -24,6 +24,7 @@ module.exports = function(mongoose){
         lastLogin: Date,
         messagesSent: [],
         superUser: Boolean,
-        assignedCities: []
+        assignedCities: [],
+        receiveEmails: Boolean
     });
 };

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-14 21:19:53
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-28 16:46:46
+* @Last Modified time: 2015-08-02 20:22:02
 */
 
 module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) {
@@ -12,6 +12,7 @@ module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) 
             return AdminModel.findOne({username: username}).exec();
         },
         getNewUserObj: function(userData) {
+
             return {
                 password: parseInt(userData.password) ? userData.password : hasher.encrypt(userData.password),
                 name: {
@@ -22,7 +23,8 @@ module.exports = function(AdminModel, hasher, appMessages, shortId, mailSender) 
                 phoneNumber: {
                     string: userData.phoneNumber,
                     number: parseInt(userData.phoneNumber)
-                }
+                },
+                receiveEmails: userData.receiveEmails
             };
         },
         updateAccount: function(userData, server){

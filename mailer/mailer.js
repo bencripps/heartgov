@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-02-23 23:15:14
+* @Last Modified time: 2015-08-02 20:28:41
 */
 
 module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
@@ -15,8 +15,8 @@ module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
                     pass: process.env.mailPassword
                 }
             }),
-            getSuperUsers: function() {
-                return AdminSchema.find({superUser: true}).exec();
+            getEmailUsers: function() {
+                return AdminSchema.find({receiveEmails: true}).exec();
             },
             getEmail: function(address, type, options) {
                 var template = jade.compileFile(appMessages[type].templatePath),
@@ -31,8 +31,9 @@ module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
                 return mailOptions;
             },
             sendMailtoSuperUsers: function(type, options) {
-                this.getSuperUsers().then(function(users, err) {
+                this.getEmailUsers().then(function(users, err) {
                     var emailAddresses = users.map(function(user) { return user.emailAddress; });
+
                     mailer.sendMail(emailAddresses, type, options);
                 });
             },

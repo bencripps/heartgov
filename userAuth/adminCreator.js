@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-14 20:34:13
+* @Last Modified time: 2015-08-02 20:28:05
 */
 
 module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMessages, mailer) {
@@ -63,7 +63,8 @@ module.exports = function(AdminModel, hasher, idGenerator, sessionManager, appMe
                 lastLogin: new Date(),
                 messagesSent: [],
                 superUser: data.signupPassword === process.env.adminSignUpPassword,
-                assignedCities: [data.city]
+                assignedCities: [data.city],
+                receiveEmails: true
             };
 
         },

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-17 12:51:30
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-17 12:02:16
+* @Last Modified time: 2015-08-02 20:20:27
 */
 
 define('myAccountService', ['utilities'], function(utilities) {
@@ -32,8 +32,10 @@ define('myAccountService', ['utilities'], function(utilities) {
             e.preventDefault();
             var me = this,
                 obj = {},
+                val,
                 data = Array.prototype.forEach.call(document.querySelectorAll('input'), function(input) {
-                    obj[input.name] = input.value; 
+                    val = input.type !== 'checkbox' ? input.value : input.checked;
+                    obj[input.name] = val;
                 });
 
             utilities.ajax(obj, 'post', '/edit/account', function(response) {

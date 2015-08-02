@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-02 09:43:52
+* @Last Modified time: 2015-08-02 20:20:55
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -239,7 +239,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
             
             if (resp.isSuccessful) {
-                
+
                 res.render('myaccount', getTemplateConfig({  
                     escapedDir: '../', 
                     local: path,
