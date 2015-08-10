@@ -179,12 +179,16 @@
     "faqPage": {
         "questions": [
             {
-                "label": "Community Members",
-                "content": "TBD"
+                "label": "Partners",
+                "content": "State Senator Jesse Hamilton - 20th Senate District"
+            },
+            {
+                "label": "",
+                "content": "The City of Austin, Texas"
             },
             {
                 "label": "What can I text in?",
-                "content": "Anything you want! This is an experiment, and I want to hear what your ideas are. Anything about your neighborhood: is there a street corner you think need a stop sign? Or an empty lot you think should have a park? How do you feel about stop and frisk? How do you feel about charter schools? Have you ever sat around and told your friends, \"if they just listened to my idea, everything would be so much better!\" Well, now you have that chance."
+                "content": "Anything about your neighborhood: is there a street corner you think need a stop sign? Or an empty lot you think should have a park? How do you feel about stop and frisk? How do you feel about charter schools? Have you ever sat around and told your friends, \"if they just listened to my idea, everything would be so much better!\" Well, now you have that chance."
             },
             {
                 "label": "What does it cost?",
