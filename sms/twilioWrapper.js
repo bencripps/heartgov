@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-29 19:09:34
+* @Last Modified time: 2015-08-21 20:59:33
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -21,8 +21,10 @@ module.exports = function(client, appMessages, schemas) {
             groupManager.utils.getPhoneNumbers(msgData.groupId).then(function(record) {
                 var numbers = record[0].associatedPhoneNumbers;
 
-                numbers.forEach(function(num) {
-                    twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server, city);
+                numbers.forEach(function(num, i) {
+                    setTimeout(function() {
+                        twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server, city);
+                    }, i * 1000);
                 });
             });
         },
