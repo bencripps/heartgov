@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-21 21:38:00
+* @Last Modified time: 2015-08-22 11:44:41
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -11,29 +11,38 @@ module.exports = function(client, appMessages, schemas) {
     var twilioWrapper = {
         brooklynNumber: process.env.brooklynNumber,
         austinNumber: process.env.austinNumber,
-        sendOutGoingText: function(response, receiver, _id, user, server, city) {
+        sendOutGoingText: function(response, receiver, _id, user, server, city, isGroupMessage) {
+            
             //need to fix this, but will work for now?
             city = city ? city : '/brooklyn';
             if (_id) this.processOutgoingSave(response, receiver, _id, user, server);
-            this.processOutGoingText(response, receiver, city).then(this.twilioSuccess.bind(this, server), this.twilioError.bind(this,server));
+            
+            this.processOutGoingText(response, receiver, city, server, isGroupMessage);
         },
         sendGroupOutGoingText: function(groupManager, msgData, server, city) {
             groupManager.utils.getPhoneNumbers(msgData.groupId).then(function(record) {
                 var numbers = record[0].associatedPhoneNumbers;
 
                 numbers.forEach(function(num, i) {
-                    //twil totes dont want you to mass text
-                    twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server, city);
+                    setTimeout(function() {
+                        twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server, city, true);
+                    }, i * 1000);
                 });
             });
         },
-        processOutGoingText: function(response, receiver, city) {
+        processOutGoingText: function(response, receiver, city, server, isGroupMessage) {
 
             var sms = client.messages.create({
                     to: receiver,
                     from: city.substring(0,7) === '/austin' ? this.austinNumber : this.brooklynNumber,
                     body: response
-                }, function() { console.log(arguments); });
+                }, function() { 
+
+                    if (!isGroupMessage && server) {
+                        server.send({result: appMessages.messageSent});
+                    }
+
+            });
 
             return sms;
         },
