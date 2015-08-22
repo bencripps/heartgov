@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-07-27 20:13:12
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 12:58:21
+* @Last Modified time: 2015-08-22 13:45:55
 */
 
 
@@ -59,15 +59,15 @@ module.exports = function(mongoose, TextSchema, AdminSchema, shortId, appMessage
                             number: Number(message.from)
                         }
                     },
+                    tag: {
+                        cityName: cityInfo.name,
+                        name: cityInfo.tags[0].name,
+                        id: cityInfo.tags[0].id
+                    },
                     textInformation: {
                         category: {
                             id: null,
                             name: null
-                        },
-                        tag: {
-                            cityName: cityInfo.name,
-                            name: cityInfo.tags[0].name,
-                            id: cityInfo.tags[0].id
                         },
                         body: message.body,
                         status: null,

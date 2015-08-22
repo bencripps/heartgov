@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 19:43:27
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 12:50:49
+* @Last Modified time: 2015-08-22 13:46:12
 */
 
 module.exports = function(mongoose){
@@ -18,15 +18,15 @@ module.exports = function(mongoose){
             },
             messageRecievedOn: {type: Date, default: Date.now}
         },
+        tag: {
+            cityName: String,
+            name: String,
+            id: String
+        },
         textInformation: {
             category: {
                 id: Number,
                 name: String,
-            },
-            tag: {
-                cityName: String,
-                name: String,
-                id: String
             },
             toNumber: Number,
             body: String,

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 12:39:43
+* @Last Modified time: 2015-08-22 13:45:07
 */
 
 module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
@@ -22,8 +22,9 @@ module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
                 currentTag = filter.tagId ? filter.tagId : tags[0].id,
                 me = this;
 
-            if (twilNumber) query = {'textInformation.visible': true, 'textInformation.toNumber': twilNumber, 'textInformation.tag.id': currentTag};
+            if (twilNumber) query = {'textInformation.visible': true, 'textInformation.toNumber': twilNumber, 'tag.id': currentTag};
 
+            console.log(query);
             TextSchema.find(query).exec(function(err, items) {
 
                 var total = items.length,

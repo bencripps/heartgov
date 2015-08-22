@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 12:51:09
+* @Last Modified time: 2015-08-22 13:46:36
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler) {
@@ -152,6 +152,11 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
                             number: Number(message.from)
                         }
                     },
+                    tag: {
+                        cityName: cityInfo.name,
+                        name: cityInfo.tags[0].name,
+                        id: cityInfo.tags[0].id
+                    },
                     textInformation: {
                         category: {
                             id: textReceiver.utils.mentionsCategory(message.body) ? textReceiver.utils.getCategory(message.body): null,
@@ -160,11 +165,6 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
                         body: message.body,
                         status: null,
                         zipcode: null,
-                        tag: {
-                            cityName: cityInfo.name,
-                            name: cityInfo.tags[0].name,
-                            id: cityInfo.tags[0].id
-                        },
                         responders: [textReceiver.utils.formatOutGoingResponseForSave(outGoingResponse, message.from)],
                         lastResponder: 'System',
                         trackingNumber: assocciatedTrackingNumber || null,

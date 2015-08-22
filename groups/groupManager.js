@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-02-09 21:31:40
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-05-13 19:53:47
+* @Last Modified time: 2015-08-23 13:00:42
 */
 
 module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages) {
@@ -67,7 +67,7 @@ module.exports = function(mongoose, myAccount, GroupSchema, shortId, appMessages
                 model = new GroupSchema(info);
             
             model.save(
-                this.utils.displayMessage.bind(this, server, appMessages.groupSuccessfullyCreated), 
+                this.distributeGroups.bind(this, server, user), 
                 this.utils.displayMessage.bind(this, server, appMessages.errorOccurred));
         },
         modifyGroupPhoneNumberList: function(method, groupInfo, server) {

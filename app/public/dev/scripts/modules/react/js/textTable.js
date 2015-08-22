@@ -34,6 +34,7 @@ define('textTable', ['react'], function(React){
                     me.setState({total: data.count});
                     me.setState({tags: data.tags});
                     me.setState({currentTag: data.tags[0].id});
+                    console.log(data.tags[0].id)
                 });
             },
             render: function() {
@@ -108,13 +109,13 @@ define('textTable', ['react'], function(React){
             onChange: function(e) {
      
                 var ctx = this._owner._owner,
-                    currentIndex = ctx.state.startIndex,
                     tagId = e.target.value;
 
-                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex, tagId: tagId}, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.ajax({city: location.pathname, startIndex: 0, tagId: tagId}, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
-                    ctx.setState({startIndex: currentIndex});
+                    ctx.setState({startIndex: 0});
+                    ctx.setState({currentTag: tagId});
                 });
             }
         }),
@@ -149,9 +150,10 @@ define('textTable', ['react'], function(React){
 
             doClick: function() {
                 var ctx = this._owner._owner,
-                    currentIndex = ctx.state.startIndex;
+                    currentIndex = ctx.state.startIndex,
+                    currentTagId = ctx.state.currentTag;
 
-                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex - 1}, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex - 1, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.setState({startIndex: currentIndex - 1});

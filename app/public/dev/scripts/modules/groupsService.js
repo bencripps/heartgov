@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-18 13:04:19
+* @Last Modified time: 2015-08-23 13:03:34
 */
 
 define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) {
@@ -50,10 +50,16 @@ define('groupsService', ['utilities', 'groupModel'], function(utilities, Group) 
                     data[n.name] = n.value;
                 });
 
-                utilities.ajax(data, 'post', '/create/group', function(response){
+                utilities.ajax(data, 'post', '/create/group', (function(response){
                     utilities.modalPrompt('createGroup', 'hide');
-                    utilities.showModal(response);
-                });
+                    if (response.result) {
+                        utilities.showModal(response);
+                    }
+                    else {
+                        this.reactTable.setState({groups: response.groups});
+                    }
+                    
+                }).bind(this));
             }
         },
         viewGroupModal: function(group, edit){
