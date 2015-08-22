@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-21 21:02:40
+* @Last Modified time: 2015-08-21 21:38:00
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -23,9 +23,7 @@ module.exports = function(client, appMessages, schemas) {
 
                 numbers.forEach(function(num, i) {
                     //twil totes dont want you to mass text
-                    setTimeout(function() {
-                        twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server, city);
-                    }, i * 1000);
+                    twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server, city);
                 });
             });
         },
