@@ -22,6 +22,7 @@ define('textTable', ['react'], function(React){
                     textService: this.props.service,
                     startIndex: 0,
                     total: 0,
+                    tags: [],
                     rows: {}
                 }
             },
@@ -30,6 +31,7 @@ define('textTable', ['react'], function(React){
                 this.props.utils.ajax({city: location.pathname, startIndex: 0}, 'post', '/find/texts', function(data) { 
                     me.setState({texts: data.result});
                     me.setState({total: data.count});
+                    me.setState({total: data.tags});
                 });
             },
             render: function() {
@@ -43,6 +45,7 @@ define('textTable', ['react'], function(React){
                             React.createElement("tr", null, 
                                 React.createElement("th", {colSpan: "10", style: {textAlign:'center'}}, "all texts")
                             ), 
+                            
                             insert, 
                              React.createElement(textTable.pagination, {texts: this.state.texts, total: this.state.total, startIndex: this.state.startIndex})
                             
@@ -72,6 +75,18 @@ define('textTable', ['react'], function(React){
                         )
                     )
                     );
+            }
+        }),
+
+        searchBar: React.createClass({displayName: "searchBar",
+            render: function() {
+                return(
+                    React.createElement("tr", null, 
+                        React.createElement("th", {colSpan: "10"}
+
+                        )
+                    )
+                );
             }
         }),
 

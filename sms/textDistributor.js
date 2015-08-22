@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-02 10:05:13
+* @Last Modified time: 2015-08-21 21:12:53
 */
 
 module.exports = function(mongoose, TextSchema, appMessages) {
@@ -69,7 +69,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                textObj= {};
             });
 
-            server.send({result: ret, count: total});
+            server.send({result: ret, count: total, tags: ['tags', 'tags2']});
 
         },
         textSuccessfullyDeleted: function(server) {

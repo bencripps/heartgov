@@ -2,20 +2,26 @@
     "cities": [
         {
             "name": "austin",
-            "id": "austin"
+            "id": "austin",
+            "tags": [
+                "spirit of east austin",
+                "hiring survey"
+            ]
         },
         {
             "name": "brooklyn",
-            "id": "brooklyn"
+            "id": "brooklyn",
+            "tags": [
+                "test"
+            ]
         }
     ],
     "austinConfig": {
         "questions": [
-            "Hi! Thanks for participating in our discussion about a new hiring policy affecting applicants who have been formerly incarcerated. If you are an employer, text “1,” or if you are currently seeking employment or currently an employee, text “2”",
-            "Thanks! If businesses were required to delay criminal background checks until later in the hiring process, which businesses should that policy apply to?  For example, businesses with more than 10 employees or certain types of businesses or jobs, etc.",
-            "Thanks for your response! How should we enforce these policies? In what ways could the City ensure that businesses were complying, and what would happen to a business if they were found to have violated the hiring policy?",
-            "Thanks for your response! What should we take into account when implementing such policies?  For example, to what extent should we give businesses time to change their hiring practices before they go into effect (e.g., immediately, within three months, within six months, within a year, etc.)",
-            "Thanks for your responses! If you have anything else to add, you can text us now; if not, thanks for participating!  For more info, you can visit http://www.austintexas.gov/edims/document.cfm?id=231929"
+            "Hi there! Thanks for participating in the discussion about the Spirit of East Austin and equitable development. We want to hear from you: what does the Spirit of East Austin mean to you?",
+            "Thank you for sharing.  We are also curious to know your perspective: what does 'equitable development' mean to you?",
+            "Got it, one last question: how might your Austin experience be improved?",
+            "Thank you for participating with the City of Austin, your local government. We hope to see you Saturday, Sept. 12 at the Travis County Expo Center from 9am to noon. Doors open at 8:15. Learn more: spiriteastatx.eventbrite.com"
         ]
     },
     "templateConfig": {

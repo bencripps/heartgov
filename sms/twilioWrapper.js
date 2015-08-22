@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-21 20:59:33
+* @Last Modified time: 2015-08-21 21:02:40
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -22,6 +22,7 @@ module.exports = function(client, appMessages, schemas) {
                 var numbers = record[0].associatedPhoneNumbers;
 
                 numbers.forEach(function(num, i) {
+                    //twil totes dont want you to mass text
                     setTimeout(function() {
                         twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server, city);
                     }, i * 1000);
