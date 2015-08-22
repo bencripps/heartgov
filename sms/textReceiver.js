@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-02 09:43:44
+* @Last Modified time: 2015-08-22 12:51:09
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler) {
@@ -140,6 +140,8 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
             },
             getTextModel: function(message, outGoingResponse, assocciatedTrackingNumber) {
 
+                var cityInfo = messageConfig.cities.filter(function(ob){ return ob.name === 'brooklyn';})[0];
+
                 return {
                     userInformation: {
                         userId: null,
@@ -158,6 +160,11 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
                         body: message.body,
                         status: null,
                         zipcode: null,
+                        tag: {
+                            cityName: cityInfo.name,
+                            name: cityInfo.tags[0].name,
+                            id: cityInfo.tags[0].id
+                        },
                         responders: [textReceiver.utils.formatOutGoingResponseForSave(outGoingResponse, message.from)],
                         lastResponder: 'System',
                         trackingNumber: assocciatedTrackingNumber || null,

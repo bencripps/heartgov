@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-07-27 20:13:12
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-02 10:05:07
+* @Last Modified time: 2015-08-22 12:58:21
 */
 
 
@@ -47,6 +47,7 @@ module.exports = function(mongoose, TextSchema, AdminSchema, shortId, appMessage
         },
 
         getTextModel: function(message, outGoingResponse) {
+                var cityInfo = appMessages.cities.filter(function(ob){ return ob.name === 'austin';})[0];
 
                 return {
                     userInformation: {
@@ -62,6 +63,11 @@ module.exports = function(mongoose, TextSchema, AdminSchema, shortId, appMessage
                         category: {
                             id: null,
                             name: null
+                        },
+                        tag: {
+                            cityName: cityInfo.name,
+                            name: cityInfo.tags[0].name,
+                            id: cityInfo.tags[0].id
                         },
                         body: message.body,
                         status: null,
@@ -88,7 +94,9 @@ module.exports = function(mongoose, TextSchema, AdminSchema, shortId, appMessage
 
         utils: {
             getResponseType: function(msg) {
-                return TextSchema.find({'textInformation.toNumber': msg.to, 'userInformation.phoneNumber.string': String(msg.from)}).exec();            
+                var cityInfo = appMessages.cities.filter(function(ob){ return ob.name === 'austin';})[0];
+
+                return TextSchema.find({'textInformation.tag.id': cityInfo.tags[0].id, 'textInformation.toNumber': msg.to, 'userInformation.phoneNumber.string': String(msg.from)}).exec();            
             },
             error: function(){
                 console.log(arguments, 'error occurred');

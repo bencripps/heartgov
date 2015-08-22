@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 11:44:41
+* @Last Modified time: 2015-08-22 11:50:32
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -24,6 +24,7 @@ module.exports = function(client, appMessages, schemas) {
                 var numbers = record[0].associatedPhoneNumbers;
 
                 numbers.forEach(function(num, i) {
+                    // twil totes dont wanna be spammed, so let's chunk it out
                     setTimeout(function() {
                         twilioWrapper.sendOutGoingText(msgData.message, num, null, msgData.user, server, city, true);
                     }, i * 1000);

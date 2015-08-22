@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 11:39:46
+* @Last Modified time: 2015-08-22 12:51:49
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -37,7 +37,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
         austinHandler = require('../sms/austin/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
         textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler),
-        textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution),
+        textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution, appMessages.cities),
         getTemplateConfig = require('../config/template')(appMessages, path),
         dev = env === 'dev';
 

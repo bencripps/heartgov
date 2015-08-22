@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 19:43:27
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-17 19:55:58
+* @Last Modified time: 2015-08-22 12:50:49
 */
 
 module.exports = function(mongoose){
@@ -22,6 +22,11 @@ module.exports = function(mongoose){
             category: {
                 id: Number,
                 name: String,
+            },
+            tag: {
+                cityName: String,
+                name: String,
+                id: String
             },
             toNumber: Number,
             body: String,

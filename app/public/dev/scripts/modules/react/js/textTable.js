@@ -23,6 +23,7 @@ define('textTable', ['react'], function(React){
                     startIndex: 0,
                     total: 0,
                     tags: [],
+                    currentTag: '',
                     rows: {}
                 }
             },
@@ -31,7 +32,8 @@ define('textTable', ['react'], function(React){
                 this.props.utils.ajax({city: location.pathname, startIndex: 0}, 'post', '/find/texts', function(data) { 
                     me.setState({texts: data.result});
                     me.setState({total: data.count});
-                    me.setState({total: data.tags});
+                    me.setState({tags: data.tags});
+                    me.setState({currentTag: data.tags[0].id});
                 });
             },
             render: function() {
@@ -45,7 +47,7 @@ define('textTable', ['react'], function(React){
                             React.createElement("tr", null, 
                                 React.createElement("th", {colSpan: "10", style: {textAlign:'center'}}, "all texts")
                             ), 
-                            
+                            React.createElement(textTable.searchBar, {tags: this.state.tags}), 
                             insert, 
                              React.createElement(textTable.pagination, {texts: this.state.texts, total: this.state.total, startIndex: this.state.startIndex})
                             
@@ -79,14 +81,41 @@ define('textTable', ['react'], function(React){
         }),
 
         searchBar: React.createClass({displayName: "searchBar",
+
             render: function() {
                 return(
                     React.createElement("tr", null, 
-                        React.createElement("th", {colSpan: "10"}
-
+                        React.createElement("th", {colSpan: "10"}, 
+                            React.createElement(textTable.tagDropDown, {tags: this.props.tags})
                         )
                     )
                 );
+            }
+        }),
+
+        tagDropDown: React.createClass({displayName: "tagDropDown",
+            render: function() {
+                var tags = this.props.tags.map(function(tag){ return React.createElement("option", {value: tag.id}, tag.name); });
+
+                return(
+
+                    React.createElement("select", {onChange: this.onChange}, 
+                        tags
+                    )
+                );
+            },
+
+            onChange: function(e) {
+     
+                var ctx = this._owner._owner,
+                    currentIndex = ctx.state.startIndex,
+                    tagId = e.target.value;
+
+                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex, tagId: tagId}, 'post', '/find/texts', function(data) { 
+                    ctx.setState({texts: data.result});
+                    ctx.setState({total: data.count});
+                    ctx.setState({startIndex: currentIndex});
+                });
             }
         }),
 
@@ -99,9 +128,10 @@ define('textTable', ['react'], function(React){
 
             doClick: function() {
                 var ctx = this._owner._owner,
-                    currentIndex = ctx.state.startIndex;
+                    currentIndex = ctx.state.startIndex,
+                    currentTagId = ctx.state.currentTag;
 
-                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex + 1}, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex + 1, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.setState({startIndex: currentIndex + 1});

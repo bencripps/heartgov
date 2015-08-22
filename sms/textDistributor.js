@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-21 21:12:53
+* @Last Modified time: 2015-08-22 12:39:43
 */
 
-module.exports = function(mongoose, TextSchema, appMessages) {
+module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
     'use strict';
 
     var textDistributor = {
@@ -15,12 +15,14 @@ module.exports = function(mongoose, TextSchema, appMessages) {
         categories: Object.keys(appMessages.displayFields),
         execute: function(filter, server) {
 
-            var twilNumber = filter && filter.city === '/austin/database' ?  Number(process.env.austinNumber) : Number(process.env.brooklynNumber),
+            var twilNumber = filter && this.utils.getUserGroupName(filter.city) === 'austin' ?  Number(process.env.austinNumber) : Number(process.env.brooklynNumber),
                 query = {'textInformation.visible': true},
                 skip = filter.startIndex * appMessages.pageSize,
+                tags = cityInfo.filter(function(ob){ return ob.name === this.utils.getUserGroupName(filter.city); }, this)[0].tags,
+                currentTag = filter.tagId ? filter.tagId : tags[0].id,
                 me = this;
-  
-            if (twilNumber) query = {'textInformation.visible': true, 'textInformation.toNumber': twilNumber};
+
+            if (twilNumber) query = {'textInformation.visible': true, 'textInformation.toNumber': twilNumber, 'textInformation.tag.id': currentTag};
 
             TextSchema.find(query).exec(function(err, items) {
 
@@ -28,7 +30,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                     docs = items.slice(skip, appMessages.pageSize + skip);
                 
                 if (!err) {
-                    me.returnTexts.call(me, server, docs, total);
+                    me.returnTexts.call(me, server, docs, total, tags);
                 }
                 
                 else {
@@ -57,7 +59,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
 
             return configObject[name];
         },
-        returnTexts: function(server, data, total) {
+        returnTexts: function(server, data, total, tags) {
             var ret = [],
                 textObj = {};
 
@@ -69,7 +71,7 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                textObj= {};
             });
 
-            server.send({result: ret, count: total, tags: ['tags', 'tags2']});
+            server.send({result: ret, count: total, tags: tags});
 
         },
         textSuccessfullyDeleted: function(server) {
@@ -88,6 +90,9 @@ module.exports = function(mongoose, TextSchema, appMessages) {
                     {'textInformation.visible': false}, 
                     textDistributor.textSuccessfullyDeleted.bind(this, server), 
                     this.dbError.bind(this,server));
+            },
+            getUserGroupName: function(str) {
+                return str.replace('/database', '').replace('/', '');
             }
         }
     };

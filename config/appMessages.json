@@ -4,15 +4,24 @@
             "name": "austin",
             "id": "austin",
             "tags": [
-                "spirit of east austin",
-                "hiring survey"
+                {
+                    "name": "spirit of east austin",
+                    "id": "a1"
+                },
+                {
+                    "name": "hiring survey",
+                    "id": "a2"
+                }
             ]
         },
         {
             "name": "brooklyn",
             "id": "brooklyn",
             "tags": [
-                "test"
+                {
+                    "name": "brookyln test",
+                    "id": "b1"
+                }
             ]
         }
     ],
