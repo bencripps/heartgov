@@ -1,3 +1,6 @@
+.is-loading {
+  opacity: 0.7; }
+
 .hgov-innerlayout-td {
   text-align: left; }
 
@@ -658,3 +661,36 @@ hgov-main-table td {
           display: none; }
         .hgov-footer .social-square.fb {
           margin-left: 10px; } }
+
+#hgov-spinner-wrap {
+  content: "";
+  display: none;
+  position: absolute;
+  top: 45%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 0;
+  height: 0;
+  border: solid 30px;
+  border-radius: 5em;
+  border-color: #1F6BD1 transparent #1F6BD1 transparent;
+  animation: spin 1s linear infinite; }
+  #hgov-spinner-wrap .item {
+    display: inline-block;
+    padding: 0 5em; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes fade {
+  0% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }

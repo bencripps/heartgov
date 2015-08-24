@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 13:45:07
+* @Last Modified time: 2015-08-23 14:08:35
 */
 
 module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
@@ -24,9 +24,10 @@ module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
 
             if (twilNumber) query = {'textInformation.visible': true, 'textInformation.toNumber': twilNumber, 'tag.id': currentTag};
 
-            console.log(query);
             TextSchema.find(query).exec(function(err, items) {
 
+                items = items.reverse();
+                
                 var total = items.length,
                     docs = items.slice(skip, appMessages.pageSize + skip);
                 

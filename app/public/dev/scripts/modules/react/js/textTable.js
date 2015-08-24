@@ -1,4 +1,4 @@
-/* 
+!/* 
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
@@ -43,7 +43,7 @@ define('textTable', ['react'], function(React){
                     insert = this.state.texts.length >= 1 ? this.state.texts.map(function(text){ return [React.createElement(textTable.row, {text: text}),React.createElement(textTable.detailsRow, {level: level, text: text, isHidden: me.state.rows[text._id]})];}) : React.createElement("tr", null, React.createElement("td", null, "No Texts have been recieved"));
 
                 return (
-                    React.createElement("table", {className: "table table-bordered table-striped", id: "main-table"}, 
+                    React.createElement("table", {className: "table table-bordered table-striped", id: "main-table", style: {position: 'relative'}}, 
                         React.createElement("tbody", null, 
                             React.createElement("tr", null, 
                                 React.createElement("th", {colSpan: "10", style: {textAlign:'center'}}, "all texts")
@@ -67,6 +67,10 @@ define('textTable', ['react'], function(React){
                     React.createElement("tr", null, 
                         React.createElement("td", {colSpan: "10"}, 
                             React.createElement("span", {style: {float: 'left', marginLeft: '2px'}}, 
+                                "Page",  
+                            React.createElement("input", {type: "text", style: {width: '20px', marginRight: '20px', marginLeft: '6px'}, value: this.props.startIndex, onChange: this.onChange})
+                            ), 
+                            React.createElement("span", {style: {float: 'left', marginLeft: '2px'}}, 
                                 "Viewing ", start, " through ", increment, " of ", this.props.total
                             ), 
                             React.createElement("span", {style: {float: 'right', marginRight: '2px'}}, 
@@ -78,6 +82,22 @@ define('textTable', ['react'], function(React){
                         )
                     )
                     );
+            },
+
+            onChange: function(e) {
+
+                var ctx = this._owner,
+                    currentTagId = ctx.state.currentTag;
+
+                ctx.setState({startIndex: e.target.value});
+
+                ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
+
+                ctx.state.utils.ajax({city: location.pathname, startIndex: e.target.value, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
+                    ctx.setState({texts: data.result});
+                    ctx.setState({total: data.count});
+                    ctx.state.utils.setLoading(false, document.querySelector('#main-table'));
+                });
             }
         }),
 
@@ -111,11 +131,14 @@ define('textTable', ['react'], function(React){
                 var ctx = this._owner._owner,
                     tagId = e.target.value;
 
+                ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
+
                 ctx.state.utils.ajax({city: location.pathname, startIndex: 0, tagId: tagId}, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.setState({startIndex: 0});
                     ctx.setState({currentTag: tagId});
+                    ctx.state.utils.setLoading(false, document.querySelector('#main-table'));
                 });
             }
         }),
@@ -132,10 +155,13 @@ define('textTable', ['react'], function(React){
                     currentIndex = ctx.state.startIndex,
                     currentTagId = ctx.state.currentTag;
 
-                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex + 1, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
+
+                ctx.state.utils.ajax({city: location.pathname, startIndex: parseInt(currentIndex) + 1, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
-                    ctx.setState({startIndex: currentIndex + 1});
+                    ctx.setState({startIndex: parseInt(currentIndex) + 1});
+                    ctx.state.utils.setLoading(false, document.querySelector('#main-table'));
                 });
 
             }
@@ -153,10 +179,13 @@ define('textTable', ['react'], function(React){
                     currentIndex = ctx.state.startIndex,
                     currentTagId = ctx.state.currentTag;
 
-                ctx.state.utils.ajax({city: location.pathname, startIndex: currentIndex - 1, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
+
+                ctx.state.utils.ajax({city: location.pathname, startIndex: parseInt(currentIndex) - 1, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
-                    ctx.setState({startIndex: currentIndex - 1});
+                    ctx.setState({startIndex: parseInt(currentIndex) - 1});
+                    ctx.state.utils.setLoading(false, document.querySelector('#main-table'));
                 });
 
             }

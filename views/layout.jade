@@ -22,6 +22,8 @@ html
     include ./templates/modal/create-group-modal.jade
     
     include ./templates/modal/text-details-modal.jade
+    
+    include ./components/spinner.jade
 
     span(class='hgov-key' style='display: none;') #{userLevel}
     span(id='#{prefix}user-information') #{currentUser.username}

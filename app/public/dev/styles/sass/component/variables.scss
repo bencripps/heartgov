@@ -19,6 +19,10 @@ $white: #FFFFFF;
   }
 }
 
+.is-loading {
+    opacity: .7;
+}
+
 @mixin hero-image($image, $hidden) {
     background-size: contain;
     background-repeat: no-repeat;

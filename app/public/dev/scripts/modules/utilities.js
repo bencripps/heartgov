@@ -2,7 +2,7 @@
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-29 19:36:57
+* @Last Modified time: 2015-08-23 20:30:20
 */
 
 define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable){
@@ -160,12 +160,26 @@ define('utilities', ['groupTable', 'textTable'], function(groupTable, textTable)
             
             if (switcher) {
 
-                // switcher.value = location.pathname.substring(location.pathname.indexOf('/') + 1, location.pathname.lastIndexOf('/'));
-
                 switcher.addEventListener('change', function(e){
                     location.pathname = e.target.value + location.pathname.substring(location.pathname.lastIndexOf('/'), location.pathname.length);
                 });
             }
+        },
+
+        setLoading: function(isLoading, element) {
+            var spinner = document.querySelector('#hgov-spinner-wrap');
+
+            if (isLoading) {
+                element.appendChild(spinner);
+                element.firstChild.classList.add('is-loading');
+                spinner.style.display = 'inline-block';
+            }
+
+            else {
+                element.firstChild.classList.remove('is-loading');
+                spinner.style.display = 'none';
+            }
+
         }
     };
 
