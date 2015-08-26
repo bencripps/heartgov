@@ -3,7 +3,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-23 13:09:02
+* @Last Modified time: 2015-08-25 21:24:00
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -40,6 +40,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution, appMessages.cities),
         getTemplateConfig = require('../config/template')(appMessages, path),
+        exporter = require('../export/exporter')(schemas.text, appMessages),
         dev = env === 'dev';
 
     app.get('/', function(req, res) {
@@ -376,6 +377,10 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.post('/upload/import', function(req, res){
         groupManager.importNumbers(req.body, res);
+    });
+
+    app.post('/export/texts', function(req, res) {
+        exporter.export(req.body, res);
     });
 
 };

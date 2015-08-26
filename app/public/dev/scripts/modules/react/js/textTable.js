@@ -46,7 +46,10 @@ define('textTable', ['react'], function(React){
                     React.createElement("table", {className: "table table-bordered table-striped", id: "main-table", style: {position: 'relative'}}, 
                         React.createElement("tbody", null, 
                             React.createElement("tr", null, 
-                                React.createElement("th", {colSpan: "10", style: {textAlign:'center'}}, "all texts")
+                                React.createElement("th", {colSpan: "10", style: {textAlign:'center'}}, 
+                                    "all texts", 
+                                    React.createElement(textTable.exportButton, {currentTag: this.state.currentTag, level: this.state.level})
+                                )
                             ), 
                             React.createElement(textTable.searchBar, {tags: this.state.tags}), 
                             insert, 
@@ -57,7 +60,24 @@ define('textTable', ['react'], function(React){
                 );
             }
         }),
-        
+        exportButton: React.createClass({displayName: "exportButton",
+            render: function() {
+                var button = this.props.level ? React.createElement("button", {onClick: this.onClick, class: "btn", style: {float: 'right'}}, "Export Results") : null;
+                return(
+                    button
+                );
+            },
+            onClick: function(e) {
+                var ctx = this._owner;
+
+                ctx.state.utils.ajax({tag: ctx.state.currentTag, city: location.pathname}, 'post', '/export/texts', function(response) { 
+                    console.log(response)
+                    var url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(response));
+                    window.open(url, '_blank');
+                    window.focus()
+                });
+            }
+        }),
         pagination: React.createClass({displayName: "pagination",
             render: function() {
                 var start = this.props.startIndex * 10,

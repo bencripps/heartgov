@@ -46,7 +46,10 @@ define('textTable', ['react'], function(React){
                     <table className='table table-bordered table-striped' id='main-table' style={{position: 'relative'}}>
                         <tbody>
                             <tr>
-                                <th colSpan="10" style={{textAlign:'center'}}>all texts</th>
+                                <th colSpan="10" style={{textAlign:'center'}}>
+                                    all texts
+                                    <textTable.exportButton currentTag={this.state.currentTag} level={this.state.level}/>
+                                </th>
                             </tr>
                             <textTable.searchBar tags={this.state.tags} />
                             {insert}
@@ -57,7 +60,24 @@ define('textTable', ['react'], function(React){
                 );
             }
         }),
-        
+        exportButton: React.createClass({
+            render: function() {
+                var button = this.props.level ? <button onClick={this.onClick} class='btn' style={{float: 'right'}}>Export Results</button> : null;
+                return(
+                    button
+                );
+            },
+            onClick: function(e) {
+                var ctx = this._owner;
+
+                ctx.state.utils.ajax({tag: ctx.state.currentTag, city: location.pathname}, 'post', '/export/texts', function(response) { 
+                    console.log(response)
+                    var url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(response));
+                    window.open(url, '_blank');
+                    window.focus()
+                });
+            }
+        }),
         pagination: React.createClass({
             render: function() {
                 var start = this.props.startIndex * 10,
@@ -65,7 +85,7 @@ define('textTable', ['react'], function(React){
 
                 return (
                     <tr>
-                        <td colSpan="10">
+                        <td colSpan='10'>
                             <span style={{float: 'left', marginLeft: '2px'}}>
                                 Page 
                             <input type='text' style={{width: '20px', marginRight: '20px', marginLeft: '6px'}} value={this.props.startIndex} onChange={this.onChange} />
