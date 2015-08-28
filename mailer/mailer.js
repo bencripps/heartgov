@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-02 20:28:41
+* @Last Modified time: 2015-08-27 21:08:28
 */
 
 module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
@@ -15,8 +15,26 @@ module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
                     pass: process.env.mailPassword
                 }
             }),
-            getEmailUsers: function() {
-                return AdminSchema.find({receiveEmails: true}).exec();
+            getEmailUsers: function(incomingNumber) {
+                var location = this.getLocationBuNumber(incomingNumber);
+                return AdminSchema.find({receiveEmails: true, assignedCities: location}).exec();
+            },
+            getLocationBuNumber: function(number) {
+                var sanitizedNumber = number.replace(/\+/g, ''),
+                    city;
+
+                switch (sanitizedNumber) {
+                    case '17185146113':
+                        city = 'brooklyn';
+                        break;
+                    case '15126435627':
+                        city = 'austin';
+                        break;
+                    default:
+                        throw Error('Number is undefined. Check to make sure new city has been added to Mailer');
+                }
+
+                return city;
             },
             getEmail: function(address, type, options) {
                 var template = jade.compileFile(appMessages[type].templatePath),
@@ -30,8 +48,8 @@ module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
                 
                 return mailOptions;
             },
-            sendMailtoSuperUsers: function(type, options) {
-                this.getEmailUsers().then(function(users, err) {
+            sendMailtoAssociatedUsers: function(type, options) {
+                this.getEmailUsers(options.textDetails.to).then(function(users, err) {
                     var emailAddresses = users.map(function(user) { return user.emailAddress; });
 
                     mailer.sendMail(emailAddresses, type, options);

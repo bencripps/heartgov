@@ -2,18 +2,25 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 13:46:36
+* @Last Modified time: 2015-08-27 20:36:35
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler) {
     'use strict';
     
     var textReceiver = {
+
+        doTestEmail: function(incomingMessage, twilioWrapper) {
+            var message = this.utils.translateTwilioModel(incomingMessage);
+
+            mailer.sendMailtoAssociatedUsers('newTextReceived', {textDetails: message});
+        },
+
         handleResponse: function(incomingMessage, twilioWrapper) {
             
             var message = this.utils.translateTwilioModel(incomingMessage);
 
-            mailer.sendMailtoSuperUsers('newTextReceived', {textDetails: message});
+            mailer.sendMailtoAssociatedUsers('newTextReceived', {textDetails: message});
 
             //austin
             if (message.to === '+' + process.env.austinNumber) {

@@ -3,7 +3,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-25 21:24:00
+* @Last Modified time: 2015-08-27 20:38:17
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -42,6 +42,30 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         getTemplateConfig = require('../config/template')(appMessages, path),
         exporter = require('../export/exporter')(schemas.text, appMessages),
         dev = env === 'dev';
+
+    var sampleTwilResponse = {
+        AccountSid: 'AC5ef872f6da5a21de157d80997a64bd33',
+        ApiVersion: '2008-08-01',
+        Body: 'Hey Jenny why aren\'t you returning my calls?',
+        DateCreated: 'Mon, 16 Aug 2010 03:45:01 +0000',
+        DateSent: 'Mon, 16 Aug 2010 03:45:03 +0000',
+        DateUpdated: 'Mon, 16 Aug 2010 03:45:03 +0000',
+        Direction: 'outbound-api',
+        From: '4438788369',
+        Price: '-0.02000',
+        MessageSid: 'SM800f449d0399ed014aae2bcc0cc2f2ec',
+        Status: 'sent',
+        To: '+15126435627',
+        Uri: '/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM800f449d0399ed014aae2bcc0cc2f2ec.json',
+        FromCity: 'Baltimore',
+        FromState: 'MD',
+        FromZip: '21228',
+        FromCountry: 'USA',
+        ToCity: 'Austin',
+        ToState: 'TX',
+        ToZip: '78751',
+        ToCountry: 'USA'
+    };
 
     app.get('/', function(req, res) {
 
@@ -273,31 +297,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     //for testing
 
-    app.get('/testResponse', function(req, res) {
-        var sampleTwilResponse = {
-            AccountSid: 'AC5ef872f6da5a21de157d80997a64bd33',
-            ApiVersion: '2008-08-01',
-            Body: 'Hey Jenny why aren\'t you returning my calls?',
-            DateCreated: 'Mon, 16 Aug 2010 03:45:01 +0000',
-            DateSent: 'Mon, 16 Aug 2010 03:45:03 +0000',
-            DateUpdated: 'Mon, 16 Aug 2010 03:45:03 +0000',
-            Direction: 'outbound-api',
-            From: '4438788369',
-            Price: '-0.02000',
-            MessageSid: 'SM800f449d0399ed014aae2bcc0cc2f2ec',
-            Status: 'sent',
-            To: '+15126435627',
-            Uri: '/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM800f449d0399ed014aae2bcc0cc2f2ec.json',
-            FromCity: 'Baltimore',
-            FromState: 'MD',
-            FromZip: '21228',
-            FromCountry: 'USA',
-            ToCity: 'Austin',
-            ToState: 'TX',
-            ToZip: '78751',
-            ToCountry: 'USA'
-        };
+    app.get('/testEmail', function(req, res) {
+        textReceiver.doTestEmail(sampleTwilResponse, twilioWrapper);
+    });
 
+    app.get('/testResponse', function(req, res) {
         textReceiver.handleResponse(sampleTwilResponse, twilioWrapper);
     });
 
