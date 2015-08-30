@@ -71,10 +71,9 @@ define('textTable', ['react'], function(React){
                 var ctx = this._owner;
 
                 ctx.state.utils.ajax({tag: ctx.state.currentTag, city: location.pathname}, 'post', '/export/texts', function(response) { 
-                    console.log(response)
-                    var url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(response));
+                    var url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(response, null, '\t'));
                     window.open(url, '_blank');
-                    window.focus()
+                    window.focus();
                 });
             }
         }),

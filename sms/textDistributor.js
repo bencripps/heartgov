@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-23 14:08:35
+* @Last Modified time: 2015-09-07 10:17:14
 */
 
 module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
@@ -51,7 +51,7 @@ module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
                     allResponses: text.textInformation.responders,
                     status: text.textInformation.status || 'New',
                     trackingNumber: text.textInformation.trackingNumber || 'None Assigned',
-                    zipCode: text.textInformation.zipcode || 'None Provided',
+                    zipCode: text.textInformation.location.fromZip || 'None Provided',
                     name: text.userInformation.name || 'None Provided',
                     phoneNumber: text.userInformation.phoneNumber.string,
                     content: text.textInformation.body,

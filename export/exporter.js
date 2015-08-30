@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-08-25 21:20:55
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-25 21:42:28
+* @Last Modified time: 2015-08-30 11:53:05
 */
 
 var TextObject = require('./textClass');
@@ -30,11 +30,11 @@ module.exports = function(textSchema, appMessages) {
         },
         utils: {
             getJSON: function(arr) {
-                var ret = [];
-                var numbers = arr.map(function(ob) { return ob.userInformation.phoneNumber.string; }).getUnique();
-                var userTexts = [];
-                var textObj;
-                var zipCode;
+                var ret = [],
+                    numbers = arr.map(function(ob) { return ob.userInformation.phoneNumber.string; }).getUnique(),
+                    userTexts = [],
+                    textObj,
+                    zipCode;
 
                 numbers.forEach(function(num) {
 

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 16:30:36
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-07-17 10:59:27
+* @Last Modified time: 2015-09-06 19:32:41
 */
 
 define('loginService', ['utilities'], function(utilities) {
@@ -16,6 +16,10 @@ define('loginService', ['utilities'], function(utilities) {
 
             if (whichButton) whichButton.addEventListener('click', method);
             if (imageDiv) utilities.preloadImages();
+
+            document.addEventListener('keydown', (function(e) {
+                if (e.which === 13) this.attemptLogin({}, e);
+            }).bind(this));
         },
         attemptLogin: function(obj, e) {
             e.preventDefault();

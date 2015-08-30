@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-27 21:08:28
+* @Last Modified time: 2015-08-28 09:01:25
 */
 
 module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
@@ -16,10 +16,10 @@ module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
                 }
             }),
             getEmailUsers: function(incomingNumber) {
-                var location = this.getLocationBuNumber(incomingNumber);
+                var location = this.getLocationByNumber(incomingNumber);
                 return AdminSchema.find({receiveEmails: true, assignedCities: location}).exec();
             },
-            getLocationBuNumber: function(number) {
+            getLocationByNumber: function(number) {
                 var sanitizedNumber = number.replace(/\+/g, ''),
                     city;
 
