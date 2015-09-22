@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-27 20:36:35
+* @Last Modified time: 2015-09-21 20:35:40
 */
 
 module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler) {
@@ -38,6 +38,15 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
                     this.user.isNewOrOldTexter(message.from)
                         .then(this.responder.withoutTrackingNumber.bind(this, message, twilioWrapper));
                 }
+            }
+
+            //councilmatic
+            else if (message.to === '+' + process.env.councilmaticNumber) { 
+                console.log('TODO: GET COUNCILMATIC LOGIC');
+            }
+
+            else {
+                console.log('Number not established', message.to);
             }
         },
         responder: {

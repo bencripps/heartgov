@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-09-07 10:17:14
+* @Last Modified time: 2015-09-21 20:32:08
 */
 
 module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
@@ -15,10 +15,11 @@ module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
         categories: Object.keys(appMessages.displayFields),
         execute: function(filter, server) {
 
-            var twilNumber = filter && this.utils.getUserGroupName(filter.city) === 'austin' ?  Number(process.env.austinNumber) : Number(process.env.brooklynNumber),
+            var location = cityInfo.filter(function(ob){ return ob.id === this.utils.getUserGroupName(filter.city); }, this)[0],
+                twilNumber = Number(location.phoneNumber),
                 query = {'textInformation.visible': true},
                 skip = filter.startIndex * appMessages.pageSize,
-                tags = cityInfo.filter(function(ob){ return ob.name === this.utils.getUserGroupName(filter.city); }, this)[0].tags,
+                tags = location.tags,
                 currentTag = filter.tagId ? filter.tagId : tags[0].id,
                 me = this;
 

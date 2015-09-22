@@ -3,6 +3,7 @@
         {
             "name": "austin",
             "id": "austin",
+            "phoneNumber": "15126435627",
             "tags": [
                 {
                     "name": "spirit of east austin",
@@ -17,10 +18,33 @@
         {
             "name": "brooklyn",
             "id": "brooklyn",
+            "phoneNumber": "17185146113",
             "tags": [
                 {
                     "name": "brookyln test",
                     "id": "b1"
+                }
+            ]
+        },
+        {
+            "name": "councilmatic",
+            "id": "councilmatic",
+            "phoneNumber": "16468464332",
+            "tags": [
+                {
+                    "name": "councilmatic",
+                    "id": "council1"
+                }
+            ]
+        },
+        {
+            "name": "red-hook-initiative",
+            "id": "rhi1",
+            "phoneNumber": "16468464999",
+            "tags": [
+                {
+                    "name": "RHI-PB",
+                    "id": "RHIPB"
                 }
             ]
         }
