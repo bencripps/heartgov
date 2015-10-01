@@ -6,6 +6,10 @@
             "phoneNumber": "15126435627",
             "tags": [
                 {
+                    "name": "Austin City Limits",
+                    "id": "ACL"
+                },
+                {
                     "name": "spirit of east austin",
                     "id": "a1"
                 },
@@ -51,10 +55,13 @@
     ],
     "austinConfig": {
         "questions": [
-            "Hi there! Thanks for participating in the discussion about the Spirit of East Austin and equitable development. We want to hear from you: what does the Spirit of East Austin mean to you?",
-            "Thank you for sharing.  We are also curious to know your perspective: what does 'equitable development' mean to you?",
-            "Got it, one last question: how might your Austin experience be improved?",
-            "Thank you for participating with the City of Austin, your local government. We hope to see you Saturday, Sept. 12 at the Travis County Expo Center from 9am to noon. Doors open at 8:15. Learn more: spiriteastatx.eventbrite.com"
+            "Thanks for participating in our survey about events on Austin parkland! What is your home zip code?",
+            "Are you (1) an event attendee, (2) resident who lives near a park where events are held, or (3) involved with producing an event on Austin parkland? If you are more than one of these, please indicate all that apply",
+            "If you have attended an event at an Austin park, which one or ones have you attended?",
+            "What would you say is the most significant benefit from events on Austin parkland (like ACL)?",
+            "What would you say is the most significant challenge created by the events on Austin parkland?",
+            "What, if anything, would you recommend change about events that take place at Austin city parks?",
+            "Thanks for your participation!"
         ]
     },
     "templateConfig": {
