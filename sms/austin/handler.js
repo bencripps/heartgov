@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-07-27 20:13:12
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 13:45:55
+* @Last Modified time: 2015-10-02 09:31:07
 */
 
 
@@ -17,7 +17,7 @@ module.exports = function(mongoose, TextSchema, AdminSchema, shortId, appMessage
 
         handleOutgoingResponse: function(msg, twilioWrapper, previousMessages) {
             var outgoingMsg;
-            
+
             if (previousMessages.length < appMessages.austinConfig.questions.length) {
                 outgoingMsg = appMessages.austinConfig.questions[previousMessages.length];
             }
@@ -96,7 +96,7 @@ module.exports = function(mongoose, TextSchema, AdminSchema, shortId, appMessage
             getResponseType: function(msg) {
                 var cityInfo = appMessages.cities.filter(function(ob){ return ob.name === 'austin';})[0];
 
-                return TextSchema.find({'textInformation.tag.id': cityInfo.tags[0].id, 'textInformation.toNumber': msg.to, 'userInformation.phoneNumber.string': String(msg.from)}).exec();            
+                return TextSchema.find({'tag.id': cityInfo.tags[0].id, 'textInformation.toNumber': msg.to, 'userInformation.phoneNumber.string': String(msg.from)}).exec();            
             },
             error: function(){
                 console.log(arguments, 'error occurred');
