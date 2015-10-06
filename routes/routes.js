@@ -3,7 +3,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-27 20:38:17
+* @Last Modified time: 2015-10-05 19:47:35
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -37,7 +37,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         loginService = require('../userAuth/login')(schemas.admin, hasher, sessionManager, myAccount, appMessages.loginMessages),
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
         austinHandler = require('../sms/austin/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
-        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler),
+        redhookHandler = require('../sms/redhook/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
+        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler, redhookHandler),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution, appMessages.cities),
         getTemplateConfig = require('../config/template')(appMessages, path),
         exporter = require('../export/exporter')(schemas.text, appMessages),
@@ -55,7 +56,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         Price: '-0.02000',
         MessageSid: 'SM800f449d0399ed014aae2bcc0cc2f2ec',
         Status: 'sent',
-        To: '+15126435627',
+        To: '+16466933147',
         Uri: '/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM800f449d0399ed014aae2bcc0cc2f2ec.json',
         FromCity: 'Baltimore',
         FromState: 'MD',

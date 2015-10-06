@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-22 11:50:32
+* @Last Modified time: 2015-10-05 20:00:02
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -11,10 +11,9 @@ module.exports = function(client, appMessages, schemas) {
     var twilioWrapper = {
         brooklynNumber: process.env.brooklynNumber,
         austinNumber: process.env.austinNumber,
+        redhookNumner: process.env.redhookNumber,
         sendOutGoingText: function(response, receiver, _id, user, server, city, isGroupMessage) {
             
-            //need to fix this, but will work for now?
-            city = city ? city : '/brooklyn';
             if (_id) this.processOutgoingSave(response, receiver, _id, user, server);
             
             this.processOutGoingText(response, receiver, city, server, isGroupMessage);
@@ -33,9 +32,11 @@ module.exports = function(client, appMessages, schemas) {
         },
         processOutGoingText: function(response, receiver, city, server, isGroupMessage) {
 
+            var number = this.getNumberForCity(city);
+
             var sms = client.messages.create({
                     to: receiver,
-                    from: city.substring(0,7) === '/austin' ? this.austinNumber : this.brooklynNumber,
+                    from: number,
                     body: response
                 }, function() { 
 
@@ -79,7 +80,31 @@ module.exports = function(client, appMessages, schemas) {
                 content: response,
                 date: new Date()
             };
-         },
+        },
+        getNumberForCity: function(identifier) {
+
+            var number;
+
+            switch(identifier) {
+
+                case '/austin/database':
+                    number = this.austinNumber;
+                    break;
+                case '/brooklyn/database':
+                    number = this.brooklynNumber;
+                    break;
+                case '/rh1/database':
+                    number = this.redhookNumber;
+                    break;
+                default:
+                    throw Error('This city has not been defined in the Twilio Wrapper Models');
+
+            }
+
+            return number;
+
+        }
+
     };
 
     return twilioWrapper;

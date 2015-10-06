@@ -44,7 +44,7 @@
         {
             "name": "red-hook-initiative",
             "id": "rhi1",
-            "phoneNumber": "16468464999",
+            "phoneNumber": "16466933147",
             "tags": [
                 {
                     "name": "RHI-PB",
@@ -62,6 +62,11 @@
             "What would you say is the most significant challenge created by the events on Austin parkland?",
             "What, if anything, would you recommend change about events that take place at Austin city parks?",
             "Thanks for participating!  Visit www.austintexas.gov/PETF for info on the Parkland Events Task Force"
+        ]
+    },
+    "redhookConfig": {
+        "questions": [
+            "Thanks for your PB idea for D38! Your idea has been added to our database and every idea is reviewed by the budget delegates. To assist in that process txt “DELEGATE” and we’ll send you info on how to sign up as a delegate! Our next neighborhood assembly will be at RHI on Friday, 10/23 @ 6pm @ 767 Hicks St"
         ]
     },
     "templateConfig": {

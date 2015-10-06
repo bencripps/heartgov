@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-28 09:01:25
+* @Last Modified time: 2015-10-05 19:51:35
 */
 
 module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
@@ -29,6 +29,9 @@ module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
                         break;
                     case '15126435627':
                         city = 'austin';
+                        break;
+                    case '16466933147':
+                        city = 'rh1';
                         break;
                     default:
                         throw Error('Number is undefined. Check to make sure new city has been added to Mailer');
