@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-05 20:00:02
+* @Last Modified time: 2015-10-07 19:12:58
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -39,11 +39,9 @@ module.exports = function(client, appMessages, schemas) {
                     from: number,
                     body: response
                 }, function() { 
-
                     if (!isGroupMessage && server) {
                         server.send({result: appMessages.messageSent});
                     }
-
             });
 
             return sms;
@@ -88,13 +86,13 @@ module.exports = function(client, appMessages, schemas) {
             switch(identifier) {
 
                 case '/austin/database':
-                    number = this.austinNumber;
+                    number = process.env.austinNumber;
                     break;
                 case '/brooklyn/database':
-                    number = this.brooklynNumber;
+                    number = process.env.brooklynNumber;
                     break;
                 case '/rh1/database':
-                    number = this.redhookNumber;
+                    number = process.env.redhookNumber;
                     break;
                 default:
                     throw Error('This city has not been defined in the Twilio Wrapper Models');
