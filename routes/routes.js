@@ -3,7 +3,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-05 19:47:35
+* @Last Modified time: 2015-10-09 16:06:57
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -38,7 +38,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
         austinHandler = require('../sms/austin/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
         redhookHandler = require('../sms/redhook/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
-        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler, redhookHandler),
+        councilmaticHandler = require('../sms/councilmatic/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
+        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler, redhookHandler, councilmaticHandler),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution, appMessages.cities),
         getTemplateConfig = require('../config/template')(appMessages, path),
         exporter = require('../export/exporter')(schemas.text, appMessages),
@@ -47,7 +48,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     var sampleTwilResponse = {
         AccountSid: 'AC5ef872f6da5a21de157d80997a64bd33',
         ApiVersion: '2008-08-01',
-        Body: 'Hey Jenny why aren\'t you returning my calls?',
+        Body: 'Hey Asher, why arent you returning my car?',
         DateCreated: 'Mon, 16 Aug 2010 03:45:01 +0000',
         DateSent: 'Mon, 16 Aug 2010 03:45:03 +0000',
         DateUpdated: 'Mon, 16 Aug 2010 03:45:03 +0000',
@@ -56,7 +57,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         Price: '-0.02000',
         MessageSid: 'SM800f449d0399ed014aae2bcc0cc2f2ec',
         Status: 'sent',
-        To: '+16466933147',
+        To: '+16468464332',
         Uri: '/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM800f449d0399ed014aae2bcc0cc2f2ec.json',
         FromCity: 'Baltimore',
         FromState: 'MD',

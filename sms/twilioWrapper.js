@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-07 19:12:58
+* @Last Modified time: 2015-10-09 17:05:08
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -13,7 +13,7 @@ module.exports = function(client, appMessages, schemas) {
         austinNumber: process.env.austinNumber,
         redhookNumner: process.env.redhookNumber,
         sendOutGoingText: function(response, receiver, _id, user, server, city, isGroupMessage) {
-            
+
             if (_id) this.processOutgoingSave(response, receiver, _id, user, server);
             
             this.processOutGoingText(response, receiver, city, server, isGroupMessage);
@@ -94,8 +94,11 @@ module.exports = function(client, appMessages, schemas) {
                 case '/rh1/database':
                     number = process.env.redhookNumber;
                     break;
+                case '/councilmatic/database': 
+                    number = process.env.councilmaticNumber;
+                    break;
                 default:
-                    throw Error('This city has not been defined in the Twilio Wrapper Models');
+                    throw Error('This city has not been defined in the Twilio Wrapper Model');
 
             }
 

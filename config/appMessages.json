@@ -36,7 +36,7 @@
             "phoneNumber": "16468464332",
             "tags": [
                 {
-                    "name": "councilmatic",
+                    "name": "Councilmatic First Round",
                     "id": "council1"
                 }
             ]
@@ -67,6 +67,12 @@
     "redhookConfig": {
         "questions": [
             "Thanks for your PB idea for D38! Your idea has been added to our database and every idea is reviewed by the budget delegates. To assist in that process txt “DELEGATE” and we’ll send you info on how to sign up as a delegate! Our next neighborhood assembly will be at RHI on Friday, 10/23 @ 6pm @ 767 Hicks St"
+        ]
+    },
+    "councilConfig": {
+        "questions": [
+            "Thanks for txting Concilmatic! We can connect you and your ideas to your City Councilmember. What ideas or questions do you have about your neighborhood?",
+            "Thanks!  Txt back for updates or check www.councilmatic.org for live legislation tracking, meeting schedules, and bill progress."
         ]
     },
     "templateConfig": {

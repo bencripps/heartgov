@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-05 19:34:49
+* @Last Modified time: 2015-10-09 16:03:28
 */
 
-module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler, redhookHandler) {
+module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler, redhookHandler, councilmaticHandler) {
     'use strict';
     
     var textReceiver = {
@@ -42,7 +42,7 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
 
             //councilmatic
             else if (message.to === '+' + process.env.councilmaticNumber) { 
-                console.log('TODO: GET COUNCILMATIC LOGIC');
+                councilmaticHandler.handleResponse(message, twilioWrapper);
             }
 
             else if (message.to === '+' + process.env.redhookNumber) {
