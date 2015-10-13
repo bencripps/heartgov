@@ -30,11 +30,12 @@ define('textTable', ['react'], function(React){
             componentWillMount: function(){
                 var me = this;
                 this.props.utils.ajax({city: location.pathname, startIndex: 0}, 'post', '/find/texts', function(data) { 
-                    me.setState({texts: data.result});
-                    me.setState({total: data.count});
-                    me.setState({tags: data.tags});
-                    me.setState({currentTag: data.tags[0].id});
-                    console.log(data.tags[0].id)
+                    me.setState({
+                        texts: data.result,
+                        total: data.count,
+                        tags: data.tags, 
+                        currentTag: data.tags[0].id
+                    })
                 });
             },
             render: function() {
@@ -62,7 +63,7 @@ define('textTable', ['react'], function(React){
         }),
         exportButton: React.createClass({displayName: "exportButton",
             render: function() {
-                var button = this.props.level ? React.createElement("button", {onClick: this.onClick, class: "btn", style: {float: 'right'}}, "Export Results") : null;
+                var button = this.props.level ? React.createElement("div", {id: "exportButtonWrap"}, React.createElement("button", {onClick: this.onClick, class: "btn", style: {float: 'right'}, id: "exportButton"}, "Export Results")) : null;
                 return(
                     button
                 );
@@ -70,7 +71,10 @@ define('textTable', ['react'], function(React){
             onClick: function(e) {
                 var ctx = this._owner;
 
+                ctx.state.utils.setLoading(true, document.querySelector('#exportButtonWrap'));
+
                 ctx.state.utils.ajax({tag: ctx.state.currentTag, city: location.pathname}, 'post', '/export/texts', function(response) { 
+                    ctx.state.utils.setLoading(false, document.querySelector('#exportButtonWrap'));
                     var url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(response, null, '\t'));
                     window.open(url, '_blank');
                     window.focus();
