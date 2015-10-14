@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-08-25 21:20:55
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-08-30 11:53:05
+* @Last Modified time: 2015-10-14 11:44:23
 */
 
 var TextObject = require('./textClass');
@@ -23,7 +23,7 @@ module.exports = function(textSchema, appMessages) {
     
     var exporter = {
         export: function(query, server) {
-            textSchema.find({'tag.id': query.tag}).exec().then(function(resp) {
+            textSchema.find({'tag.id': query.tag}).sort({'textInformation.date': 1}).exec().then(function(resp) {
                 server.setHeader('Content-Type', 'application/json');
                 server.send(JSON.stringify(exporter.utils.getJSON(resp)));
             });
@@ -36,9 +36,12 @@ module.exports = function(textSchema, appMessages) {
                     textObj,
                     zipCode;
 
+
+
                 numbers.forEach(function(num) {
 
                     userTexts = arr.filter(function(ob) { return ob.userInformation.phoneNumber.string === num; });
+
                     zipCode = userTexts[0].textInformation.location.fromZip;
 
                     textObj = new TextObject(num, zipCode);
