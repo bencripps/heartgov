@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-09-21 20:32:08
+* @Last Modified time: 2015-10-13 20:52:30
 */
 
 module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
@@ -45,7 +45,7 @@ module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
              
             var configObject = {
                     userId: text.userInformation.userId || 'None Assigned',
-                    date: new Date(text.userInformation.messageRecievedOn).toDateString(),
+                    date: new Date(text.userInformation.messageRecievedOn).toLocaleDateString() + ' ' + new Date(text.userInformation.messageRecievedOn).toLocaleTimeString(), //x.toLocaleDateString() + ' ' + x.toLocaleTimeString()
                     category: text.textInformation.category.name ? textDistributor.utils.capFirstLetter(text.textInformation.category.name) : 'None Assigned',
                     categoryId: text.textInformation.category.id || 'None Assigned',
                     lastResponder: text.textInformation.lastResponder ? text.textInformation.lastResponder : 'None Assigned',

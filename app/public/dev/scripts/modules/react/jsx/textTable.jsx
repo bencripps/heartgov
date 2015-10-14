@@ -233,7 +233,7 @@ define('textTable', ['react'], function(React){
         dateRow: React.createClass({
             render: function() {
 
-                return (<td colSpan="1">
+                return (<td colSpan="1" style={{width: '300px'}}>
                             <span className='hgov-template-label'>Date Recieved: </span><span>{this.props.text.date}</span>
                         </td>);
             }
@@ -241,8 +241,8 @@ define('textTable', ['react'], function(React){
         contenRow: React.createClass({
             render: function() {
 
-                return (<td colSpan="1">
-                            <span className='hgov-template-label'>Content: </span><span>{this.props.text.date}</span>
+                return (<td colSpan="1"  style={{textAlign: 'left'}}>
+                            <span className='hgov-template-label'>Content: </span><span>{this.props.text.content}</span>
                         </td>);
             }
         }),

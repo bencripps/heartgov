@@ -233,7 +233,7 @@ define('textTable', ['react'], function(React){
         dateRow: React.createClass({displayName: "dateRow",
             render: function() {
 
-                return (React.createElement("td", {colSpan: "1"}, 
+                return (React.createElement("td", {colSpan: "1", style: {width: '300px'}}, 
                             React.createElement("span", {className: "hgov-template-label"}, "Date Recieved: "), React.createElement("span", null, this.props.text.date)
                         ));
             }
@@ -241,8 +241,8 @@ define('textTable', ['react'], function(React){
         contenRow: React.createClass({displayName: "contenRow",
             render: function() {
 
-                return (React.createElement("td", {colSpan: "1"}, 
-                            React.createElement("span", {className: "hgov-template-label"}, "Content: "), React.createElement("span", null, this.props.text.date)
+                return (React.createElement("td", {colSpan: "1", style: {textAlign: 'left'}}, 
+                            React.createElement("span", {className: "hgov-template-label"}, "Content: "), React.createElement("span", null, this.props.text.content)
                         ));
             }
         }),
