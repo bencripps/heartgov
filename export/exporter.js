@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-08-25 21:20:55
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-16 09:54:07
+* @Last Modified time: 2015-10-16 10:14:17
 */
 
 var TextObject = require('./textClass');
@@ -74,6 +74,29 @@ module.exports = function(textSchema, appMessages) {
                 // });
               
                 // return retForAsher;
+
+                // var retObj = {};
+
+                // numbers.forEach(function(num) {
+
+                //     userTexts = arr.filter(function(ob) { return ob.userInformation.phoneNumber.string === num; });
+
+                //     userTexts.forEach(function(text, i) {
+
+                //       if(!retObj[i + 1]) {
+                //         retObj[i+1] = [text.textInformation.body];
+                //       }
+
+                //       else {
+                //         retObj[i+1].push(text.textInformation.body);
+                //       }
+
+                //     });
+
+                // });
+
+                // return retObj;
+
             }
         }
     };
