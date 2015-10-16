@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-08-25 21:20:55
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-14 11:44:23
+* @Last Modified time: 2015-10-16 09:54:07
 */
 
 var TextObject = require('./textClass');
@@ -54,6 +54,26 @@ module.exports = function(textSchema, appMessages) {
                 });
 
                 return ret;
+
+                // var responses = arr.map(function(ob){ return ob.textInformation.body; }),
+                //     zips = responses.filter(function(val){ return Number(val) && val.replace(/\s/g, '').length === 5; }),
+                //     formattedZips = zips.map(function(z) { return z.replace(/\s/g, ''); }),
+                //     retForAsher = {};
+
+
+                // formattedZips.forEach(function(num) { 
+
+                //   if (!retForAsher[num]) {
+                //     retForAsher[num] = 1;
+                //   }
+
+                //   else {
+                //     retForAsher[num]+= 1;
+                //   }
+
+                // });
+              
+                // return retForAsher;
             }
         }
     };
