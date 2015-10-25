@@ -3,7 +3,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-09 16:06:57
+* @Last Modified time: 2015-10-17 14:07:30
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -318,10 +318,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.post('/recievedPublicText', function(req, res) {
-        //to do: determine which number is coming in, and do their work flow
         textReceiver.handleResponse(req.body, twilioWrapper);
         res.send({result: appMessages.twilio.dataReceived});
-
     });
 
     app.post('/:city/add/phonenumber/group', function(req, res){
