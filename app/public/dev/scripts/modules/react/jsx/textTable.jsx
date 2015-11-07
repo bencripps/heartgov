@@ -5,8 +5,10 @@
 * @Last Modified time: 2015-02-21 11:06:18
 */
 
-define('textTable', ['react'], function(React){
+define('textTable', ['react', 'searchBar'], function(React, SearchBar){
     'use strict';
+
+    console.log(SearchBar);
     
     var textTable = {
         init: function(id, utils, service) {
@@ -48,7 +50,7 @@ define('textTable', ['react'], function(React){
                         <tbody>
                             <tr>
                                 <th colSpan="10" style={{textAlign:'center'}}>
-                                    all texts
+                                    <SearchBar parentScope={me} utils={me.state.utils}/>
                                     <textTable.exportButton currentTag={this.state.currentTag} level={this.state.level}/>
                                 </th>
                             </tr>
@@ -63,7 +65,7 @@ define('textTable', ['react'], function(React){
         }),
         exportButton: React.createClass({
             render: function() {
-                var button = this.props.level ? <div id='exportButtonWrap'><button onClick={this.onClick} class='btn' style={{float: 'right'}} id='exportButton'>Export Results</button></div> : null;
+                var button = this.props.level ? <div id='exportButtonWrap' style={{display: 'inline-block', float: 'right'}}><button onClick={this.onClick} className='btn btn-success' id='exportButton'>Export Results</button></div> : null;
                 return(
                     button
                 );

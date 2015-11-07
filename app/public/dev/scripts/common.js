@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 16:58:02
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-03-15 19:44:43
+* @Last Modified time: 2015-11-07 13:29:25
 */
 
 'use strict';
@@ -26,6 +26,7 @@ require.config({
         utilities: path + '/scripts/modules/utilities',
         groupTable: path + '/scripts/modules/react/js/groupTable',
         textTable: path + '/scripts/modules/react/js/textTable',
+        searchBar: path + '/scripts/modules/react/js/component/searchBar', 
         groupModel: path + '/scripts/models/groupModel',
     }
 });

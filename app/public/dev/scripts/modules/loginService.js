@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-11 16:30:36
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-09-06 19:32:41
+* @Last Modified time: 2015-11-07 14:06:25
 */
 
 define('loginService', ['utilities'], function(utilities) {
@@ -18,6 +18,7 @@ define('loginService', ['utilities'], function(utilities) {
             if (imageDiv) utilities.preloadImages();
 
             document.addEventListener('keydown', (function(e) {
+                if (window.location.pathname.indexOf('signin') === -1) return false;
                 if (e.which === 13) this.attemptLogin({}, e);
             }).bind(this));
         },

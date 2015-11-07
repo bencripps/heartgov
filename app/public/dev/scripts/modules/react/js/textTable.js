@@ -5,8 +5,10 @@
 * @Last Modified time: 2015-02-21 11:06:18
 */
 
-define('textTable', ['react'], function(React){
+define('textTable', ['react', 'searchBar'], function(React, SearchBar){
     'use strict';
+
+    console.log(SearchBar);
     
     var textTable = {
         init: function(id, utils, service) {
@@ -48,7 +50,7 @@ define('textTable', ['react'], function(React){
                         React.createElement("tbody", null, 
                             React.createElement("tr", null, 
                                 React.createElement("th", {colSpan: "10", style: {textAlign:'center'}}, 
-                                    "all texts", 
+                                    React.createElement(SearchBar, {parentScope: me, utils: me.state.utils}), 
                                     React.createElement(textTable.exportButton, {currentTag: this.state.currentTag, level: this.state.level})
                                 )
                             ), 
@@ -63,7 +65,7 @@ define('textTable', ['react'], function(React){
         }),
         exportButton: React.createClass({displayName: "exportButton",
             render: function() {
-                var button = this.props.level ? React.createElement("div", {id: "exportButtonWrap"}, React.createElement("button", {onClick: this.onClick, class: "btn", style: {float: 'right'}, id: "exportButton"}, "Export Results")) : null;
+                var button = this.props.level ? React.createElement("div", {id: "exportButtonWrap", style: {display: 'inline-block', float: 'right'}}, React.createElement("button", {onClick: this.onClick, className: "btn btn-success", id: "exportButton"}, "Export Results")) : null;
                 return(
                     button
                 );

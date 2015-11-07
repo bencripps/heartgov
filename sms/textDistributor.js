@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-13 20:52:30
+* @Last Modified time: 2015-11-07 14:37:03
 */
 
 module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
@@ -13,19 +13,42 @@ module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
             this.execute(filter, server);
         },
         categories: Object.keys(appMessages.displayFields),
-        execute: function(filter, server) {
-
+        buildQuery: function(filter) {
+            var outgoingQuery = {'textInformation.visible': true};
+            
             var location = cityInfo.filter(function(ob){ return ob.id === this.utils.getUserGroupName(filter.city); }, this)[0],
                 twilNumber = Number(location.phoneNumber),
-                query = {'textInformation.visible': true},
+                tags = location.tags,
+                currentTag = filter.tagId ? filter.tagId : tags[0].id;
+
+            if (twilNumber) outgoingQuery = {'textInformation.visible': true, 'textInformation.toNumber': twilNumber, 'tag.id': currentTag};
+        
+            if (filter.search) this.buildSearch(outgoingQuery, filter.search);
+
+            return outgoingQuery;
+        },
+        buildSearch: function(outgoingQuery, search) {
+
+            if (search.phoneNumber) {
+                outgoingQuery['userInformation.phoneNumber.string'] = { $regex:  '.*' + search.phoneNumber + '.*', $options: 'i' };
+            }
+
+        },
+        execute: function(filter, server) {
+
+            var query = this.buildQuery(filter);
+
+            var location = cityInfo.filter(function(ob){ return ob.id === this.utils.getUserGroupName(filter.city); }, this)[0],
                 skip = filter.startIndex * appMessages.pageSize,
                 tags = location.tags,
-                currentTag = filter.tagId ? filter.tagId : tags[0].id,
                 me = this;
 
-            if (twilNumber) query = {'textInformation.visible': true, 'textInformation.toNumber': twilNumber, 'tag.id': currentTag};
-
             TextSchema.find(query).exec(function(err, items) {
+
+                if (!items || items.length === 0 ) {
+                    me.returnTexts.call(me, server, [], 0, tags);
+                    return false;
+                }
 
                 items = items.reverse();
                 
