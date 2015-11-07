@@ -31,7 +31,7 @@
     "express": "^4.10.4",
     "express-session": "^1.10.1",
     "jade": "^1.8.1",
-    "mongoose": "^3.9.7",
+    "mongoose": "4.2.4",
     "nodemailer": "^0.7.1",
     "serve-favicon": "^2.2.0",
     "shortid": "^2.1.3",
