@@ -55,13 +55,7 @@
     ],
     "austinConfig": {
         "questions": [
-            "Thanks for participating in our survey about events on Austin parkland! What is your home zip code?",
-            "Are you (1) an event attendee, (2) resident who lives near a park where events are held, or (3) involved with producing an event on Austin parkland? If you are more than one of these, please indicate all that apply",
-            "If you have attended an event at an Austin park, which one or ones have you attended?",
-            "What would you say is the most significant benefit from events on Austin parkland (like ACL)?",
-            "What would you say is the most significant challenge created by the events on Austin parkland?",
-            "What, if anything, would you recommend change about events that take place at Austin city parks?",
-            "Thanks for participating!  Visit www.austintexas.gov/PETF for info on the Parkland Events Task Force"
+            "Thanks for your feedback!  If you’d like to share more, visit atxtalks.org to find a conversation on this topic near you!  You can also visit austintexas.gov/petf for information on the Parkland Events Task Force discussions on this issue"
         ]
     },
     "redhookConfig": {
@@ -107,7 +101,7 @@
         "failCode": 0,
         "textSuccessfullyDeteted": "This text has been removed from the database.",
         "successCode": 1,
-        "pageSize": 10,
+        "pageSize": 25,
         "displayFields": {
             "date": {
                 "name": "Date",

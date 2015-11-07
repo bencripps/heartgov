@@ -7,7 +7,7 @@
 
 define('searchBar', ['react'], function(React){
 
-    return React.createClass({
+    var searchBar = React.createClass({displayName: "searchBar",
         getInitialState: function() {
             return {
                 searchKeyword: '',
@@ -27,51 +27,8 @@ define('searchBar', ['react'], function(React){
         QueryButton: React.createClass({displayName: "QueryButton",
             render: function() {
                 return( 
-                    React.createElement("button", {onClick: this.onClick, className: "btn btn-info", style: {float: 'right'}}, "Search")
+                    React.createElement("button", {onClick: this._owner.executeSearch.bind(this, this), className: "btn btn-info", style: {float: 'right'}}, "Search")
                 );  
-            },
-            onClick: function() {
-
-                var ctx = this._owner,
-                    parentScope = ctx.props.parentScope,
-                    searchQuery = {}
-                    query = {city: location.pathname, startIndex: 0};
-
-                ctx.props.utils.setLoading(true, document.querySelector('#exportButtonWrap'));
-
-                if (!ctx.state.searchKeyword) {
-                    ctx.props.utils.ajax(query, 'post', '/find/texts', function(data) {
-                        
-                        parentScope.setState({
-                            texts: data.result,
-                            total: data.count,
-                            tags: data.tags, 
-                            currentTag: data.tags[0].id
-                        });
-                        
-                        ctx.props.utils.setLoading(false, document.querySelector('#exportButtonWrap'));
-                    });
-                }
-
-                else {
-
-                    searchQuery[ctx.state.searchType] = ctx.state.searchKeyword;
-
-                    query.search = searchQuery;
-   
-                    ctx.props.utils.ajax(query, 'post', '/find/texts', function(data) {
-                        
-                        parentScope.setState({
-                            texts: data.result,
-                            total: data.count,
-                            tags: data.tags, 
-                            currentTag: data.tags[0].id
-                        });
-
-                        ctx.props.utils.setLoading(false, document.querySelector('#exportButtonWrap'));
-                    });
-                }
-
             }
         }),
         QueryDropDown: React.createClass({displayName: "QueryDropDown",
@@ -84,18 +41,68 @@ define('searchBar', ['react'], function(React){
             },
             onChange: function(e) {
                 this._owner.setState({searchType: e.target.value });
+                this._owner.props.parentScope.setState({searchType: e.target.value });
             }
         }),
         QueryInput: React.createClass({displayName: "QueryInput",
             render: function() {
                 return( 
-                    React.createElement("input", {onChange: this.onChange, type: "text", className: "form-control input-sm", style: {marginLeft: '20px', width: '70%', display: 'inline-block'}})
+                    React.createElement("input", {onKeyDown: this.onKeyDown, onChange: this.onChange, type: "text", className: "form-control input-sm", style: {marginLeft: '20px', width: '70%', display: 'inline-block'}})
                 );  
             },
             onChange: function(e) {
                 this._owner.setState({searchKeyword: e.target.value });
+                this._owner.props.parentScope.setState({searchKeyword: e.target.value });
+            },
+            onKeyDown: function(e) {
+                if (e.which === 13) {
+                    this._owner.executeSearch(this);
+                }
             }
-        })
+        }),
+        executeSearch: function(scope) {
+            var parentScope = this._owner,
+                searchQuery = {}
+                query = {city: location.pathname, startIndex: 0};
+
+            parentScope.props.utils.setLoading(true, document.querySelector('#exportButtonWrap'));
+
+            if (!this.state.searchKeyword) {
+                parentScope.props.utils.ajax(query, 'post', '/find/texts', function(data) {
+                    
+                    parentScope.setState({
+                        texts: data.result,
+                        total: data.count,
+                        tags: data.tags, 
+                        currentTag: data.tags[0].id
+                    });
+
+                    parentScope.props.utils.setLoading(false, document.querySelector('#exportButtonWrap'));
+                });
+            }
+
+            else {
+
+                searchQuery[this.state.searchType] = this.state.searchKeyword;
+
+                query.search = searchQuery;
+
+                parentScope.props.utils.ajax(query, 'post', '/find/texts', function(data) {
+                    
+                    parentScope.setState({
+                        texts: data.result,
+                        total: data.count,
+                        tags: data.tags, 
+                        currentTag: data.tags[0].id
+                    });
+
+                    parentScope.props.utils.setLoading(false, document.querySelector('#exportButtonWrap'));
+                });
+            }
+
+        }
     });
+
+    return searchBar;
 
 });

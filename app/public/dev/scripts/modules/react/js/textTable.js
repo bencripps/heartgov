@@ -7,8 +7,6 @@
 
 define('textTable', ['react', 'searchBar'], function(React, SearchBar){
     'use strict';
-
-    console.log(SearchBar);
     
     var textTable = {
         init: function(id, utils, service) {
@@ -26,11 +24,21 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
                     total: 0,
                     tags: [],
                     currentTag: '',
-                    rows: {}
+                    rows: {},
+                    searchKeyword: '',
+                    searchType: 'phoneNumber'
                 }
             },
             componentWillMount: function(){
-                var me = this;
+                var me = this,
+                    searchQuery = {},
+                    query = {city: location.pathname, startIndex: 0};
+
+                if (this.state.searchType) {
+                    searchQuery[this.state.searchType] = this.state.searchKeyword;
+                    query.search = searchQuery;
+                }
+
                 this.props.utils.ajax({city: location.pathname, startIndex: 0}, 'post', '/find/texts', function(data) { 
                     me.setState({
                         texts: data.result,
@@ -71,11 +79,20 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
                 );
             },
             onClick: function(e) {
-                var ctx = this._owner;
+                var ctx = this._owner,
+                    searchQuery = {},
+                    query = {tag: ctx.state.currentTag, city: location.pathname};
+
+
+
+                if (this.state.searchType) {
+                    searchQuery[this.state.searchType] = searchKeyword;
+                    query.search = searchQuery;
+                }
 
                 ctx.state.utils.setLoading(true, document.querySelector('#exportButtonWrap'));
 
-                ctx.state.utils.ajax({tag: ctx.state.currentTag, city: location.pathname}, 'post', '/export/texts', function(response) { 
+                ctx.state.utils.ajax(query, 'post', '/export/texts', function(response) { 
                     ctx.state.utils.setLoading(false, document.querySelector('#exportButtonWrap'));
                     var url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(response, null, '\t'));
                     window.open(url, '_blank');
@@ -85,7 +102,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
         }),
         pagination: React.createClass({displayName: "pagination",
             render: function() {
-                var start = this.props.startIndex * 10,
+                var start = this.props.startIndex * 25,
                     increment = start + this.props.texts.length;
 
                 return (
@@ -112,13 +129,22 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
             onChange: function(e) {
 
                 var ctx = this._owner,
-                    currentTagId = ctx.state.currentTag;
+                    currentTagId = ctx.state.currentTag,
+                    searchQuery = {},
+                    query;
 
                 ctx.setState({startIndex: e.target.value});
 
+                query = {city: location.pathname, startIndex: e.target.value, tagId: currentTagId};
+
+                if (this.state.searchType) {
+                    searchQuery[this.state.searchType] = searchKeyword;
+                    query.search = searchQuery;
+                }
+
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
 
-                ctx.state.utils.ajax({city: location.pathname, startIndex: e.target.value, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.state.utils.setLoading(false, document.querySelector('#main-table'));
@@ -154,11 +180,20 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
             onChange: function(e) {
      
                 var ctx = this._owner._owner,
-                    tagId = e.target.value;
+                    tagId = e.target.value,
+                    searchQuery = {},
+                    query;
 
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
 
-                ctx.state.utils.ajax({city: location.pathname, startIndex: 0, tagId: tagId}, 'post', '/find/texts', function(data) { 
+                query = {city: location.pathname, startIndex: 0, tagId: tagId};
+
+                if (this.state.searchType) {
+                    searchQuery[this.state.searchType] = searchKeyword;
+                    query.search = searchQuery;
+                }
+
+                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.setState({startIndex: 0});
@@ -178,11 +213,18 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
             doClick: function() {
                 var ctx = this._owner._owner,
                     currentIndex = ctx.state.startIndex,
-                    currentTagId = ctx.state.currentTag;
+                    currentTagId = ctx.state.currentTag,
+                    searchQuery = {},
+                    query = {city: location.pathname, startIndex: parseInt(currentIndex) + 1, tagId: currentTagId};
 
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
+                
+                if (ctx.state.searchType) {
+                    searchQuery[ctx.state.searchType] = ctx.state.searchKeyword;
+                    query.search = searchQuery;
+                }
 
-                ctx.state.utils.ajax({city: location.pathname, startIndex: parseInt(currentIndex) + 1, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.setState({startIndex: parseInt(currentIndex) + 1});
@@ -202,11 +244,18 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
             doClick: function() {
                 var ctx = this._owner._owner,
                     currentIndex = ctx.state.startIndex,
-                    currentTagId = ctx.state.currentTag;
+                    currentTagId = ctx.state.currentTag,
+                    searchQuery = {},
+                    query = {city: location.pathname, startIndex: parseInt(currentIndex) - 1, tagId: currentTagId};
 
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
 
-                ctx.state.utils.ajax({city: location.pathname, startIndex: parseInt(currentIndex) - 1, tagId: currentTagId}, 'post', '/find/texts', function(data) { 
+                if (ctx.state.searchType) {
+                    searchQuery[ctx.state.searchType] = ctx.state.searchKeyword;
+                    query.search = searchQuery;
+                }
+                
+                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) { 
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.setState({startIndex: parseInt(currentIndex) - 1});
