@@ -81,7 +81,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
             onClick: function(e) {
                 var ctx = this._owner,
                     searchQuery = {},
-                    query = {tag: ctx.state.currentTag, city: location.pathname};
+                    query = {total: ctx.state.total, tag: ctx.state.currentTag, city: location.pathname};
 
 
 
@@ -135,10 +135,10 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
 
                 ctx.setState({startIndex: e.target.value});
 
-                query = {city: location.pathname, startIndex: e.target.value, tagId: currentTagId};
+                query = {total: ctx.state.total, city: location.pathname, startIndex: e.target.value, tagId: currentTagId};
 
-                if (this.state.searchType) {
-                    searchQuery[this.state.searchType] = searchKeyword;
+                if (ctx.state.searchType) {
+                    searchQuery[ctx.state.searchType] = ctx.state.searchKeyword;
                     query.search = searchQuery;
                 }
 
@@ -186,7 +186,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
 
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
 
-                query = {city: location.pathname, startIndex: 0, tagId: tagId};
+                query = {total: ctx.state.total, city: location.pathname, startIndex: 0, tagId: tagId};
 
                 if (this.state.searchType) {
                     searchQuery[this.state.searchType] = searchKeyword;
@@ -215,7 +215,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
                     currentIndex = ctx.state.startIndex,
                     currentTagId = ctx.state.currentTag,
                     searchQuery = {},
-                    query = {city: location.pathname, startIndex: parseInt(currentIndex) + 1, tagId: currentTagId};
+                    query = {total: ctx.state.total, city: location.pathname, startIndex: parseInt(currentIndex) + 1, tagId: currentTagId};
 
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
                 
@@ -246,7 +246,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
                     currentIndex = ctx.state.startIndex,
                     currentTagId = ctx.state.currentTag,
                     searchQuery = {},
-                    query = {city: location.pathname, startIndex: parseInt(currentIndex) - 1, tagId: currentTagId};
+                    query = {total: ctx.state.total, city: location.pathname, startIndex: parseInt(currentIndex) - 1, tagId: currentTagId};
 
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
 

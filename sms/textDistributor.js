@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-12 22:13:44
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-11-07 14:37:03
+* @Last Modified time: 2015-11-08 15:59:00
 */
 
 module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
@@ -41,28 +41,42 @@ module.exports = function(mongoose, TextSchema, appMessages, cityInfo) {
             var location = cityInfo.filter(function(ob){ return ob.id === this.utils.getUserGroupName(filter.city); }, this)[0],
                 skip = filter.startIndex * appMessages.pageSize,
                 tags = location.tags,
+                total = 0,
                 me = this;
 
-            TextSchema.find(query).exec(function(err, items) {
+            var doQuery = function(total) {
+                TextSchema.find(query).skip(skip).limit(appMessages.pageSize).sort({'textInformation.date': -1}).exec(function(err, items) {
 
-                if (!items || items.length === 0 ) {
-                    me.returnTexts.call(me, server, [], 0, tags);
-                    return false;
-                }
+                    if (!items || items.length === 0 ) {
+                        me.returnTexts.call(me, server, [], 0, tags);
+                        return false;
+                    }
+                    
+                    if (!err) {
+                        me.returnTexts.call(me, server, items, total, tags);
+                    }
+                    
+                    else {
+                        me.utils.dbError.call(me, server);
+                    }   
+                });
+            };
 
-                items = items.reverse();
-                
-                var total = items.length,
-                    docs = items.slice(skip, appMessages.pageSize + skip);
-                
-                if (!err) {
-                    me.returnTexts.call(me, server, docs, total, tags);
-                }
-                
-                else {
-                    me.utils.dbError.call(me, server);
-                }   
-            });
+            if (!filter.total) {
+                TextSchema.find(query).exec(function(err, fullset) {
+                    total = fullset.length;
+                    doQuery(total);
+                });
+            }
+
+            else {
+                doQuery(filter.total);
+            }
+
+        },
+
+        getTotal: function(query) {
+            return TextSchema.find(query);
         },
         getTextObjectValues: function(text, name) {
              
