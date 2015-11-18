@@ -107,7 +107,7 @@
         "failCode": 0,
         "textSuccessfullyDeteted": "This text has been removed from the database.",
         "successCode": 1,
-        "pageSize": 10,
+        "pageSize": 25,
         "displayFields": {
             "date": {
                 "name": "Date",

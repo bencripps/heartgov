@@ -1,4 +1,4 @@
-!/* 
+!/*
 * @Author: Ben
 * @Date:   2015-01-14 10:05:07
 * @Last Modified by:   ben_cripps
@@ -7,7 +7,7 @@
 
 define('textTable', ['react', 'searchBar'], function(React, SearchBar){
     'use strict';
-    
+
     var textTable = {
         init: function(id, utils, service) {
             React.render(React.createElement(this.table, {utils: utils, service: service}), document.getElementById(id));
@@ -39,11 +39,11 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
                     query.search = searchQuery;
                 }
 
-                this.props.utils.ajax({city: location.pathname, startIndex: 0}, 'post', '/find/texts', function(data) { 
+                this.props.utils.ajax({city: location.pathname, startIndex: 0}, 'post', '/find/texts', function(data) {
                     me.setState({
                         texts: data.result,
                         total: data.count,
-                        tags: data.tags, 
+                        tags: data.tags,
                         currentTag: data.tags[0].id
                     })
                 });
@@ -65,7 +65,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
                             React.createElement(textTable.searchBar, {tags: this.state.tags}), 
                             insert, 
                              React.createElement(textTable.pagination, {texts: this.state.texts, total: this.state.total, startIndex: this.state.startIndex})
-                            
+
                         )
                     )
                 );
@@ -85,14 +85,14 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
 
 
 
-                if (this.state.searchType) {
-                    searchQuery[this.state.searchType] = searchKeyword;
+                if (ctx.state.searchType) {
+                    searchQuery[ctx.state.searchType] = ctx.state.searchKeyword;
                     query.search = searchQuery;
                 }
 
                 ctx.state.utils.setLoading(true, document.querySelector('#exportButtonWrap'));
 
-                ctx.state.utils.ajax(query, 'post', '/export/texts', function(response) { 
+                ctx.state.utils.ajax(query, 'post', '/export/texts', function(response) {
                     ctx.state.utils.setLoading(false, document.querySelector('#exportButtonWrap'));
                     var url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(response, null, '\t'));
                     window.open(url, '_blank');
@@ -109,7 +109,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
                     React.createElement("tr", null, 
                         React.createElement("td", {colSpan: "10"}, 
                             React.createElement("span", {style: {float: 'left', marginLeft: '2px'}}, 
-                                "Page",  
+                                "Page", 
                             React.createElement("input", {type: "text", style: {width: '20px', marginRight: '20px', marginLeft: '6px'}, value: this.props.startIndex, onChange: this.onChange})
                             ), 
                             React.createElement("span", {style: {float: 'left', marginLeft: '2px'}}, 
@@ -144,7 +144,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
 
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
 
-                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) {
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.state.utils.setLoading(false, document.querySelector('#main-table'));
@@ -178,7 +178,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
             },
 
             onChange: function(e) {
-     
+
                 var ctx = this._owner._owner,
                     tagId = e.target.value,
                     searchQuery = {},
@@ -186,14 +186,14 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
 
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
 
-                query = {total: ctx.state.total, city: location.pathname, startIndex: 0, tagId: tagId};
+                query = {city: location.pathname, startIndex: 0, tagId: tagId};
 
-                if (this.state.searchType) {
-                    searchQuery[this.state.searchType] = searchKeyword;
+                if (ctx.state.searchType) {
+                    searchQuery[ctx.state.searchType] = ctx.state.searchKeyword;
                     query.search = searchQuery;
                 }
 
-                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) {
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.setState({startIndex: 0});
@@ -218,13 +218,13 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
                     query = {total: ctx.state.total, city: location.pathname, startIndex: parseInt(currentIndex) + 1, tagId: currentTagId};
 
                 ctx.state.utils.setLoading(true, document.querySelector('#main-table'));
-                
+
                 if (ctx.state.searchType) {
                     searchQuery[ctx.state.searchType] = ctx.state.searchKeyword;
                     query.search = searchQuery;
                 }
 
-                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) { 
+                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) {
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.setState({startIndex: parseInt(currentIndex) + 1});
@@ -235,7 +235,7 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
         }),
         lastButton: React.createClass({displayName: "lastButton",
             render: function() {
-   
+
                 return(
                     React.createElement("button", {class: "btn", onClick: this.doClick, disabled: this.props.isDisabled}, "Last Page")
                     );
@@ -254,8 +254,8 @@ define('textTable', ['react', 'searchBar'], function(React, SearchBar){
                     searchQuery[ctx.state.searchType] = ctx.state.searchKeyword;
                     query.search = searchQuery;
                 }
-                
-                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) { 
+
+                ctx.state.utils.ajax(query, 'post', '/find/texts', function(data) {
                     ctx.setState({texts: data.result});
                     ctx.setState({total: data.count});
                     ctx.setState({startIndex: parseInt(currentIndex) - 1});
