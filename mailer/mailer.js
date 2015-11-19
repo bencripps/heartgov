@@ -1,8 +1,8 @@
-/* 
+/*
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-09 16:02:22
+* @Last Modified time: 2015-11-19 05:58:45
 */
 
 module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
@@ -36,6 +36,9 @@ module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
                     case '16468464332':
                         city = 'councilmatic';
                         break;
+                    case '15128424750':
+                        city = 'austinNew';
+                        break;
                     default:
                         throw Error('Number is undefined. Check to make sure new city has been added to Mailer');
                 }
@@ -51,7 +54,7 @@ module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
                         subject: appMessages[type].subject,
                         html: template(options)
                     };
-                
+
                 return mailOptions;
             },
             sendMailtoAssociatedUsers: function(type, options) {
@@ -65,7 +68,7 @@ module.exports = function(jade, nodemailer, AdminSchema, appMessages) {
                 this.smtpTransport.sendMail(this.getEmail(emailAddress, type, options), function(error, response) {
                     // console.log(error, response);
                 });
-                
+
             }
         };
 

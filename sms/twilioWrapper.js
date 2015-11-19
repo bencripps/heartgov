@@ -1,13 +1,13 @@
-/* 
+/*
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-09 17:05:08
+* @Last Modified time: 2015-11-19 15:07:29
 */
 
 module.exports = function(client, appMessages, schemas) {
     'use strict';
-    
+
     var twilioWrapper = {
         brooklynNumber: process.env.brooklynNumber,
         austinNumber: process.env.austinNumber,
@@ -15,7 +15,7 @@ module.exports = function(client, appMessages, schemas) {
         sendOutGoingText: function(response, receiver, _id, user, server, city, isGroupMessage) {
 
             if (_id) this.processOutgoingSave(response, receiver, _id, user, server);
-            
+
             this.processOutGoingText(response, receiver, city, server, isGroupMessage);
         },
         sendGroupOutGoingText: function(groupManager, msgData, server, city) {
@@ -38,7 +38,7 @@ module.exports = function(client, appMessages, schemas) {
                     to: receiver,
                     from: number,
                     body: response
-                }, function() { 
+                }, function() {
                     if (!isGroupMessage && server) {
                         server.send({result: appMessages.messageSent});
                     }
@@ -50,9 +50,9 @@ module.exports = function(client, appMessages, schemas) {
             var formattedResponse = this.formatOutGoingResponseForSave(response, receiver, username);
             schemas.text.findByIdAndUpdate(
                 _id, {
-                    $set: {'textInformation.lastResponder': username}, 
-                    $push: {'textInformation.responders': formattedResponse}}, 
-                    {multi: true}, 
+                    $set: {'textInformation.lastResponder': username},
+                    $push: {'textInformation.responders': formattedResponse}},
+                    {multi: true},
                     function(err) {
                         if (err) console.log(appMessages.messageNotSaved);
             });
@@ -94,8 +94,11 @@ module.exports = function(client, appMessages, schemas) {
                 case '/rh1/database':
                     number = process.env.redhookNumber;
                     break;
-                case '/councilmatic/database': 
+                case '/councilmatic/database':
                     number = process.env.councilmaticNumber;
+                    break;
+                case '/austinNew/database':
+                    number = process.env.austinNewNumber;
                     break;
                 default:
                     throw Error('This city has not been defined in the Twilio Wrapper Model');

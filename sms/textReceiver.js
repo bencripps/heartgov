@@ -1,13 +1,13 @@
-/* 
+/*
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-09 16:03:28
+* @Last Modified time: 2015-11-19 06:03:01
 */
 
-module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler, redhookHandler, councilmaticHandler) {
+module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler, redhookHandler, councilmaticHandler, austinNewHandler) {
     'use strict';
-    
+
     var textReceiver = {
 
         doTestEmail: function(incomingMessage, twilioWrapper) {
@@ -17,7 +17,7 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
         },
 
         handleResponse: function(incomingMessage, twilioWrapper) {
-            
+
             var message = this.utils.translateTwilioModel(incomingMessage);
 
             mailer.sendMailtoAssociatedUsers('newTextReceived', {textDetails: message});
@@ -41,12 +41,16 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
             }
 
             //councilmatic
-            else if (message.to === '+' + process.env.councilmaticNumber) { 
+            else if (message.to === '+' + process.env.councilmaticNumber) {
                 councilmaticHandler.handleResponse(message, twilioWrapper);
             }
-
+            //redhook
             else if (message.to === '+' + process.env.redhookNumber) {
                 redhookHandler.handleResponse(message, twilioWrapper);
+            }
+            //austin new
+            else if (message.to === '+' + process.env.austinNewNumber) {
+                austinNewHandler.handleResponse(message, twilioWrapper);
             }
 
             else {
@@ -80,8 +84,8 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
 
                     if (data.length >= 1) {
                         outGoingResponse = messageConfig.textResponses.repeatTexter;
-                        twil.sendOutGoingText(outGoingResponse, message.from);  
-                        textReceiver.message.save(message, 'getTextModel', outGoingResponse); 
+                        twil.sendOutGoingText(outGoingResponse, message.from);
+                        textReceiver.message.save(message, 'getTextModel', outGoingResponse);
                     }
 
                     else {

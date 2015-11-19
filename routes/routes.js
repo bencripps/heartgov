@@ -1,9 +1,9 @@
 
-/* 
+/*
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-10-17 14:07:30
+* @Last Modified time: 2015-11-19 06:01:03
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -38,8 +38,9 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         adminCreator = require('../userAuth/adminCreator')(schemas.admin, hasher, shortid, sessionManager, appMessages.accountCreationMessages, mailSender),
         austinHandler = require('../sms/austin/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
         redhookHandler = require('../sms/redhook/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
+        austinNewHandler = require('../sms/austinNew/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
         councilmaticHandler = require('../sms/councilmatic/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
-        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler, redhookHandler, councilmaticHandler),
+        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler, redhookHandler, councilmaticHandler, austinNewHandler),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution, appMessages.cities),
         getTemplateConfig = require('../config/template')(appMessages, path),
         exporter = require('../export/exporter')(schemas.text, appMessages),
@@ -57,7 +58,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         Price: '-0.02000',
         MessageSid: 'SM800f449d0399ed014aae2bcc0cc2f2ec',
         Status: 'sent',
-        To: '+16468464332',
+        To: '+15128424750',
         Uri: '/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM800f449d0399ed014aae2bcc0cc2f2ec.json',
         FromCity: 'Baltimore',
         FromState: 'MD',
@@ -76,8 +77,8 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         // textDistributor.execute({startIndex: 0}).then(function(results){
 
             sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-                
-            	res.render('index', getTemplateConfig({   
+
+            	res.render('index', getTemplateConfig({
                     local: path,
                     scripts: format.call(indexScripts),
                     currentUser: resp.user,
@@ -95,7 +96,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.get('/about', function(req, res) {
 
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            res.render('about', getTemplateConfig({   
+            res.render('about', getTemplateConfig({
                 local: path,
                 team: appMessages.aboutPage,
                 scripts: format.call(indexScripts),
@@ -110,7 +111,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
      app.get('/press', function(req, res) {
 
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            res.render('press', getTemplateConfig({   
+            res.render('press', getTemplateConfig({
                 local: path,
                 stories: appMessages.pressPage.stories,
                 scripts: format.call(indexScripts),
@@ -125,7 +126,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.get('/contact', function(req, res) {
 
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            res.render('contact', getTemplateConfig({   
+            res.render('contact', getTemplateConfig({
                 local: path,
                 scripts: format.call(indexScripts),
                 currentUser: resp.user,
@@ -140,11 +141,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
      app.get('/:city/groups', function(req, res) {
 
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            
+
             if (resp.isSuccessful) {
-            
-                res.render('groups', getTemplateConfig({  
-                    escapedDir: '../', 
+
+                res.render('groups', getTemplateConfig({
+                    escapedDir: '../',
                     local: path,
                     location: req.params.city,
                     scripts: format.call(groupsScripts),
@@ -153,15 +154,15 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
                     userLevel: resp.user.superUser,
                     activeMarker: '/groups',
                     userDetails: resp.user
-                }));             
-              
+                }));
+
             }
 
             else {
 
-                res.render('unauthorized', getTemplateConfig({   
+                res.render('unauthorized', getTemplateConfig({
                     local: path,
-                    escapedDir: '../', 
+                    escapedDir: '../',
                     scripts: format.call(indexScripts),
                     currentUser: false,
                     activeMarker: '/'
@@ -175,7 +176,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.get('/faq', function(req, res) {
 
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            res.render('faq', getTemplateConfig({   
+            res.render('faq', getTemplateConfig({
                 local: path,
                 scripts: format.call(indexScripts),
                 faq: appMessages.faqPage.questions,
@@ -190,7 +191,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.get('/signin', function(req, res) {
 
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            res.render('signin', getTemplateConfig({   
+            res.render('signin', getTemplateConfig({
                 local: path,
                 scripts: format.call(indexScripts),
                 currentUser: resp.user,
@@ -204,7 +205,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.get('/signup', function(req, res) {
 
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            res.render('createUser', getTemplateConfig({   
+            res.render('createUser', getTemplateConfig({
                 local: path,
                 scripts: format.call(adminCreateScripts),
                 currentUser: resp.user,
@@ -218,7 +219,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
 
     app.get('/forgotpassword', function(req, res){
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            res.render('forgotpassword', getTemplateConfig({   
+            res.render('forgotpassword', getTemplateConfig({
                 local: path,
                 scripts: format.call(forgotPasswordScripts),
                 currentUser: resp.user,
@@ -231,11 +232,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.get('/:city/database', function(req, res) {
 
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            
+
             if (resp.isSuccessful) {
-            
-                res.render('database', getTemplateConfig({  
-                    escapedDir: '../', 
+
+                res.render('database', getTemplateConfig({
+                    escapedDir: '../',
                     local: path,
                     location: req.params.city,
                     scripts: format.call(mainScripts),
@@ -244,15 +245,15 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
                     userLevel: resp.user.superUser,
                     activeMarker: '/database',
                     userDetails: resp.user
-                }));             
-              
+                }));
+
             }
 
             else {
 
-                res.render('unauthorized', getTemplateConfig({   
+                res.render('unauthorized', getTemplateConfig({
                     local: path,
-                    escapedDir: '../', 
+                    escapedDir: '../',
                     scripts: format.call(indexScripts),
                     currentUser: false,
                     activeMarker: '/'
@@ -265,11 +266,11 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     app.get('/:city/myaccount', function(req, res) {
 
         sessionManager.isLoggedIn(req.sessionID, dev, devCredentials, req.params.city).then(function(resp) {
-            
+
             if (resp.isSuccessful) {
 
-                res.render('myaccount', getTemplateConfig({  
-                    escapedDir: '../', 
+                res.render('myaccount', getTemplateConfig({
+                    escapedDir: '../',
                     local: path,
                     location: req.params.city,
                     scripts: format.call(myAccountScripts),
@@ -277,15 +278,15 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
                     userLevel: resp.user.superUser,
                     activeMarker: '/myaccount',
                     userDetails: resp.user
-                }));             
-              
+                }));
+
             }
 
             else {
 
-                res.render('unauthorized', getTemplateConfig({   
+                res.render('unauthorized', getTemplateConfig({
                     local: path,
-                    escapedDir: '../', 
+                    escapedDir: '../',
                     scripts: format.call(indexScripts),
                     currentUser: false,
                     activeMarker: '/',
@@ -308,7 +309,7 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
     });
 
     app.get('*', function(req, res){
-        res.render('pageNotFound', getTemplateConfig({   
+        res.render('pageNotFound', getTemplateConfig({
             local: path,
             scripts: format.call(indexScripts),
             currentUser: sessionManager.getLoggedInUser(req.sessionID),

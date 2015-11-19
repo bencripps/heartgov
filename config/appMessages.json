@@ -1,6 +1,17 @@
 {
     "cities": [
         {
+            "name": "austin-new",
+            "id": "austinNew",
+            "phoneNumber": "15128424750",
+            "tags": [
+                {
+                    "name": "Police Camera",
+                    "id": "policeCamera"
+                }
+            ]
+        },
+        {
             "name": "austin",
             "id": "austin",
             "phoneNumber": "15126435627",
@@ -62,6 +73,12 @@
             "What would you say is the most significant challenge created by the events on Austin parkland?",
             "What, if anything, would you recommend change about events that take place at Austin city parks?",
             "Thanks for your feedback! If you’d like to share more, visit atxtalks.org to find a conversation on this topic near you!  You can also visit austintexas.gov/petf for information on the Parkland Events Task Force discussions on this issue"
+        ]
+    },
+    "austinNewConfig": {
+        "questions": [
+            "Thanks for your text! What questions do you have about the Police Department's draft policy for body cameras?",
+            "Thanks! We will work to get you a response as quickly as possible. For more information, visit austintexas.gov/police"
         ]
     },
     "redhookConfig": {
