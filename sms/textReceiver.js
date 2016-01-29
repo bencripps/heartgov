@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-11-19 06:03:01
+* @Last Modified time: 2016-01-28 19:27:21
 */
 
-module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler, redhookHandler, councilmaticHandler, austinNewHandler) {
+module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler, redhookHandler, councilmaticHandler, austinNewHandler, havernhillHandler) {
     'use strict';
 
     var textReceiver = {
@@ -51,6 +51,11 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
             //austin new
             else if (message.to === '+' + process.env.austinNewNumber) {
                 austinNewHandler.handleResponse(message, twilioWrapper);
+            }
+
+            //havernhill
+            else if (message.to === '+' + process.env.haverhillNumber) {
+                havernhillHandler.handleResponse(message, twilioWrapper);
             }
 
             else {

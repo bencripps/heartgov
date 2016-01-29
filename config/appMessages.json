@@ -66,8 +66,25 @@
                     "id": "RHIPB"
                 }
             ]
+        },
+        {
+            "name": "haverhill",
+            "id": "haverhill",
+            "phoneNumber": "19782282116",
+            "tags": [
+                {
+                    "name": "haverhill-1",
+                    "id": "haverhill1"
+                }
+            ]
         }
     ],
+    "haverhillConfig": {
+        "questions": [
+            "Thanks for texting! What's your favorite part about Haverhill?",
+            "Thanks for sharing! We'll add it to the long list of things to love about Haverhill. Feel free to text me more of your favorite things."
+        ]
+    },
     "austinConfig": {
         "questions": [
             "Thanks for participating in our survey about events on Austin parkland! What is your home zip code?",

@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2016-01-07 19:46:32
+* @Last Modified time: 2016-01-29 09:35:13
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -12,6 +12,7 @@ module.exports = function(client, appMessages, schemas) {
         brooklynNumber: process.env.brooklynNumber,
         austinNumber: process.env.austinNumber,
         redhookNumner: process.env.redhookNumber,
+        haverhillNumber: process.env.haverhillNumber,
         sendOutGoingText: function(response, receiver, _id, user, server, city, isGroupMessage) {
 
             if (_id) this.processOutgoingSave(response, receiver, _id, user, server);
@@ -105,6 +106,9 @@ module.exports = function(client, appMessages, schemas) {
                         break;
                     case '/austinNew/database':
                         number = process.env.austinNewNumber;
+                        break;
+                    case '/haverhill/database':
+                        number = process.env.haverhillNumber;
                         break;
                     default:
                         throw Error('This city has not been defined in the Twilio Wrapper Model');

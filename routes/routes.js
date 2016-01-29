@@ -3,7 +3,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-10 18:21:13
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2015-11-19 06:01:03
+* @Last Modified time: 2016-01-28 19:16:35
 */
 
 module.exports = function(app, env, fs, url, path, database, mongoose, appMessages, twilio, staticPaths, devCredentials) {
@@ -39,8 +39,9 @@ module.exports = function(app, env, fs, url, path, database, mongoose, appMessag
         austinHandler = require('../sms/austin/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
         redhookHandler = require('../sms/redhook/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
         austinNewHandler = require('../sms/austinNew/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
+        haverhillHandler = require('../sms/haverhill/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
         councilmaticHandler = require('../sms/councilmatic/handler')(mongoose, schemas.text, schemas.admin, shortid, appMessages),
-        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler, redhookHandler, councilmaticHandler, austinNewHandler),
+        textReceiver = require('../sms/textReceiver')(mongoose, shortid, schemas, appMessages, mailSender, austinHandler, redhookHandler, councilmaticHandler, austinNewHandler, haverhillHandler),
         textDistributor = require('../sms/textDistributor')(mongoose, schemas.text, appMessages.textDistribution, appMessages.cities),
         getTemplateConfig = require('../config/template')(appMessages, path),
         exporter = require('../export/exporter')(schemas.text, appMessages),
