@@ -2,7 +2,7 @@
 * @Author: ben_cripps
 * @Date:   2015-01-09 21:59:31
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2016-01-29 09:35:13
+* @Last Modified time: 2016-02-28 14:48:16
 */
 
 module.exports = function(client, appMessages, schemas) {
@@ -84,38 +84,35 @@ module.exports = function(client, appMessages, schemas) {
 
             var number;
 
-            // if were texting from a group page, just use the austin number
+            // if were texting from a group page, regex replace group with database
             if (identifier && identifier.indexOf('/groups') !== -1) {
-                number = process.env.austinNumber;
+                identifier = identifier.replace(/\/groups/, '\/database');
             }
 
-            else {
-                switch(identifier) {
+            switch(identifier) {
 
-                    case '/austin/database':
-                        number = process.env.austinNumber;
-                        break;
-                    case '/brooklyn/database':
-                        number = process.env.brooklynNumber;
-                        break;
-                    case '/rh1/database':
-                        number = process.env.redhookNumber;
-                        break;
-                    case '/councilmatic/database':
-                        number = process.env.councilmaticNumber;
-                        break;
-                    case '/austinNew/database':
-                        number = process.env.austinNewNumber;
-                        break;
-                    case '/haverhill/database':
-                        number = process.env.haverhillNumber;
-                        break;
-                    default:
-                        throw Error('This city has not been defined in the Twilio Wrapper Model');
+                case '/austin/database':
+                    number = process.env.austinNumber;
+                    break;
+                case '/brooklyn/database':
+                    number = process.env.brooklynNumber;
+                    break;
+                case '/rh1/database':
+                    number = process.env.redhookNumber;
+                    break;
+                case '/councilmatic/database':
+                    number = process.env.councilmaticNumber;
+                    break;
+                case '/austinNew/database':
+                    number = process.env.austinNewNumber;
+                    break;
+                case '/haverhill/database':
+                    number = process.env.haverhillNumber;
+                    break;
+                default:
+                    throw Error('This city has not been defined in the Twilio Wrapper Model');
 
-                }
             }
-
 
             return number;
 
