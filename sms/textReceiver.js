@@ -2,10 +2,10 @@
 * @Author: ben_cripps
 * @Date:   2015-01-08 20:16:46
 * @Last Modified by:   ben_cripps
-* @Last Modified time: 2016-01-28 19:27:21
+* @Last Modified time: 2016-07-01 14:55:08
 */
 
-module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler, redhookHandler, councilmaticHandler, austinNewHandler, havernhillHandler) {
+module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer, austinHandler, redhookHandler, councilmaticHandler, austinNewHandler, havernhillHandler, austinShortHandler) {
     'use strict';
 
     var textReceiver = {
@@ -53,10 +53,16 @@ module.exports = function(mongoose, idGenerator, schemas, messageConfig, mailer,
                 austinNewHandler.handleResponse(message, twilioWrapper);
             }
 
+            //austin shortcode
+            else if (message.to === '+' + process.env.haverhillNumber) {
+                austinShortHandler.handleResponse(message, twilioWrapper);
+            }
+
             //havernhill
             else if (message.to === '+' + process.env.haverhillNumber) {
                 havernhillHandler.handleResponse(message, twilioWrapper);
             }
+
 
             else {
                 console.log('Number not established', message.to);

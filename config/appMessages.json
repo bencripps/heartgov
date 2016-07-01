@@ -1,6 +1,17 @@
 {
     "cities": [
         {
+            "name": "austin-short",
+            "id": "austinShort",
+            "phoneNumber": "12345",
+            "tags": [
+                {
+                    "name": "Austin Short Code",
+                    "id": "austinShortCode"
+                }
+            ]
+        },
+        {
             "name": "austin-new",
             "id": "austinNew",
             "phoneNumber": "15128424750",
